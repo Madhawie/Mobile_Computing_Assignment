@@ -5,7 +5,7 @@ for parents, Public Health Midwives (PHM) and MOH supervisors.
 
 | Part | Technology | Folder |
 |---|---|---|
-| Mobile app | Flutter | `mobile/` |
+| Mobile app | Flutter | `mobile_app/` |
 | Backend API | ASP.NET Core (.NET) | `backend/` |
 | Database | MySQL | `database/` |
 | Docs | Requirements, UI designs, architecture | `docs/` |
@@ -26,7 +26,7 @@ mobile_computing/
 │   └── tests/
 ├── database/
 │   └── seed/
-└── mobile/
+└── mobile_app/
     ├── lib/
     │   ├── app/
     │   ├── core/              constants/ · network/ · storage/ · sync/ · theme/
@@ -46,7 +46,7 @@ git clone <repo-url>
 cd mobile_computing
 ```
 - **Backend:** create the .NET projects inside `backend/src/` using the folder names above.
-- **Mobile:** run `flutter create --project-name little_bloom .` inside `mobile/`.
+- **Mobile:** run `flutter create --project-name little_bloom .` inside `mobile_app/`.
 
 ## Working together
 - Work on a branch, for example `feature/children-api`, and merge to `main` through a pull request.
