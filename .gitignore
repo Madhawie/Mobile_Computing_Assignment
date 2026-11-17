@@ -1,0 +1,52 @@
+# ---------- OS / editors
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.iml
+*.swp
+
+# ---------- Secrets
+.env
+.env.*
+*.pem
+*.keystore
+*.jks
+key.properties
+google-services.json
+GoogleService-Info.plist
+appsettings.*.local.json
+
+# ---------- Flutter / Dart
+mobile/.dart_tool/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/.packages
+mobile/.pub-cache/
+mobile/.pub/
+mobile/build/
+mobile/coverage/
+mobile/android/.gradle/
+mobile/android/local.properties
+mobile/android/app/debug/
+mobile/android/app/profile/
+mobile/android/app/release/
+mobile/ios/Pods/
+mobile/ios/.symlinks/
+mobile/ios/Flutter/Generated.xcconfig
+mobile/ios/Flutter/flutter_export_environment.sh
+mobile/ios/Runner/GeneratedPluginRegistrant.*
+*.g.dart.bak
+
+# ---------- .NET
+backend/**/bin/
+backend/**/obj/
+backend/.vs/
+*.user
+*.suo
+TestResults/
+
+# ---------- Database dumps (may contain real data)
+*.dump
+database/backups/

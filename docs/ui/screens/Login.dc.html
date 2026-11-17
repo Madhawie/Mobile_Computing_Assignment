@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sign in</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&amp;family=Noto+Sans+Sinhala:wght@600;700&amp;family=Noto+Sans+Tamil:wght@600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#5E4E99;text-decoration:none}a:hover{color:#43357A}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #F8F7FC; font-family: Nunito, 'Noto Sans Sinhala', 'Noto Sans Tamil', system-ui, sans-serif; color: #2B2D42; display: flex; flex-direction: column; position: relative; overflow: hidden">
+<div style="padding: 56px 24px 32px; display: flex; flex-direction: column; gap: 22px; flex-grow: 1">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px"><a href="Main.dc.html" aria-label="Back" style="width: 44px; height: 44px; border-radius: 22px; background: #FFFFFF; color: #2B2D42; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 10px rgba(80,70,140,0.08)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2B2D42" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg></a><div style="display: flex; flex-direction: column; align-items: center; gap: 1px; text-align: center"><span style="font-size: 17px; font-weight: 800; color: #2B2D42"></span></div><span style="width: 44px; flex-shrink: 0"></span></div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+  <h1 style="margin: 0; font-size: 28px; font-weight: 800">Sign in</h1>
+  <p style="margin: 0; font-size: 15px; color: #646878">Choose who you are. We'll send a one-time code.</p>
+</div>
+<div style="background: #F0EEF5; border-radius: 22px; padding: 4px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px">
+  <sc-for list="{{segs}}" as="s" hint-placeholder-count="3">
+    <button onClick="{{s.pick}}" style="height: 44px; border: none; border-radius: 18px; background: {{s.bg}}; color: {{s.ink}}; box-shadow: {{s.shadow}}; font-family: inherit; font-size: 13px; font-weight: 800; cursor: pointer">{{s.label}}</button>
+  </sc-for>
+</div>
+<sc-if value="{{isParent}}" hint-placeholder-val="{{true}}">
+  <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 800; color: #646878; flex: 1 1 0; min-width: 0">Mobile number<span style="position: relative; display: block"><span style="position: absolute; left: 14px; top: 0; height: 54px; display: flex; align-items: center; font-size: 15px; font-weight: 800; color: #646878">+94</span><input type="text" value="77 123 4521" style="width: 100%; box-sizing: border-box; height: 54px; border-radius: 14px; border: 1.5px solid #E6E3EE; background: #FFFFFF; padding: 0 14px 0 58px; font-family: inherit; font-size: 15px; font-weight: 700; color: #2B2D42"></span></label>
+</sc-if>
+<sc-if value="{{isStaff}}" hint-placeholder-val="{{false}}">
+  <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 800; color: #646878; flex: 1 1 0; min-width: 0">Staff ID<span style="position: relative; display: block"><input type="text" value="KSB-PHM-012" style="width: 100%; box-sizing: border-box; height: 54px; border-radius: 14px; border: 1.5px solid #E6E3EE; background: #FFFFFF; padding: 0 14px 0 14px; font-family: inherit; font-size: 15px; font-weight: 700; color: #2B2D42"></span></label>
+</sc-if>
+<div style="display: flex; flex-direction: column; gap: 10px">
+  <span style="font-size: 13px; font-weight: 800; color: #646878">Code sent to {{sentTo}}</span>
+  <div style="display: flex; justify-content: space-between"><input aria-label="Digit 1" maxlength="1" value="4" style="width: 44px; height: 54px; box-sizing: border-box; border-radius: 14px; border: 2px solid #E6E3EE; background: #FFFFFF; text-align: center; font-family: inherit; font-size: 22px; font-weight: 800; color: #2B2D42"><input aria-label="Digit 2" maxlength="1" value="8" style="width: 44px; height: 54px; box-sizing: border-box; border-radius: 14px; border: 2px solid #E6E3EE; background: #FFFFFF; text-align: center; font-family: inherit; font-size: 22px; font-weight: 800; color: #2B2D42"><input aria-label="Digit 3" maxlength="1" value="2" style="width: 44px; height: 54px; box-sizing: border-box; border-radius: 14px; border: 2px solid #E6E3EE; background: #FFFFFF; text-align: center; font-family: inherit; font-size: 22px; font-weight: 800; color: #2B2D42"><input aria-label="Digit 4" maxlength="1" value="7" style="width: 44px; height: 54px; box-sizing: border-box; border-radius: 14px; border: 2px solid #E6E3EE; background: #FFFFFF; text-align: center; font-family: inherit; font-size: 22px; font-weight: 800; color: #2B2D42"><input aria-label="Digit 5" maxlength="1" value="" style="width: 44px; height: 54px; box-sizing: border-box; border-radius: 14px; border: 2px solid #5E4E99; background: #FFFFFF; text-align: center; font-family: inherit; font-size: 22px; font-weight: 800; color: #2B2D42"><input aria-label="Digit 6" maxlength="1" value="" style="width: 44px; height: 54px; box-sizing: border-box; border-radius: 14px; border: 2px solid #E6E3EE; background: #FFFFFF; text-align: center; font-family: inherit; font-size: 22px; font-weight: 800; color: #2B2D42"></div>
+  <span style="font-size: 13px; font-weight: 700; color: #646878">Resend code in 0:42</span>
+</div>
+<div style="background: #ECE6FA; border-radius: 18px; padding: 12px 14px; display: flex; gap: 10px; align-items: flex-start; color: #43357A">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#43357A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20z"></path><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg><span style="font-size: 13px; font-weight: 700; line-height: 1.4">New parent? Your PHM registers your baby and links this number to the record.</span>
+</div>
+<a href="{{dest}}" style="margin-top: auto; height: 54px; border-radius: 27px; background: #5E4E99; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800">Verify and continue</a>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { role: 'parent' }; }
+  renderVals() {
+    var self = this, r = this.state.role;
+    var defs = [['parent', 'Parent'], ['phm', 'Midwife (PHM)'], ['moh', 'MOH staff']];
+    var segs = defs.map(function (d) {
+      var on = d[0] === r;
+      return { label: d[1], bg: on ? '#FFFFFF' : 'transparent', ink: on ? '#43357A' : '#646878',
+        shadow: on ? '0 2px 8px rgba(80,70,140,0.14)' : 'none', pick: function () { self.setState({ role: d[0] }); } };
+    });
+    var isP = r === 'parent';
+    return { segs: segs, isParent: isP, isStaff: !isP,
+      dest: isP ? 'ParentHome.dc.html' : (r === 'phm' ? 'PhmDashboard.dc.html' : 'MohDashboard.dc.html'),
+      sentTo: isP ? '077 *** 4521' : 'the phone linked to your staff ID' };
+  }
+}
+</script>
+</body>
+</html>
