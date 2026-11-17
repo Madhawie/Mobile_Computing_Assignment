@@ -19,24 +19,24 @@ GoogleService-Info.plist
 appsettings.*.local.json
 
 # ---------- Flutter / Dart
-mobile/.dart_tool/
-mobile/.flutter-plugins
-mobile/.flutter-plugins-dependencies
-mobile/.packages
-mobile/.pub-cache/
-mobile/.pub/
-mobile/build/
-mobile/coverage/
-mobile/android/.gradle/
-mobile/android/local.properties
-mobile/android/app/debug/
-mobile/android/app/profile/
-mobile/android/app/release/
-mobile/ios/Pods/
-mobile/ios/.symlinks/
-mobile/ios/Flutter/Generated.xcconfig
-mobile/ios/Flutter/flutter_export_environment.sh
-mobile/ios/Runner/GeneratedPluginRegistrant.*
+mobile_app/.dart_tool/
+mobile_app/.flutter-plugins
+mobile_app/.flutter-plugins-dependencies
+mobile_app/.packages
+mobile_app/.pub-cache/
+mobile_app/.pub/
+mobile_app/build/
+mobile_app/coverage/
+mobile_app/android/.gradle/
+mobile_app/android/local.properties
+mobile_app/android/app/debug/
+mobile_app/android/app/profile/
+mobile_app/android/app/release/
+mobile_app/ios/Pods/
+mobile_app/ios/.symlinks/
+mobile_app/ios/Flutter/Generated.xcconfig
+mobile_app/ios/Flutter/flutter_export_environment.sh
+mobile_app/ios/Runner/GeneratedPluginRegistrant.*
 *.g.dart.bak
 
 # ---------- .NET
