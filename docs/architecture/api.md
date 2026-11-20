@@ -175,6 +175,105 @@ S1 and S2 skip these rules and always overwrite. That is what experiment E5 meas
 
 The phone counts bytes sent and received itself (body + headers) and writes them to `sync_log`.
 
+## 9. Auth and roles
+
+Nobody signs up. Mothers are added by a PHM or the MOH office; staff are added by the MOH office admin.
+Every sign-in starts with the phone number and a one-time SMS code (OTP).
+
+### 9.1 Request a code – `POST /api/auth/otp/request`
+```json
+{ "phone": "+94764823310" }
+```
+`202 Accepted`:
+```json
+{ "otpRequestId": "c41e…", "expiresInSeconds": 300 }
+```
+Unknown number: `404` with code `PHONE_NOT_REGISTERED` (the app shows "Ask your midwife to add it").
+In development no SMS is sent: the server logs the code, or accepts `000000`. Never use real phone numbers in tests.
+
+### 9.2 Verify the code – `POST /api/auth/otp/verify`
+```json
+{ "otpRequestId": "c41e…", "code": "482913", "deviceId": "emu-phm-01" }
+```
+`200 OK`:
+```json
+{
+  "accessToken": "eyJ…",
+  "expiresIn": 43200,
+  "refreshToken": "r-9f2…",
+  "user": { "id": "u-17…", "role": "phm", "name": "N. Kumari", "areaId": "glg-east", "mohId": "glg", "motherId": null }
+}
+```
+
+### 9.3 Refresh – `POST /api/auth/refresh`
+Body `{ "refreshToken": "r-9f2…", "deviceId": "emu-phm-01" }`, same response as 9.2.
+Access token lives 12 h, refresh token 30 days.
+
+### 9.4 Staff PIN (works offline)
+- After the first OTP sign-in on a phone, PHM and MOH staff set a 4-digit PIN.
+- **The PIN never goes to the server.** The phone stores only a salted hash of it, plus the tokens in secure storage.
+- Opening the app later: the PIN unlocks the stored tokens. With no signal the PHM can still work offline; tokens are refreshed at the next sync.
+- Forgot PIN: sign in again with OTP. The admin can block a lost phone by revoking its refresh token.
+
+### 9.5 JWT claims and what each role may sync
+
+| Claim | Meaning |
+|---|---|
+| `sub` | user id |
+| `role` | `mother`, `phm`, `supervisor`, `admin` |
+| `areaId` | PHM area (PHM only) |
+| `mohId` | MOH division (all staff) |
+| `motherId` | the mother's record (mother only) |
+
+| Role | Pull returns | Push allowed |
+|---|---|---|
+| `mother` | her own record, her children and their growth / vaccines / visits | no (read-only, `403`) |
+| `phm` | everything in her `areaId` | create / update / delete in her `areaId` |
+| `supervisor` | everything in the MOH division | update in the MOH division (clinic edits) |
+| `admin` | everything in the MOH division | as supervisor, plus staff accounts (9.6) |
+
+### 9.6 Staff accounts (admin only)
+
+| Method | Path | Purpose |
+|---|---|---|
+| `GET` | `/api/staff` | List staff in the MOH division |
+| `POST` | `/api/staff` | Body `{ "name", "phone", "role": "phm" \| "supervisor", "areaId" }` |
+| `POST` | `/api/staff/{id}/revoke` | Block the account's devices (lost phone) |
+
+Mothers are created through normal sync (`entity: "mother"`), so a PHM can add one offline.
+The server creates the mother's login from `phone` when the record arrives.
+
+## 10. Errors
+
+Whole-request errors use ASP.NET Core **ProblemDetails** (RFC 7807) with an extra `code`:
+```json
+{ "type": "about:blank", "title": "Token expired", "status": 401, "code": "TOKEN_EXPIRED", "traceId": "00-…" }
+```
+
+| HTTP | `code` | When | Phone does |
+|---|---|---|---|
+| 400 | `VALIDATION_FAILED` | Bad JSON or missing field in the request itself | Log, do not retry |
+| 401 | `TOKEN_EXPIRED` | Access token too old | Call `/api/auth/refresh`, then retry once |
+| 401 | `UNAUTHORIZED` | No or bad token, refresh failed | Ask the user to sign in with OTP |
+| 403 | `FORBIDDEN` | Role may not do this (e.g. mother pushes) | Log, do not retry |
+| 404 | `PHONE_NOT_REGISTERED` | OTP for an unknown number | Show "Ask your midwife" |
+| 413 | `BATCH_TOO_LARGE` | More than 200 changes in one push | Split the batch and resend |
+| 429 | `TOO_MANY_REQUESTS` | Too many OTP requests | Wait `Retry-After` seconds |
+| 500 | `SERVER_ERROR` | Bug on the server | Retry with backoff |
+| 503 | `SERVER_BUSY` | Server or DB unavailable | Retry with backoff |
+
+**Per-change errors** inside a `200` push response (`status: "rejected"`), so one bad record does not block the rest:
+
+| `code` | When |
+|---|---|
+| `UNKNOWN_ENTITY` | `entity` is not one of section 3 |
+| `INVALID_FIELD` | A value fails a check (e.g. weight ≤ 0); `error.field` names it |
+| `PARENT_NOT_FOUND` | A child or visit points to a mother or child the server does not have |
+| `OUT_OF_AREA` | The record is outside the user's `areaId` / `mohId` |
+
+**Retry rule (phone):** network error, timeout, 5xx → retry the same batch with exponential backoff (1 s, 2 s, 4 s … max 60 s), same `operationId`s.
+4xx → never retry automatically. Each attempt is written to `sync_log` (`retries`, result, error code).
+
 ## 11. Open questions for the backend
 
 1. Port number and whether HTTPS is on by default (E6 compares both).
