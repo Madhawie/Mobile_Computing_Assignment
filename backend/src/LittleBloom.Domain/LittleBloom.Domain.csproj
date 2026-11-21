@@ -1,0 +1,7 @@
+<!--
+  Domain layer: entities and enums only (Mother, Child, Vaccination ...).
+  It references nothing else, so business rules never depend on the database or the web.
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+
+</Project>
