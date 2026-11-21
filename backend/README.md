@@ -9,7 +9,7 @@ The contract between app and server is [`docs/architecture/api.md`](../docs/arch
 |---|---|---|
 | `LittleBloom.Domain` | Entities and enums | nothing |
 | `LittleBloom.Application` | Sync and auth use cases, S1/S2/S3 rules, DTOs, interfaces | Domain |
-| `LittleBloom.Infrastructure` | MySQL (EF Core), SMS/OTP sender, export | Application |
+| `LittleBloom.Infrastructure` | SQL Server (EF Core), SMS/OTP sender, export | Application |
 | `LittleBloom.Api` | Web host, endpoints, auth middleware | Application, Infrastructure |
 | `tests/LittleBloom.Tests` | xUnit unit and integration tests | Api |
 
@@ -18,7 +18,7 @@ so the conflict rules can be unit-tested without either.
 
 ## Requirements
 - .NET 10 SDK
-- MySQL 8 (from the database step onwards)
+- SQL Server 2025 (Developer or Express) and SSMS to view the data (from the database step onwards)
 
 ## Run
 ```bash

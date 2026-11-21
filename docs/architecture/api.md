@@ -277,6 +277,6 @@ Whole-request errors use ASP.NET Core **ProblemDetails** (RFC 7807) with an extr
 ## 11. Open questions for the backend
 
 1. Port number and whether HTTPS is on by default (E6 compares both).
-2. Is 200 changes per push and 500 per pull a good limit for MySQL?
+2. Is 200 changes per push and 500 per pull a good limit for SQL Server?
 3. Does `record_history` store the whole old row, or one row per changed field?
 4. For S1, should the server also delete server records the phone did not send? (Proposed: no, never delete without a tombstone.)

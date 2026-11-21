@@ -1,5 +1,5 @@
 <!--
-  Infrastructure layer: MySQL through EF Core, SMS (OTP) sender, report export.
+  Infrastructure layer: SQL Server through EF Core, SMS (OTP) sender, report export.
   Implements the interfaces defined in Application.
 -->
 <Project Sdk="Microsoft.NET.Sdk">

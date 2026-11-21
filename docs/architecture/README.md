@@ -14,11 +14,11 @@ Screen (View)  ->  ViewModel (state)  ->  Repository  ->  Local DB (SQLite)  <->
 ```
 Api (controllers)  ->  Application (services, DTOs)  ->  Domain (entities)
                                    ^
-                    Infrastructure (MySQL via EF Core, SMS gateway, eRHMIS/DHIS2 export)
+                    Infrastructure (SQL Server via EF Core, SMS gateway, eRHMIS/DHIS2 export)
 ```
 
 ## Open decisions
 - State management package (Riverpod or Provider)
 - Local database package (sqflite or drift)
 - SMS gateway provider
-- Hosting for the API and MySQL
+- Hosting for the API and SQL Server

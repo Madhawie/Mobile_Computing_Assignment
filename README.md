@@ -7,7 +7,7 @@ for parents, Public Health Midwives (PHM) and MOH supervisors.
 |---|---|---|
 | Mobile app | Flutter | `mobile_app/` |
 | Backend API | ASP.NET Core (.NET) | `backend/` |
-| Database | MySQL | `database/` |
+| Database | Microsoft SQL Server | `database/` |
 | Docs | Requirements, UI designs, architecture | `docs/` |
 
 ## Folder structure
