@@ -1,0 +1,11 @@
+<!--
+  Application layer: use cases (sync push/pull, S1/S2/S3 conflict rules, auth), DTOs and interfaces.
+  Depends only on Domain. Talks to the database through interfaces that Infrastructure implements.
+-->
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\LittleBloom.Domain\LittleBloom.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
