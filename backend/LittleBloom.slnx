@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/LittleBloom.Domain/LittleBloom.Domain.csproj" />
+    <Project Path="src/LittleBloom.Application/LittleBloom.Application.csproj" />
+    <Project Path="src/LittleBloom.Infrastructure/LittleBloom.Infrastructure.csproj" />
+    <Project Path="src/LittleBloom.Api/LittleBloom.Api.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/LittleBloom.Tests/LittleBloom.Tests.csproj" />
+  </Folder>
+</Solution>
