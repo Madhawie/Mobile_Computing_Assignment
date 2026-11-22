@@ -26,6 +26,11 @@ public class AppDbContext : DbContext
     public DbSet<RecordHistory> RecordHistory => Set<RecordHistory>();
     public DbSet<Conflict> Conflicts => Set<Conflict>();
 
+    // Sign-in
+    public DbSet<User> Users => Set<User>();
+    public DbSet<OtpRequest> OtpRequests => Set<OtpRequest>();
+    public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
+
     protected override void OnModelCreating(ModelBuilder b)
     {
         // One counter for all writes. A number, not a timestamp, so the pull cursor never skips
@@ -102,6 +107,34 @@ public class AppDbContext : DbContext
             e.Property(x => x.Kind).HasMaxLength(30);
             e.Property(x => x.Status).HasConversion<string>().HasMaxLength(20);
             e.HasIndex(x => new { x.ScopeAreaId, x.Status });
+        });
+
+        b.Entity<User>(e =>
+        {
+            e.Property(x => x.Id).ValueGeneratedNever();
+            e.Property(x => x.Phone).HasMaxLength(20);
+            e.Property(x => x.Name).HasMaxLength(200);
+            e.Property(x => x.Role).HasConversion<string>().HasMaxLength(20);
+            e.Property(x => x.AreaId).HasMaxLength(50);
+            e.Property(x => x.MohId).HasMaxLength(50);
+            e.HasIndex(x => x.Phone).IsUnique(); // the phone number is the login
+        });
+
+        b.Entity<OtpRequest>(e =>
+        {
+            e.Property(x => x.Id).ValueGeneratedNever();
+            e.Property(x => x.Phone).HasMaxLength(20);
+            e.Property(x => x.CodeHash).HasMaxLength(100);
+            e.HasIndex(x => new { x.Phone, x.CreatedAt });
+        });
+
+        b.Entity<RefreshToken>(e =>
+        {
+            e.Property(x => x.Id).ValueGeneratedNever();
+            e.Property(x => x.TokenHash).HasMaxLength(100);
+            e.Property(x => x.DeviceId).HasMaxLength(100);
+            e.HasIndex(x => x.TokenHash).IsUnique();
+            e.HasIndex(x => x.UserId);
         });
     }
 
