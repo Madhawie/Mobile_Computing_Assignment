@@ -124,6 +124,38 @@ class RecordRepository<T extends SyncRecord> {
     });
   }
 
+  /// Soft delete: the row stays with `deleted = 1` (a tombstone) and a
+  /// `delete` change is queued.
+  ///
+  /// Why not a real DELETE? The other phones and the server must learn about
+  /// the delete. If the row simply vanished, nothing would be sent, and the
+  /// next pull would bring the record back ("resurrection").
+  ///
+  /// Deleting a record that is already deleted does nothing.
+  Future<void> softDelete(String id) async {
+    final deviceId = await store.deviceId();
+    await db.transaction((txn) async {
+      final currentRow = await _row(txn, id);
+      if (currentRow == null) throw StateError('$entity $id not found');
+      if (currentRow['deleted'] == 1) return;
+
+      final map = Map<String, dynamic>.of(currentRow)
+        ..['version'] = (currentRow['version'] as int) + 1
+        ..['updated_at'] = _now()
+        ..['device_id'] = deviceId
+        ..['deleted'] = 1
+        ..['is_dirty'] = 1;
+      await txn.update(table, map, where: 'id = ?', whereArgs: [id]);
+      await _queue(
+        txn,
+        fromMap(map),
+        op: OutboxOp.delete,
+        baseVersion: await _baseVersion(txn, currentRow),
+        changedFields: const ['deleted'],
+      );
+    });
+  }
+
   // -------------------------------------------------------------- helpers
 
   Future<Map<String, dynamic>?> _row(DatabaseExecutor ex, String id) async {
