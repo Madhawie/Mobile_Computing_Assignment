@@ -1,5 +1,6 @@
 using System.Data;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using LittleBloom.Application.Common;
 using LittleBloom.Application.Sync;
 using LittleBloom.Domain.Entities;
@@ -15,8 +16,9 @@ namespace LittleBloom.Infrastructure.Sync;
 ///   1. Already processed this operationId?  → "duplicate" (idempotency, experiment E4)
 ///   2. Known entity, valid op, valid values? → else "rejected" (only this change)
 ///   3. Parent exists and is in the user's area? → else "rejected"
-///   4. Apply with the batch's strategy: S1/S2 overwrite (last upload wins)
-///   5. Save record + history row + processed operation in ONE transaction
+///   4. Apply with the batch's strategy: S1/S2 overwrite (last upload wins),
+///      S3 asks ConflictResolver (version check + field-level merge)
+///   5. Save record + history row + processed operation (+ conflict) in ONE transaction
 /// Step 5 is the key to "no loss, no duplicates": either all three rows are saved or none,
 /// so a retried change is either found in ProcessedOperations or applied for the first time.
 /// </summary>
@@ -51,7 +53,7 @@ public class PushService : IPushService
 
         foreach (var change in changes)
         {
-            var (result, seq) = await ProcessChangeAsync(user, strategy, change, ct);
+            var (result, seq) = await ProcessChangeAsync(user, strategy, request.DeviceId, change, ct);
             results.Add(result);
             lastSeq = Math.Max(lastSeq, seq);
         }
@@ -60,7 +62,7 @@ public class PushService : IPushService
     }
 
     private async Task<(ChangeResult Result, long Seq)> ProcessChangeAsync(
-        SyncUser user, SyncStrategy strategy, PushChange change, CancellationToken ct, int attempt = 1)
+        SyncUser user, SyncStrategy strategy, string deviceId, PushChange change, CancellationToken ct, int attempt = 1)
     {
         // 1. Idempotency: a retry of a change we already saved gets the first answer again.
         var done = await _db.ProcessedOperations.AsNoTracking()
@@ -101,8 +103,11 @@ public class PushService : IPushService
             if (existing is null && incoming is null)
                 return (Reject(change, ErrorCodes.InvalidField, "data"), 0); // delete of a record the server never had, without data
 
+            // A delete may come without data: then it is the server copy marked as deleted by this phone.
+            incoming ??= MarkedDeleted(info, existing!, deviceId);
+
             // 3. Which area does the record belong to, and may this user touch it?
-            var (scopeArea, scopeError) = await FindScopeAreaAsync(info, incoming ?? existing!, ct);
+            var (scopeArea, scopeError) = await FindScopeAreaAsync(info, incoming, ct);
             if (scopeError is not null) return (Reject(change, scopeError), 0);
             if (!user.CoversArea(scopeArea!) || (existing is not null && !user.CoversArea(existing.ScopeAreaId)))
                 return (Reject(change, ErrorCodes.OutOfArea), 0);
@@ -112,13 +117,19 @@ public class PushService : IPushService
             // 4. Apply.
             var outcome = strategy switch
             {
-                SyncStrategy.S1 or SyncStrategy.S2 => Overwrite(info, existing, incoming!),
-                _ => throw new AppException(400, ErrorCodes.ValidationFailed, "S3 is not available yet."),
+                SyncStrategy.S3 => await ApplyVersionedAsync(info, existing, incoming, change, ct),
+                _ => Overwrite(existing, incoming), // S1 and S2
             };
 
             var record = outcome.Record;
-            record.ScopeAreaId = scopeArea!;
+            record.ScopeAreaId = record is Mother m ? m.AreaId : scopeArea!;
             record.ChangeSeq = await NextChangeSeqAsync(ct);
+
+            if (outcome.Conflict is not null)
+            {
+                outcome.Conflict.ScopeAreaId = record.ScopeAreaId;
+                _db.Conflicts.Add(outcome.Conflict);
+            }
 
             // 5. History + processed operation, saved together with the record.
             _db.RecordHistory.Add(new RecordHistory
@@ -141,6 +152,7 @@ public class PushService : IPushService
                 DeviceId = record.DeviceId,
                 Status = outcome.Status,
                 NewVersion = record.Version,
+                ConflictId = outcome.Conflict?.Id,
                 ProcessedAt = DateTime.UtcNow,
             };
             _db.ProcessedOperations.Add(processed);
@@ -148,7 +160,12 @@ public class PushService : IPushService
             await _db.SaveChangesAsync(ct);
             await tx.CommitAsync(ct);
 
-            return (new ChangeResult(change.OperationId, outcome.Status, record.Id, record.Version), record.ChangeSeq);
+            // After a merge the phone's copy is out of date, so send back the record as the server now has it.
+            var returned = outcome.Status is ChangeStatus.ConflictMerged or ChangeStatus.ConflictFlagged
+                ? SyncJson.ToJson(record, info.ClrType)
+                : null;
+            return (new ChangeResult(change.OperationId, outcome.Status, record.Id, record.Version,
+                outcome.Conflict?.Id, returned), record.ChangeSeq);
         }
         catch (DbUpdateConcurrencyException) when (attempt < MaxAttempts)
         {
@@ -156,7 +173,7 @@ public class PushService : IPushService
             // Start this change again so it sees the newest version; S3 will then detect the conflict.
             await tx.RollbackAsync(ct);
             _db.ChangeTracker.Clear();
-            return await ProcessChangeAsync(user, strategy, change, ct, attempt + 1);
+            return await ProcessChangeAsync(user, strategy, deviceId, change, ct, attempt + 1);
         }
         catch (DbUpdateException)
         {
@@ -175,8 +192,95 @@ public class PushService : IPushService
         }
     }
 
+    /// <summary>
+    /// S3: compare versions and fields with ConflictResolver (api.md section 6).
+    /// Nothing is ever silently lost: a losing value goes into a Conflict row for a person to check,
+    /// and the previous server value is still in RecordHistory.
+    /// </summary>
+    private async Task<ApplyOutcome> ApplyVersionedAsync(
+        EntityInfo info, SyncEntity? existing, SyncEntity incoming, PushChange change, CancellationToken ct)
+    {
+        if (existing is null)
+        {
+            // First time the server sees this record: nothing to conflict with.
+            incoming.Version = 1;
+            _db.Add(incoming);
+            return new ApplyOutcome(incoming, ChangeStatus.Applied, "*");
+        }
+
+        // Fields the server changed after the version the phone started from.
+        var historyRows = await _db.RecordHistory.AsNoTracking()
+            .Where(h => h.Entity == info.Name && h.RecordId == existing.Id && h.Version > change.BaseVersion)
+            .Select(h => h.ChangedFields)
+            .ToListAsync(ct);
+        var serverChanged = historyRows
+            .SelectMany(f => f.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+            .ToHashSet(StringComparer.Ordinal);
+
+        var serverVersion = existing.Version;
+        var serverDeviceId = existing.DeviceId; // who made the server copy, before it is overwritten below
+        var result = ConflictResolver.Resolve(new ResolveInput(
+            Server: SyncJson.ToJson(existing, info.ClrType),
+            ServerVersion: serverVersion,
+            ServerChangedSinceBase: serverChanged,
+            Incoming: SyncJson.ToJson(incoming, info.ClrType), // same JSON form as the server copy
+            BaseVersion: change.BaseVersion,
+            IncomingChangedFields: change.ChangedFields ?? [],
+            IncomingIsDelete: change.Op == OpDelete));
+
+        var merged = (SyncEntity)SyncJson.FromJson(result.Merged, info.ClrType)!;
+        _db.Entry(existing).CurrentValues.SetValues(merged);
+        existing.Version = serverVersion + 1;
+
+        var status = result.Outcome switch
+        {
+            ResolveOutcome.Merged => ChangeStatus.ConflictMerged,
+            ResolveOutcome.Flagged => ChangeStatus.ConflictFlagged,
+            _ => ChangeStatus.Applied,
+        };
+
+        Conflict? conflict = null;
+        if (result.Outcome == ResolveOutcome.Flagged)
+        {
+            var fields = new JsonArray();
+            foreach (var c in result.Conflicts)
+            {
+                fields.Add(new JsonObject
+                {
+                    ["field"] = c.Field,
+                    ["kept"] = c.Kept?.DeepClone(),
+                    ["lost"] = c.Lost?.DeepClone(),
+                    ["lostSide"] = c.LostSide,
+                    ["lostDeviceId"] = c.LostSide == "phone" ? incoming.DeviceId : serverDeviceId,
+                });
+            }
+
+            conflict = new Conflict
+            {
+                Id = Guid.NewGuid(),
+                Entity = info.Name,
+                RecordId = existing.Id,
+                Kind = result.Kind ?? "sameField",
+                FieldsJson = fields.ToJsonString(),
+                CreatedAt = DateTime.UtcNow,
+            };
+        }
+
+        return new ApplyOutcome(existing, status, string.Join(',', result.ChangedFields), conflict);
+    }
+
+    /// <summary>A copy of the server record, marked deleted by this phone (for a delete sent without data).</summary>
+    private static SyncEntity MarkedDeleted(EntityInfo info, SyncEntity existing, string deviceId)
+    {
+        var copy = (SyncEntity)SyncJson.FromJson(SyncJson.ToJson(existing, info.ClrType), info.ClrType)!;
+        copy.Deleted = true;
+        copy.DeviceId = deviceId;
+        copy.UpdatedAt = DateTime.UtcNow;
+        return copy;
+    }
+
     /// <summary>S1 and S2: the uploaded record replaces the server copy, whatever changed in between.</summary>
-    private ApplyOutcome Overwrite(EntityInfo info, SyncEntity? existing, SyncEntity incoming)
+    private ApplyOutcome Overwrite(SyncEntity? existing, SyncEntity incoming)
     {
         var newVersion = (existing?.Version ?? 0) + 1;
 
@@ -227,5 +331,5 @@ public class PushService : IPushService
     private static string? FieldFromPath(string? path) =>
         string.IsNullOrEmpty(path) ? null : path.TrimStart('$', '.');
 
-    private sealed record ApplyOutcome(SyncEntity Record, string Status, string ChangedFields);
+    private sealed record ApplyOutcome(SyncEntity Record, string Status, string ChangedFields, Conflict? Conflict = null);
 }
