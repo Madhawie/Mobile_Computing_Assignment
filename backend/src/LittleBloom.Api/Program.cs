@@ -1,5 +1,6 @@
 // Entry point of the Little Bloom API: registers services, then sets up the request pipeline.
 using System.Security.Cryptography;
+using System.Text.Json.Serialization;
 using LittleBloom.Api.Auth;
 using LittleBloom.Api.Errors;
 using LittleBloom.Application.Auth;
@@ -20,7 +21,10 @@ builder.Services.AddOpenApi(); // /openapi/v1.json in Development, handy for Pos
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<AppExceptionHandler>();
 
-builder.Services.AddControllers().ConfigureApiBehaviorOptions(o =>
+builder.Services.AddControllers()
+    // Leave out null fields (e.g. no "error" on an applied change): smaller responses on 2G.
+    .AddJsonOptions(o => o.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull)
+    .ConfigureApiBehaviorOptions(o =>
 {
     // Bad JSON or a missing field → 400 VALIDATION_FAILED, same shape as every other error.
     o.InvalidModelStateResponseFactory = context =>
