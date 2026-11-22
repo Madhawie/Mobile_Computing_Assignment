@@ -45,6 +45,31 @@ Open SSMS → `LittleBloom` → Tables to see the result.
 | `Conflicts` | S3 conflicts waiting for a person to check |
 | sequence `ChangeSeq` | Change number given to every write; the pull cursor |
 
+## Sign-in (development)
+
+Nobody signs up. In Development the server adds four made-up staff accounts on start
+(`appsettings.Development.json` → `Seed:DevUsers`):
+
+| Phone | Role | Area |
+|---|---|---|
+| `+94700000001` | admin | MOH `glg` |
+| `+94700000002` | phm | `glg-east` |
+| `+94700000003` | phm | `glg-west` |
+| `+94700000004` | supervisor | MOH `glg` |
+
+1. `POST /api/auth/otp/request` with `{ "phone": "+94700000002" }` → `otpRequestId`.
+   No SMS is sent: the code is printed in the server console.
+2. `POST /api/auth/otp/verify` with `{ "otpRequestId": "...", "code": "000000", "deviceId": "postman" }`
+   (`000000` works in Development only) → `accessToken`.
+3. Send `Authorization: Bearer <accessToken>` on every other request.
+
+JWT signing key: without one the server makes a random key at start (tokens die on restart).
+Set a fixed one outside git, once per PC:
+```bash
+cd backend/src/LittleBloom.Api
+dotnet user-secrets set "Jwt:SigningKey" "<any random text of 32+ characters>"
+```
+
 ## Run
 ```bash
 cd backend
