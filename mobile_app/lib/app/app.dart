@@ -1,10 +1,11 @@
 import 'package:material_ui/material_ui.dart';
 
 import '../core/constants/app_constants.dart';
+import '../core/theme/app_theme.dart';
 
 /// Root widget of Little Bloom.
 ///
-/// Later: Provider set-up (Day 6+), go_router (Day 8) and the theme (Day 4).
+/// Later: Provider set-up (Day 6+) and go_router (Day 8).
 class LittleBloomApp extends StatelessWidget {
   const LittleBloomApp({super.key});
 
@@ -13,6 +14,8 @@ class LittleBloomApp extends StatelessWidget {
     return MaterialApp(
       title: AppConstants.appName,
       debugShowCheckedModeBanner: false,
+      // Neutral colour until sign-in; the role colour is set on Day 8.
+      theme: AppTheme.forRole(null),
       home: const Scaffold(
         body: Center(child: Text(AppConstants.appName)),
       ),
