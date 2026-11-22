@@ -1,0 +1,19 @@
+{
+  "@@locale": "si",
+  "appName": "Little Bloom",
+  "chooseLanguage": "ඔබේ භාෂාව තෝරන්න",
+  "whoAreYou": "ඔබ කවුද?",
+  "roleMother": "මම මවක්",
+  "rolePhm": "මම පවුල් සෞඛ්‍ය සේවා නිලධාරිනියක් (PHM)",
+  "roleAdmin": "මම පරිපාලකයෙක් (සෞඛ්‍ය වෛද්‍ය නිලධාරී කාර්යාලය)",
+  "continueLabel": "ඉදිරියට",
+  "save": "සුරකින්න",
+  "cancel": "අවලංගු කරන්න",
+  "boy": "පිරිමි ළමයා",
+  "girl": "ගැහැණු ළමයා",
+  "offlineSaved": "සංඥා නැත – මෙම දුරකථනයේ සුරැකිණි",
+  "sendNow": "දැන් යවන්න",
+  "pendingChanges": "{count, plural, =0{සියල්ල යවා ඇත} =1{යැවීමට වෙනස්කම් 1ක් ඉතිරිව ඇත} other{යැවීමට වෙනස්කම් {count}ක් ඉතිරිව ඇත}}",
+  "lowBirthWeight": "අඩු උපත් බර (කි.ග්‍රෑ. 2.5ට අඩු)",
+  "highBloodPressure": "රුධිර පීඩනය ඉහළයි"
+}

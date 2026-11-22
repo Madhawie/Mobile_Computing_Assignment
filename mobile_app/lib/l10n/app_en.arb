@@ -1,0 +1,23 @@
+{
+  "@@locale": "en",
+  "appName": "Little Bloom",
+  "chooseLanguage": "Choose your language",
+  "whoAreYou": "Who are you?",
+  "roleMother": "I am a mother",
+  "rolePhm": "I am a midwife (PHM)",
+  "roleAdmin": "I am an admin (MOH office)",
+  "continueLabel": "Continue",
+  "save": "Save",
+  "cancel": "Cancel",
+  "boy": "Boy",
+  "girl": "Girl",
+  "offlineSaved": "No signal – saved on this phone",
+  "sendNow": "Send now",
+  "pendingChanges": "{count, plural, =0{Everything is sent} =1{1 change waiting to send} other{{count} changes waiting to send}}",
+  "@pendingChanges": {
+    "description": "Sync screen: how many outbox entries are not sent yet.",
+    "placeholders": { "count": { "type": "int" } }
+  },
+  "lowBirthWeight": "Low birth weight (under 2.5 kg)",
+  "highBloodPressure": "Blood pressure is high"
+}
