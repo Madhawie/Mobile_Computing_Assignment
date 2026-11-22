@@ -145,6 +145,10 @@ public class AppDbContext : DbContext
         {
             e.HasKey(x => x.Id);
             e.Property(x => x.Id).ValueGeneratedNever(); // the phone makes the UUID, never the database
+
+            // UPDATE ... WHERE Version = <version we read>. If another device saved in between,
+            // nothing matches, EF throws, and PushService retries the change with the newest version.
+            e.Property(x => x.Version).IsConcurrencyToken();
             e.Property(x => x.DeviceId).HasMaxLength(100);
             e.Property(x => x.ScopeAreaId).HasMaxLength(50);
 
