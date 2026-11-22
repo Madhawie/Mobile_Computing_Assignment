@@ -1,4 +1,7 @@
+using LittleBloom.Application.Auth;
+using LittleBloom.Infrastructure.Auth;
 using LittleBloom.Infrastructure.Persistence;
+using LittleBloom.Infrastructure.Sms;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,6 +17,9 @@ public static class DependencyInjection
         // No EnableRetryOnFailure: push uses its own transactions, and EF's retry strategy
         // does not allow that. The phone already retries a failed batch (api.md section 10).
         services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+
+        services.AddScoped<IAuthService, AuthService>();
+        services.AddSingleton<IOtpSender, LogOtpSender>();
 
         return services;
     }
