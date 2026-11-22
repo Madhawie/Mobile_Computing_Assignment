@@ -50,3 +50,14 @@ TestResults/
 # ---------- Database dumps (may contain real data)
 *.dump
 database/backups/
+
+# ---------- Local databases (never commit, may hold test data)
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# ---------- Python (experiments)
+__pycache__/
+*.pyc
+.venv/
