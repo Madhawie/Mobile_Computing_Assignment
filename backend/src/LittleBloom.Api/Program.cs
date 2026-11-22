@@ -5,6 +5,7 @@ using LittleBloom.Api.Errors;
 using LittleBloom.Application.Auth;
 using LittleBloom.Application.Common;
 using LittleBloom.Infrastructure;
+using LittleBloom.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -92,6 +93,14 @@ var app = builder.Build();
 if (generatedKey)
 {
     app.Logger.LogWarning("Jwt:SigningKey is not set, using a random key. Tokens stop working after a restart.");
+}
+
+// Development: add made-up staff accounts so sign-in works right away (appsettings.Development.json).
+if (app.Configuration.GetValue<bool>("Seed:DevUsers"))
+{
+    using var scope = app.Services.CreateScope();
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    await DevDataSeeder.SeedAsync(db, app.Logger);
 }
 
 app.UseExceptionHandler();
