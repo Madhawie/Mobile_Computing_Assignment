@@ -1,5 +1,5 @@
 // Entry point of the Little Bloom API.
-// Day 1: only a health check. Database, auth and sync endpoints are added in later steps.
+using LittleBloom.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +8,11 @@ builder.Services.AddOpenApi();
 
 // Error responses use the RFC 7807 ProblemDetails format (see docs/architecture/api.md, section 10).
 builder.Services.AddProblemDetails();
+
+// SQL Server. The connection string uses Windows Authentication, so it holds no password.
+// Change "Server=" in appsettings.json if your SSMS connects with another server name.
+var connectionString = builder.Configuration.GetConnectionString("LittleBloom") ?? string.Empty;
+builder.Services.AddInfrastructure(connectionString);
 
 var app = builder.Build();
 
