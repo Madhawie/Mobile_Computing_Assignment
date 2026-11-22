@@ -1,0 +1,16 @@
+# Store text files with LF in git; Git for Windows checks them out with CRLF.
+# Stops Visual Studio showing whole files as changed when only line endings differ.
+* text=auto
+
+# Windows-only files keep CRLF
+*.sln  text eol=crlf
+*.slnx text eol=crlf
+*.bat  text eol=crlf
+*.cmd  text eol=crlf
+
+# Binary files: never touch
+*.png  binary
+*.jpg  binary
+*.ttf  binary
+*.otf  binary
+*.jar  binary
