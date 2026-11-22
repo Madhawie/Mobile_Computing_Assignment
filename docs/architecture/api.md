@@ -280,3 +280,18 @@ Whole-request errors use ASP.NET Core **ProblemDetails** (RFC 7807) with an extr
 2. Is 200 changes per push and 500 per pull a good limit for SQL Server?
 3. Does `record_history` store the whole old row, or one row per changed field?
 4. For S1, should the server also delete server records the phone did not send? (Proposed: no, never delete without a tombstone.)
+
+### Answers from the backend (Maleesha)
+
+1. Port `5000` (HTTP) and `5001` (HTTPS). Both profiles exist in `launchSettings.json`, so E6 can compare them.
+2. Yes. 200 changes per push is enforced (`413 BATCH_TOO_LARGE`); each change is saved in its own short transaction.
+3. The whole row: `RecordHistory` keeps a JSON snapshot after every version **plus** the list of changed fields.
+   S3 unions the changed fields of all versions after `baseVersion` to find what the server changed.
+   Losing values of a flagged conflict are also kept in the `Conflicts` table (`fieldsJson`: kept, lost, lostDeviceId).
+4. No. The server never deletes rows; a delete is always a tombstone (`deleted = true`).
+
+Implementation notes:
+- A `delete` may be sent without `data`; the server then marks its own copy as deleted by that device.
+- If two pushes write the same record at the same moment, the second one is retried internally with the
+  newest version (optimistic concurrency on `version`), so S3 still sees the conflict.
+- `conflictMerged` and `conflictFlagged` results carry the merged `record`; `applied` and `duplicate` do not.

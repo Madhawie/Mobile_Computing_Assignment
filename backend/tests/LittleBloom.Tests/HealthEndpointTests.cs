@@ -1,15 +1,14 @@
 using System.Net;
 using System.Net.Http.Json;
-using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace LittleBloom.Tests;
 
 // Starts the real API in memory (no network port, no database) and calls it like the phone would.
-public class HealthEndpointTests : IClassFixture<WebApplicationFactory<Program>>
+public class HealthEndpointTests : IClassFixture<TestApiFactory>
 {
     private readonly HttpClient _client;
 
-    public HealthEndpointTests(WebApplicationFactory<Program> factory)
+    public HealthEndpointTests(TestApiFactory factory)
     {
         _client = factory.CreateClient();
     }
@@ -24,5 +23,15 @@ public class HealthEndpointTests : IClassFixture<WebApplicationFactory<Program>>
         var body = await response.Content.ReadFromJsonAsync<HealthResponse>();
         Assert.NotNull(body);
         Assert.Equal("ok", body.Status);
+    }
+
+    [Fact]
+    public async Task Otp_request_with_empty_phone_returns_400_problem()
+    {
+        // An empty phone fails validation before any database call, so no SQL Server is needed.
+        var response = await _client.PostAsync("/api/auth/otp/request", JsonContent.Create(new { phone = "" }));
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.Equal("application/problem+json", response.Content.Headers.ContentType?.MediaType);
     }
 }
