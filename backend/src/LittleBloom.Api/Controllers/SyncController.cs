@@ -1,7 +1,5 @@
 using LittleBloom.Api.Auth;
-using LittleBloom.Application.Common;
 using LittleBloom.Application.Sync;
-using LittleBloom.Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -39,16 +37,5 @@ public class SyncController : ControllerBase
         [FromQuery] long since = 0, [FromQuery] int limit = PullLimits.DefaultLimit, CancellationToken ct = default)
         => Ok(await _pull.PullAsync(CurrentUser(), since, limit, ct));
 
-    /// <summary>Reads who is calling from the JWT claims.</summary>
-    private SyncUser CurrentUser()
-    {
-        string? Claim(string name) => User.FindFirst(name)?.Value;
-
-        if (!Guid.TryParse(Claim(ClaimNames.Sub), out var userId)
-            || !Enum.TryParse<UserRole>(Claim(ClaimNames.Role), ignoreCase: true, out var role))
-            throw new AppException(401, ErrorCodes.Unauthorized, "Token is missing user details.");
-
-        Guid? motherId = Guid.TryParse(Claim(ClaimNames.MotherId), out var m) ? m : null;
-        return new SyncUser(userId, role, Claim(ClaimNames.AreaId), Claim(ClaimNames.MohId) ?? string.Empty, motherId);
-    }
+    private SyncUser CurrentUser() => CurrentUserReader.Read(User);
 }
