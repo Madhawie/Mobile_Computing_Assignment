@@ -22,4 +22,10 @@ public class Conflict
     public ConflictStatus Status { get; set; } = ConflictStatus.Open;
     public DateTime CreatedAt { get; set; }
     public DateTime? ResolvedAt { get; set; }
+
+    /// <summary>User who decided.</summary>
+    public Guid? ResolvedBy { get; set; }
+
+    /// <summary>"current" (kept the record as it is) or "previous" (wrote the lost values back).</summary>
+    public string? Resolution { get; set; }
 }

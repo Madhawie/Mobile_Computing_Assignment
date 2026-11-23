@@ -105,6 +105,7 @@ public class AppDbContext : DbContext
             e.Property(x => x.Entity).HasMaxLength(50);
             e.Property(x => x.ScopeAreaId).HasMaxLength(50);
             e.Property(x => x.Kind).HasMaxLength(30);
+            e.Property(x => x.Resolution).HasMaxLength(20);
             e.Property(x => x.Status).HasConversion<string>().HasMaxLength(20);
             e.HasIndex(x => new { x.ScopeAreaId, x.Status });
         });

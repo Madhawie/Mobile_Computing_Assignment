@@ -31,6 +31,9 @@ public static class ErrorCodes
     public const string TooManyRequests = "TOO_MANY_REQUESTS";
     public const string ServerError = "SERVER_ERROR";
     public const string ServerBusy = "SERVER_BUSY";
+    public const string NotFound = "NOT_FOUND";
+    public const string AlreadyResolved = "ALREADY_RESOLVED";
+    public const string PhoneAlreadyRegistered = "PHONE_ALREADY_REGISTERED";
 
     // Per-change errors inside a push response
     public const string UnknownEntity = "UNKNOWN_ENTITY";
