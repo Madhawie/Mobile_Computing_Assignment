@@ -24,6 +24,7 @@ public static class DependencyInjection
         services.AddSingleton<IOtpSender, LogOtpSender>();
 
         services.AddScoped<IPushService, PushService>();
+        services.AddScoped<IPullService, PullService>();
 
         return services;
     }
