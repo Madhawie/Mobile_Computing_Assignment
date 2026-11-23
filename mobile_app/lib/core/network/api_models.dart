@@ -126,6 +126,15 @@ class ApiUser {
         areaId: j['areaId'] as String?,
         motherId: j['motherId'] as String?,
       );
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'role': role,
+        'name': name,
+        'mohId': mohId,
+        'areaId': areaId,
+        'motherId': motherId,
+      };
 }
 
 class AuthSession {
@@ -149,6 +158,14 @@ class AuthSession {
         refreshToken: j['refreshToken'] as String,
         user: ApiUser.fromJson(j['user'] as Map<String, dynamic>),
       );
+
+  /// Kept in the secure store so the user stays signed in offline.
+  Map<String, dynamic> toJson() => {
+        'accessToken': accessToken,
+        'expiresIn': expiresIn,
+        'refreshToken': refreshToken,
+        'user': user.toJson(),
+      };
 }
 
 class OtpRequest {

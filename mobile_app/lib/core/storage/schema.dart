@@ -50,6 +50,9 @@ class MetaKeys {
 
   /// API address chosen on the phone; overrides AppConstants.apiBaseUrl.
   static const apiBaseUrl = 'api_base_url';
+
+  /// Language picked on the first screen: `si`, `ta` or `en`.
+  static const language = 'language';
 }
 
 /// Columns every synced record table has (SyncRecord + phone-only fields).
