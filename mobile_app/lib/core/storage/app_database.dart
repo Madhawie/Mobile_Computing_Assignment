@@ -2,13 +2,14 @@ import 'package:path/path.dart' as p;
 import 'package:sqflite/sqflite.dart';
 import 'package:uuid/uuid.dart';
 
+import 'meta_store.dart';
 import 'schema.dart';
 
 /// Opens the phone's SQLite database and keeps small settings in `meta`.
 ///
 /// All reads in the app are local (offline-first); repositories (Day 6)
 /// use [db] to read and write records and the outbox.
-class AppDatabase {
+class AppDatabase implements MetaStore {
   AppDatabase._(this.db);
 
   /// File name inside the app's private database folder. Never committed.
@@ -61,11 +62,13 @@ class AppDatabase {
 
   // ---- meta (key / value settings) ----
 
+  @override
   Future<String?> getMeta(String key) async {
     final rows = await db.query(Tables.meta, where: 'key = ?', whereArgs: [key], limit: 1);
     return rows.isEmpty ? null : rows.first['value'] as String?;
   }
 
+  @override
   Future<void> setMeta(String key, String? value) => db.insert(
         Tables.meta,
         {'key': key, 'value': value},
@@ -74,6 +77,7 @@ class AppDatabase {
 
   /// This phone's id, made once and then kept. Sent as `deviceId` with every
   /// change so the server knows which phone edited a record.
+  @override
   Future<String> deviceId() async {
     final existing = await getMeta(MetaKeys.deviceId);
     if (existing != null) return existing;

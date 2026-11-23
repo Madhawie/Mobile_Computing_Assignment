@@ -1,0 +1,63 @@
+import 'package:go_router/go_router.dart';
+
+import '../core/auth/auth_controller.dart';
+import '../features/common/auth/code_screen.dart';
+import '../features/common/auth/language_screen.dart';
+import '../features/common/auth/phone_screen.dart';
+import '../features/common/auth/role_screen.dart';
+import '../features/common/auth/set_pin_screen.dart';
+import '../features/common/auth/unlock_screen.dart';
+import '../features/common/home_placeholder.dart';
+import 'routes.dart';
+
+/// The app's screens. go_router asks [authRedirect] before every move and
+/// again whenever [AuthController] changes, so screens never decide
+/// "where next" after sign-in themselves.
+GoRouter createRouter(AuthController auth) => GoRouter(
+      initialLocation: Routes.language,
+      refreshListenable: auth,
+      redirect: (context, state) => authRedirect(auth, state.matchedLocation),
+      routes: [
+        GoRoute(path: Routes.language, builder: (_, _) => const LanguageScreen()),
+        GoRoute(path: Routes.role, builder: (_, _) => const RoleScreen()),
+        GoRoute(path: Routes.phone, builder: (_, _) => const PhoneScreen()),
+        GoRoute(path: Routes.code, builder: (_, _) => const CodeScreen()),
+        GoRoute(path: Routes.setPin, builder: (_, _) => const SetPinScreen()),
+        GoRoute(path: Routes.unlock, builder: (_, _) => const UnlockScreen()),
+        // Homes: replaced by the real screens on Days 9 (PHM), 16 (mother), 17 (MOH).
+        GoRoute(path: Routes.motherHome, builder: (_, _) => const HomePlaceholder()),
+        GoRoute(path: Routes.phmHome, builder: (_, _) => const HomePlaceholder()),
+        GoRoute(path: Routes.mohHome, builder: (_, _) => const HomePlaceholder()),
+      ],
+    );
+
+/// Where the user may be, given the sign-in state. Returns the screen to go
+/// to instead, or null to stay on [location]. Kept free of Flutter widgets so
+/// it can be unit-tested.
+///
+/// 1. No language yet          → language screen.
+/// 2. Not signed in            → language / role / phone / code only
+///                               (code only after a code was requested).
+/// 3. Staff without a PIN      → set PIN.
+/// 4. Staff with a PIN, locked → unlock.
+/// 5. Signed in                → own home; sign-in screens and other
+///                               roles' homes are not reachable.
+String? authRedirect(AuthController auth, String location) {
+  if (auth.language == null) return location == Routes.language ? null : Routes.language;
+
+  if (!auth.signedIn) {
+    if (location == Routes.code && !auth.waitingForCode) return Routes.phone;
+    if (location == Routes.phone && auth.path == null) return Routes.role;
+    const open = {Routes.language, Routes.role, Routes.phone, Routes.code};
+    return open.contains(location) ? null : Routes.role;
+  }
+
+  if (auth.needsPin) return location == Routes.setPin ? null : Routes.setPin;
+  if (auth.locked) return location == Routes.unlock ? null : Routes.unlock;
+
+  final home = Routes.homeFor(auth.role!);
+  if (Routes.signInScreens.contains(location)) return home;
+  const homes = [Routes.motherHome, Routes.phmHome, Routes.mohHome];
+  final otherHome = homes.any((h) => h != home && (location == h || location.startsWith('$h/')));
+  return otherHome ? home : null;
+}

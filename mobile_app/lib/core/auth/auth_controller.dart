@@ -7,7 +7,7 @@ import '../constants/user_role.dart';
 import '../network/api_client.dart';
 import '../network/api_exception.dart';
 import '../network/api_models.dart';
-import '../storage/app_database.dart';
+import '../storage/meta_store.dart';
 import '../storage/schema.dart';
 import 'pin_hasher.dart';
 import 'secure_store.dart';
@@ -56,7 +56,8 @@ class AuthController extends ChangeNotifier {
     this.pinHasher = const PinHasher(),
   });
 
-  final AppDatabase store;
+  /// Language and device id are kept here (SQLite `meta` on the phone).
+  final MetaStore store;
   final SecureStore secure;
   final ApiClient api;
   final PinHasher pinHasher;
