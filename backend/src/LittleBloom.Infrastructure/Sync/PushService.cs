@@ -1,6 +1,7 @@
 using System.Data;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using LittleBloom.Application.Auth;
 using LittleBloom.Application.Common;
 using LittleBloom.Application.Sync;
 using LittleBloom.Domain.Entities;
@@ -129,6 +130,10 @@ public class PushService : IPushService
                 outcome.Conflict.ScopeAreaId = record.ScopeAreaId;
                 _db.Conflicts.Add(outcome.Conflict);
             }
+
+            // Nobody signs up: a mother's login is made from the phone number the PHM entered.
+            if (record is Mother mother && !mother.Deleted)
+                await EnsureMotherLoginAsync(mother, ct);
 
             // 5. History + processed operation, saved together with the record.
             _db.RecordHistory.Add(new RecordHistory
@@ -266,6 +271,37 @@ public class PushService : IPushService
         }
 
         return new ApplyOutcome(existing, status, string.Join(',', result.ChangedFields), conflict);
+    }
+
+    /// <summary>
+    /// Creates the mother's account (role "mother") the first time her record reaches the server,
+    /// in the same transaction. If the number already belongs to someone else, nothing is changed.
+    /// </summary>
+    private async Task EnsureMotherLoginAsync(Mother mother, CancellationToken ct)
+    {
+        var phone = PhoneNumber.Normalize(mother.Phone);
+        if (phone.Length < 10) return;
+
+        var account = await _db.Users.FirstOrDefaultAsync(u => u.Phone == phone, ct);
+        if (account is not null)
+        {
+            // Keep the name in step when the PHM corrects it.
+            if (account.Role == UserRole.Mother && account.MotherId == mother.Id) account.Name = mother.FullName;
+            return;
+        }
+
+        _db.Users.Add(new User
+        {
+            Id = Guid.NewGuid(),
+            Phone = phone,
+            Name = mother.FullName,
+            Role = UserRole.Mother,
+            AreaId = mother.AreaId,
+            MohId = mother.AreaId.Split('-')[0], // area ids are "<mohId>-<name>"
+            MotherId = mother.Id,
+            IsActive = true,
+            CreatedAt = DateTime.UtcNow,
+        });
     }
 
     /// <summary>A copy of the server record, marked deleted by this phone (for a delete sent without data).</summary>
