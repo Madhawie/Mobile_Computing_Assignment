@@ -70,6 +70,18 @@ cd backend/src/LittleBloom.Api
 dotnet user-secrets set "Jwt:SigningKey" "<any random text of 32+ characters>"
 ```
 
+## Endpoints so far
+
+| Method | Path | Who |
+|---|---|---|
+| GET | `/api/health` | anyone |
+| POST | `/api/auth/otp/request`, `/api/auth/otp/verify`, `/api/auth/refresh` | anyone |
+| POST | `/api/sync/push` | PHM, supervisor, admin (mother → 403) |
+| GET | `/api/sync/pull?since=0&limit=500` | every signed-in user, own scope only |
+| GET | `/api/conflicts?status=open` | staff |
+| POST | `/api/conflicts/{id}/resolve` | staff |
+| GET, POST | `/api/staff`, `/api/staff/{id}/revoke` | admin |
+
 ## Run
 ```bash
 cd backend

@@ -257,6 +257,9 @@ Whole-request errors use ASP.NET Core **ProblemDetails** (RFC 7807) with an extr
 | 401 | `UNAUTHORIZED` | No or bad token, refresh failed | Ask the user to sign in with OTP |
 | 403 | `FORBIDDEN` | Role may not do this (e.g. mother pushes) | Log, do not retry |
 | 404 | `PHONE_NOT_REGISTERED` | OTP for an unknown number | Show "Ask your midwife" |
+| 404 | `NOT_FOUND` | Conflict or staff member not in the user's scope | Refresh the list |
+| 409 | `ALREADY_RESOLVED` | Someone else already decided this conflict | Refresh the list |
+| 409 | `PHONE_ALREADY_REGISTERED` | Admin adds staff with a number that has an account | Show the message |
 | 413 | `BATCH_TOO_LARGE` | More than 200 changes in one push | Split the batch and resend |
 | 429 | `TOO_MANY_REQUESTS` | Too many OTP requests | Wait `Retry-After` seconds |
 | 500 | `SERVER_ERROR` | Bug on the server | Retry with backoff |
@@ -299,3 +302,9 @@ Implementation notes:
   Known limit: two pushes that commit in a different order than they took their change numbers can let a
   pull skip a row for one cycle. Applying pulled records is idempotent, so the phone may safely pull again
   from `cursor - 50` to cover this; the experiments note it as a limitation.
+- Conflict review: `GET /api/conflicts` items are `{ id, entity, recordId, kind, fields, status, createdAt,
+  resolvedAt, resolution }`; `resolve` returns `{ conflictId, resolution, version, record }`.
+  `keep: "previous"` creates a new version (device id `conflict-review`), so it reaches phones on their next pull.
+- Staff revoke signs out all phones of that person (refresh tokens revoked). An access token already
+  issued keeps working until it expires (max 12 h).
+- A mother's account is created automatically from `phone` when her record is first pushed.
