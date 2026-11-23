@@ -231,6 +231,156 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Health records for mothers and children'**
   String get welcomeHint;
+
+  /// No description provided for @yourMobileNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Your mobile number'**
+  String get yourMobileNumber;
+
+  /// No description provided for @sendCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Send code'**
+  String get sendCode;
+
+  /// No description provided for @invalidPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a Sri Lankan mobile number, e.g. 076 482 3310'**
+  String get invalidPhone;
+
+  /// No description provided for @phoneNotRegisteredMother.
+  ///
+  /// In en, this message translates to:
+  /// **'This number is not registered. Ask your midwife (PHM) to add it.'**
+  String get phoneNotRegisteredMother;
+
+  /// No description provided for @phoneNotRegisteredStaff.
+  ///
+  /// In en, this message translates to:
+  /// **'This number is not registered. Ask the MOH office to add it.'**
+  String get phoneNotRegisteredStaff;
+
+  /// No description provided for @noSignal.
+  ///
+  /// In en, this message translates to:
+  /// **'No signal. Try again when you have signal.'**
+  String get noSignal;
+
+  /// No description provided for @somethingWrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Please try again.'**
+  String get somethingWrong;
+
+  /// No description provided for @enterCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the code'**
+  String get enterCode;
+
+  /// No description provided for @codeSentTo.
+  ///
+  /// In en, this message translates to:
+  /// **'We sent a 6-digit code by SMS to {phone}'**
+  String codeSentTo(String phone);
+
+  /// No description provided for @checkCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Check code'**
+  String get checkCode;
+
+  /// No description provided for @resendCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Send the code again'**
+  String get resendCode;
+
+  /// No description provided for @wrongCode.
+  ///
+  /// In en, this message translates to:
+  /// **'That code is not right. Check the SMS and try again.'**
+  String get wrongCode;
+
+  /// No description provided for @wrongRoleMother.
+  ///
+  /// In en, this message translates to:
+  /// **'This number belongs to a staff account. Go back and choose midwife or MOH office.'**
+  String get wrongRoleMother;
+
+  /// No description provided for @wrongRoleStaff.
+  ///
+  /// In en, this message translates to:
+  /// **'This number belongs to a mother. Go back and choose \"I am a mother\".'**
+  String get wrongRoleStaff;
+
+  /// No description provided for @setPinTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a 4-digit PIN'**
+  String get setPinTitle;
+
+  /// No description provided for @setPinHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'You will use it to open the app on this phone, even with no signal.'**
+  String get setPinHelp;
+
+  /// No description provided for @confirmPinTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Type the PIN again'**
+  String get confirmPinTitle;
+
+  /// No description provided for @pinsDoNotMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'The two PINs are different. Start again.'**
+  String get pinsDoNotMatch;
+
+  /// No description provided for @enterPin.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your PIN'**
+  String get enterPin;
+
+  /// Unlock screen: tries left before sign-out.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Wrong PIN. 1 try left.} other{Wrong PIN. {count} tries left.}}'**
+  String wrongPin(int count);
+
+  /// No description provided for @pinLockedOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many wrong tries. Sign in again with an SMS code.'**
+  String get pinLockedOut;
+
+  /// No description provided for @forgotPin.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot PIN? Sign in with SMS'**
+  String get forgotPin;
+
+  /// No description provided for @signOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign out'**
+  String get signOut;
+
+  /// No description provided for @helloName.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello, {name}'**
+  String helloName(String name);
+
+  /// No description provided for @comingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'This part of the app is being built.'**
+  String get comingSoon;
 }
 
 class _AppLocalizationsDelegate

@@ -83,4 +83,99 @@ class AppLocalizationsSi extends AppLocalizations {
 
   @override
   String get welcomeHint => 'මව්වරුන්ගේ සහ දරුවන්ගේ සෞඛ්‍ය වාර්තා';
+
+  @override
+  String get yourMobileNumber => 'ඔබේ ජංගම දුරකථන අංකය';
+
+  @override
+  String get sendCode => 'කේතය යවන්න';
+
+  @override
+  String get invalidPhone =>
+      'ශ්‍රී ලංකා ජංගම අංකයක් ඇතුළත් කරන්න, උදා. 076 482 3310';
+
+  @override
+  String get phoneNotRegisteredMother =>
+      'මෙම අංකය ලියාපදිංචි කර නැත. එය එක් කිරීමට ඔබේ පවුල් සෞඛ්‍ය සේවා නිලධාරිනියගෙන් ඉල්ලන්න.';
+
+  @override
+  String get phoneNotRegisteredStaff =>
+      'මෙම අංකය ලියාපදිංචි කර නැත. එය එක් කිරීමට සෞ.වෛ.නි. කාර්යාලයෙන් ඉල්ලන්න.';
+
+  @override
+  String get noSignal => 'සංඥා නැත. සංඥා ලැබුණු විට නැවත උත්සාහ කරන්න.';
+
+  @override
+  String get somethingWrong => 'යමක් වැරදී ඇත. කරුණාකර නැවත උත්සාහ කරන්න.';
+
+  @override
+  String get enterCode => 'කේතය ඇතුළත් කරන්න';
+
+  @override
+  String codeSentTo(String phone) {
+    return 'අපි $phone අංකයට ඉලක්කම් 6ක කේතයක් SMS මගින් යැව්වෙමු';
+  }
+
+  @override
+  String get checkCode => 'කේතය පරීක්ෂා කරන්න';
+
+  @override
+  String get resendCode => 'කේතය නැවත යවන්න';
+
+  @override
+  String get wrongCode =>
+      'එම කේතය නිවැරදි නැත. SMS පණිවිඩය බලා නැවත උත්සාහ කරන්න.';
+
+  @override
+  String get wrongRoleMother =>
+      'මෙම අංකය කාර්ය මණ්ඩල ගිණුමකට අයත්ය. ආපසු ගොස් PHM හෝ සෞ.වෛ.නි. කාර්යාලය තෝරන්න.';
+
+  @override
+  String get wrongRoleStaff =>
+      'මෙම අංකය මවකට අයත්ය. ආපසු ගොස් \"මම මවක්\" තෝරන්න.';
+
+  @override
+  String get setPinTitle => 'ඉලක්කම් 4ක PIN අංකයක් තෝරන්න';
+
+  @override
+  String get setPinHelp =>
+      'සංඥා නැති විටත් මෙම දුරකථනයේ යෙදුම විවෘත කිරීමට එය භාවිත කරයි.';
+
+  @override
+  String get confirmPinTitle => 'PIN අංකය නැවත ටයිප් කරන්න';
+
+  @override
+  String get pinsDoNotMatch => 'PIN අංක දෙක වෙනස්ය. නැවත අරඹන්න.';
+
+  @override
+  String get enterPin => 'ඔබේ PIN අංකය ඇතුළත් කරන්න';
+
+  @override
+  String wrongPin(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'PIN අංකය වැරදියි. තවත් වතාවක් $count ඉතිරිය.',
+      one: 'PIN අංකය වැරදියි. තවත් 1 වතාවක් ඉතිරිය.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get pinLockedOut =>
+      'වැරදි උත්සාහ වැඩියි. SMS කේතයකින් නැවත ඇතුළු වන්න.';
+
+  @override
+  String get forgotPin => 'PIN අමතකද? SMS මගින් ඇතුළු වන්න';
+
+  @override
+  String get signOut => 'ඉවත් වන්න';
+
+  @override
+  String helloName(String name) {
+    return 'ආයුබෝවන්, $name';
+  }
+
+  @override
+  String get comingSoon => 'යෙදුමේ මෙම කොටස සකසමින් පවතී.';
 }

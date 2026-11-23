@@ -29,5 +29,52 @@
   "rolePhmHint": "Field work · works with no signal",
   "roleAdminHint": "MOH office · sign in with PIN",
   "welcome": "Welcome to Little Bloom",
-  "welcomeHint": "Health records for mothers and children"
+  "welcomeHint": "Health records for mothers and children",
+  "yourMobileNumber": "Your mobile number",
+  "sendCode": "Send code",
+  "invalidPhone": "Enter a Sri Lankan mobile number, e.g. 076 482 3310",
+  "phoneNotRegisteredMother": "This number is not registered. Ask your midwife (PHM) to add it.",
+  "phoneNotRegisteredStaff": "This number is not registered. Ask the MOH office to add it.",
+  "noSignal": "No signal. Try again when you have signal.",
+  "somethingWrong": "Something went wrong. Please try again.",
+  "enterCode": "Enter the code",
+  "codeSentTo": "We sent a 6-digit code by SMS to {phone}",
+  "@codeSentTo": {
+    "placeholders": {
+      "phone": {
+        "type": "String"
+      }
+    }
+  },
+  "checkCode": "Check code",
+  "resendCode": "Send the code again",
+  "wrongCode": "That code is not right. Check the SMS and try again.",
+  "wrongRoleMother": "This number belongs to a staff account. Go back and choose midwife or MOH office.",
+  "wrongRoleStaff": "This number belongs to a mother. Go back and choose \"I am a mother\".",
+  "setPinTitle": "Choose a 4-digit PIN",
+  "setPinHelp": "You will use it to open the app on this phone, even with no signal.",
+  "confirmPinTitle": "Type the PIN again",
+  "pinsDoNotMatch": "The two PINs are different. Start again.",
+  "enterPin": "Enter your PIN",
+  "wrongPin": "{count, plural, =1{Wrong PIN. 1 try left.} other{Wrong PIN. {count} tries left.}}",
+  "@wrongPin": {
+    "description": "Unlock screen: tries left before sign-out.",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "pinLockedOut": "Too many wrong tries. Sign in again with an SMS code.",
+  "forgotPin": "Forgot PIN? Sign in with SMS",
+  "signOut": "Sign out",
+  "helloName": "Hello, {name}",
+  "@helloName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "comingSoon": "This part of the app is being built."
 }

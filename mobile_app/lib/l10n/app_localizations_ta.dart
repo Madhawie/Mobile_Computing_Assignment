@@ -85,4 +85,101 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get welcomeHint => 'தாய்மார் மற்றும் பிள்ளைகளின் சுகாதாரப் பதிவுகள்';
+
+  @override
+  String get yourMobileNumber => 'உங்கள் கைபேசி இலக்கம்';
+
+  @override
+  String get sendCode => 'குறியீட்டை அனுப்பு';
+
+  @override
+  String get invalidPhone =>
+      'இலங்கை கைபேசி இலக்கத்தை உள்ளிடவும், எ.கா. 076 482 3310';
+
+  @override
+  String get phoneNotRegisteredMother =>
+      'இந்த இலக்கம் பதிவு செய்யப்படவில்லை. அதைச் சேர்க்க உங்கள் குடும்பநல உத்தியோகத்தரிடம் கேளுங்கள்.';
+
+  @override
+  String get phoneNotRegisteredStaff =>
+      'இந்த இலக்கம் பதிவு செய்யப்படவில்லை. அதைச் சேர்க்க சு.வை.அ. அலுவலகத்திடம் கேளுங்கள்.';
+
+  @override
+  String get noSignal =>
+      'சிக்னல் இல்லை. சிக்னல் கிடைத்ததும் மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get somethingWrong => 'ஏதோ தவறு நடந்தது. மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get enterCode => 'குறியீட்டை உள்ளிடவும்';
+
+  @override
+  String codeSentTo(String phone) {
+    return '$phone இலக்கத்திற்கு 6 இலக்கக் குறியீட்டை SMS மூலம் அனுப்பினோம்';
+  }
+
+  @override
+  String get checkCode => 'குறியீட்டைச் சரிபார்';
+
+  @override
+  String get resendCode => 'குறியீட்டை மீண்டும் அனுப்பு';
+
+  @override
+  String get wrongCode =>
+      'அந்தக் குறியீடு சரியில்லை. SMS-ஐப் பார்த்து மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get wrongRoleMother =>
+      'இந்த இலக்கம் ஊழியர் கணக்கிற்கு உரியது. திரும்பிச் சென்று PHM அல்லது சு.வை.அ. அலுவலகத்தைத் தேர்ந்தெடுக்கவும்.';
+
+  @override
+  String get wrongRoleStaff =>
+      'இந்த இலக்கம் ஒரு தாய்க்கு உரியது. திரும்பிச் சென்று \"நான் ஒரு தாய்\" என்பதைத் தேர்ந்தெடுக்கவும்.';
+
+  @override
+  String get setPinTitle => '4 இலக்க PIN-ஐத் தேர்ந்தெடுக்கவும்';
+
+  @override
+  String get setPinHelp =>
+      'சிக்னல் இல்லாதபோதும் இந்தத் தொலைபேசியில் செயலியைத் திறக்க இதைப் பயன்படுத்துவீர்கள்.';
+
+  @override
+  String get confirmPinTitle => 'PIN-ஐ மீண்டும் தட்டச்சு செய்யவும்';
+
+  @override
+  String get pinsDoNotMatch =>
+      'இரண்டு PIN-களும் வேறுபட்டவை. மீண்டும் தொடங்கவும்.';
+
+  @override
+  String get enterPin => 'உங்கள் PIN-ஐ உள்ளிடவும்';
+
+  @override
+  String wrongPin(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'தவறான PIN. இன்னும் $count முயற்சிகள் உள்ளன.',
+      one: 'தவறான PIN. இன்னும் 1 முயற்சி உள்ளது.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get pinLockedOut =>
+      'அதிகமான தவறான முயற்சிகள். SMS குறியீட்டுடன் மீண்டும் உள்நுழையவும்.';
+
+  @override
+  String get forgotPin => 'PIN மறந்துவிட்டதா? SMS மூலம் உள்நுழைக';
+
+  @override
+  String get signOut => 'வெளியேறு';
+
+  @override
+  String helloName(String name) {
+    return 'வணக்கம், $name';
+  }
+
+  @override
+  String get comingSoon => 'செயலியின் இந்தப் பகுதி உருவாக்கப்பட்டு வருகிறது.';
 }
