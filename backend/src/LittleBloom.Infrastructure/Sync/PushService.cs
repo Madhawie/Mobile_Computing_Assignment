@@ -7,7 +7,6 @@ using LittleBloom.Domain.Entities;
 using LittleBloom.Domain.Enums;
 using LittleBloom.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 
 namespace LittleBloom.Infrastructure.Sync;
 
@@ -123,7 +122,7 @@ public class PushService : IPushService
 
             var record = outcome.Record;
             record.ScopeAreaId = record is Mother m ? m.AreaId : scopeArea!;
-            record.ChangeSeq = await NextChangeSeqAsync(ct);
+            record.ChangeSeq = await _db.NextChangeSeqAsync(ct);
 
             if (outcome.Conflict is not null)
             {
@@ -308,17 +307,6 @@ public class PushService : IPushService
         var parentId = info.ParentIdOf!(record);
         var parent = await _db.FindAsync(info.ParentType!, [parentId], ct) as SyncEntity;
         return parent is null ? (null, ErrorCodes.ParentNotFound) : (parent.ScopeAreaId, null);
-    }
-
-    /// <summary>Takes the next number from the SQL Server sequence, inside the current transaction.</summary>
-    private async Task<long> NextChangeSeqAsync(CancellationToken ct)
-    {
-        var connection = _db.Database.GetDbConnection();
-        await using var command = connection.CreateCommand();
-        command.CommandText = $"SELECT NEXT VALUE FOR dbo.{AppDbContext.ChangeSequence}";
-        command.Transaction = _db.Database.CurrentTransaction?.GetDbTransaction();
-        if (connection.State != ConnectionState.Open) await connection.OpenAsync(ct);
-        return Convert.ToInt64(await command.ExecuteScalarAsync(ct));
     }
 
     private static ChangeResult Duplicate(ProcessedOperation p) =>
