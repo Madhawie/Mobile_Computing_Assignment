@@ -195,6 +195,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Blood pressure is high'**
   String get highBloodPressure;
+
+  /// No description provided for @changeLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Change language'**
+  String get changeLanguage;
+
+  /// No description provided for @roleMotherHint.
+  ///
+  /// In en, this message translates to:
+  /// **'See your children\'s health record'**
+  String get roleMotherHint;
+
+  /// No description provided for @rolePhmHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Field work · works with no signal'**
+  String get rolePhmHint;
+
+  /// No description provided for @roleAdminHint.
+  ///
+  /// In en, this message translates to:
+  /// **'MOH office · sign in with PIN'**
+  String get roleAdminHint;
+
+  /// No description provided for @welcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to Little Bloom'**
+  String get welcome;
+
+  /// No description provided for @welcomeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Health records for mothers and children'**
+  String get welcomeHint;
 }
 
 class _AppLocalizationsDelegate

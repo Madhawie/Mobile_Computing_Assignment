@@ -15,5 +15,11 @@
   "sendNow": "දැන් යවන්න",
   "pendingChanges": "{count, plural, =0{සියල්ල යවා ඇත} =1{යැවීමට වෙනස්කම් 1ක් ඉතිරිව ඇත} other{යැවීමට වෙනස්කම් {count}ක් ඉතිරිව ඇත}}",
   "lowBirthWeight": "අඩු උපත් බර (කි.ග්‍රෑ. 2.5ට අඩු)",
-  "highBloodPressure": "රුධිර පීඩනය ඉහළයි"
+  "highBloodPressure": "රුධිර පීඩනය ඉහළයි",
+  "changeLanguage": "භාෂාව වෙනස් කරන්න",
+  "roleMotherHint": "ඔබේ දරුවන්ගේ සෞඛ්‍ය වාර්තාව බලන්න",
+  "rolePhmHint": "ක්ෂේත්‍ර සේවය · සංඥා නැතිවත් ක්‍රියා කරයි",
+  "roleAdminHint": "සෞ.වෛ.නි. කාර්යාලය · PIN අංකයෙන් ඇතුළු වන්න",
+  "welcome": "Little Bloom වෙත සාදරයෙන් පිළිගනිමු",
+  "welcomeHint": "මව්වරුන්ගේ සහ දරුවන්ගේ සෞඛ්‍ය වාර්තා"
 }

@@ -66,4 +66,23 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get highBloodPressure => 'இரத்த அழுத்தம் அதிகமாக உள்ளது';
+
+  @override
+  String get changeLanguage => 'மொழியை மாற்று';
+
+  @override
+  String get roleMotherHint =>
+      'உங்கள் பிள்ளைகளின் சுகாதாரப் பதிவைப் பார்க்கவும்';
+
+  @override
+  String get rolePhmHint => 'களப்பணி · சிக்னல் இல்லாமலும் இயங்கும்';
+
+  @override
+  String get roleAdminHint => 'சு.வை.அ. அலுவலகம் · PIN மூலம் உள்நுழைக';
+
+  @override
+  String get welcome => 'Little Bloom-க்கு வரவேற்கிறோம்';
+
+  @override
+  String get welcomeHint => 'தாய்மார் மற்றும் பிள்ளைகளின் சுகாதாரப் பதிவுகள்';
 }

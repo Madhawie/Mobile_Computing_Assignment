@@ -16,8 +16,18 @@
   "pendingChanges": "{count, plural, =0{Everything is sent} =1{1 change waiting to send} other{{count} changes waiting to send}}",
   "@pendingChanges": {
     "description": "Sync screen: how many outbox entries are not sent yet.",
-    "placeholders": { "count": { "type": "int" } }
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   },
   "lowBirthWeight": "Low birth weight (under 2.5 kg)",
-  "highBloodPressure": "Blood pressure is high"
+  "highBloodPressure": "Blood pressure is high",
+  "changeLanguage": "Change language",
+  "roleMotherHint": "See your children's health record",
+  "rolePhmHint": "Field work · works with no signal",
+  "roleAdminHint": "MOH office · sign in with PIN",
+  "welcome": "Welcome to Little Bloom",
+  "welcomeHint": "Health records for mothers and children"
 }

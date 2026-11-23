@@ -65,4 +65,22 @@ class AppLocalizationsSi extends AppLocalizations {
 
   @override
   String get highBloodPressure => 'රුධිර පීඩනය ඉහළයි';
+
+  @override
+  String get changeLanguage => 'භාෂාව වෙනස් කරන්න';
+
+  @override
+  String get roleMotherHint => 'ඔබේ දරුවන්ගේ සෞඛ්‍ය වාර්තාව බලන්න';
+
+  @override
+  String get rolePhmHint => 'ක්ෂේත්‍ර සේවය · සංඥා නැතිවත් ක්‍රියා කරයි';
+
+  @override
+  String get roleAdminHint => 'සෞ.වෛ.නි. කාර්යාලය · PIN අංකයෙන් ඇතුළු වන්න';
+
+  @override
+  String get welcome => 'Little Bloom වෙත සාදරයෙන් පිළිගනිමු';
+
+  @override
+  String get welcomeHint => 'මව්වරුන්ගේ සහ දරුවන්ගේ සෞඛ්‍ය වාර්තා';
 }

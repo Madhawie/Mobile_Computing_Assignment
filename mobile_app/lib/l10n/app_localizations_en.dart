@@ -65,4 +65,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get highBloodPressure => 'Blood pressure is high';
+
+  @override
+  String get changeLanguage => 'Change language';
+
+  @override
+  String get roleMotherHint => 'See your children\'s health record';
+
+  @override
+  String get rolePhmHint => 'Field work · works with no signal';
+
+  @override
+  String get roleAdminHint => 'MOH office · sign in with PIN';
+
+  @override
+  String get welcome => 'Welcome to Little Bloom';
+
+  @override
+  String get welcomeHint => 'Health records for mothers and children';
 }
