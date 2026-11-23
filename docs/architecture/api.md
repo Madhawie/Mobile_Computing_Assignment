@@ -295,3 +295,7 @@ Implementation notes:
 - If two pushes write the same record at the same moment, the second one is retried internally with the
   newest version (optimistic concurrency on `version`), so S3 still sees the conflict.
 - `conflictMerged` and `conflictFlagged` results carry the merged `record`; `applied` and `duplicate` do not.
+- Pull: `limit` defaults to 500, maximum 1000. Records come in `changeSeq` order across all five tables.
+  Known limit: two pushes that commit in a different order than they took their change numbers can let a
+  pull skip a row for one cycle. Applying pulled records is idempotent, so the phone may safely pull again
+  from `cursor - 50` to cover this; the experiments note it as a limitation.
