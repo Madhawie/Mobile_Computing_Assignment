@@ -381,6 +381,204 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This part of the app is being built.'**
   String get comingSoon;
+
+  /// No description provided for @today.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get today;
+
+  /// No description provided for @register.
+  ///
+  /// In en, this message translates to:
+  /// **'Register'**
+  String get register;
+
+  /// No description provided for @mothersTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Mothers'**
+  String get mothersTab;
+
+  /// No description provided for @childrenTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Children'**
+  String get childrenTab;
+
+  /// No description provided for @searchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Name or mobile number'**
+  String get searchHint;
+
+  /// No description provided for @visitsDue.
+  ///
+  /// In en, this message translates to:
+  /// **'Pregnancy visits due'**
+  String get visitsDue;
+
+  /// No description provided for @childrenToWeigh.
+  ///
+  /// In en, this message translates to:
+  /// **'Children to weigh'**
+  String get childrenToWeigh;
+
+  /// No description provided for @toWatch.
+  ///
+  /// In en, this message translates to:
+  /// **'To watch'**
+  String get toWatch;
+
+  /// No description provided for @nothingDue.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing due this week.'**
+  String get nothingDue;
+
+  /// No description provided for @lastSyncAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Last sent {time}'**
+  String lastSyncAt(String time);
+
+  /// No description provided for @neverSynced.
+  ///
+  /// In en, this message translates to:
+  /// **'Not sent to the server yet'**
+  String get neverSynced;
+
+  /// No description provided for @pregnantWeeks.
+  ///
+  /// In en, this message translates to:
+  /// **'Pregnant · {weeks} weeks'**
+  String pregnantWeeks(int weeks);
+
+  /// No description provided for @dueOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Due {date}'**
+  String dueOn(String date);
+
+  /// No description provided for @childrenCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No children} =1{1 child} other{{count} children}}'**
+  String childrenCount(int count);
+
+  /// No description provided for @ageMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{Newborn} =1{1 month} other{{count} months}}'**
+  String ageMonths(int count);
+
+  /// No description provided for @ageYears.
+  ///
+  /// In en, this message translates to:
+  /// **'{years} y {months} m'**
+  String ageYears(int years, int months);
+
+  /// No description provided for @pregnancyVisits.
+  ///
+  /// In en, this message translates to:
+  /// **'Pregnancy visits'**
+  String get pregnancyVisits;
+
+  /// No description provided for @noVisitsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No visits recorded yet.'**
+  String get noVisitsYet;
+
+  /// No description provided for @noChildrenYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No children registered yet.'**
+  String get noChildrenYet;
+
+  /// No description provided for @notSentYet.
+  ///
+  /// In en, this message translates to:
+  /// **'Not sent yet'**
+  String get notSentYet;
+
+  /// No description provided for @nextVisitOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Next visit {date}'**
+  String nextVisitOn(String date);
+
+  /// No description provided for @daysLate.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 day late} other{{count} days late}}'**
+  String daysLate(int count);
+
+  /// No description provided for @dueTodayLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Due today'**
+  String get dueTodayLabel;
+
+  /// No description provided for @dueInDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Tomorrow} other{In {count} days}}'**
+  String dueInDays(int count);
+
+  /// No description provided for @neverWeighed.
+  ///
+  /// In en, this message translates to:
+  /// **'Not weighed yet'**
+  String get neverWeighed;
+
+  /// No description provided for @lowBirthWeightShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Low birth weight'**
+  String get lowBirthWeightShort;
+
+  /// No description provided for @highBpShort.
+  ///
+  /// In en, this message translates to:
+  /// **'High BP'**
+  String get highBpShort;
+
+  /// No description provided for @noResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No one found.'**
+  String get noResults;
+
+  /// No description provided for @weeksShort.
+  ///
+  /// In en, this message translates to:
+  /// **'{weeks} w'**
+  String weeksShort(int weeks);
+
+  /// No description provided for @bpValue.
+  ///
+  /// In en, this message translates to:
+  /// **'BP {systolic}/{diastolic}'**
+  String bpValue(int systolic, int diastolic);
+
+  /// No description provided for @kgValue.
+  ///
+  /// In en, this message translates to:
+  /// **'{kg} kg'**
+  String kgValue(String kg);
+
+  /// No description provided for @loadSampleData.
+  ///
+  /// In en, this message translates to:
+  /// **'Load sample data (testing only)'**
+  String get loadSampleData;
+
+  /// No description provided for @emptyRegister.
+  ///
+  /// In en, this message translates to:
+  /// **'No mothers in your area yet.'**
+  String get emptyRegister;
 }
 
 class _AppLocalizationsDelegate

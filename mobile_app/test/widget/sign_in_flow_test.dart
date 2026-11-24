@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:little_bloom/app/app.dart';
 import 'package:little_bloom/core/auth/secure_store.dart';
 import 'package:little_bloom/core/storage/meta_store.dart';
 import 'package:material_ui/material_ui.dart';
 
 import '../helpers/fake_auth_api.dart';
+import '../helpers/test_app.dart';
 
 /// Whole sign-in flows, tapping through the real screens and router.
 void main() {
@@ -13,10 +13,18 @@ void main() {
     await tester.pumpAndSettle();
   }
 
+  /// Last step before a home that reads the database: no pumpAndSettle,
+  /// because the loading spinner never settles under the fake clock.
+  Future<void> typeIntoThenLoad(WidgetTester tester, String text) async {
+    await tester.enterText(find.byType(TextField).first, text);
+    await tester.pump();
+    await settleDb(tester);
+  }
+
   testWidgets('mother: language → role → phone → code → home', (tester) async {
     final auth = makeAuth();
     await auth.load();
-    await tester.pumpWidget(LittleBloomApp(auth: auth));
+    await tester.pumpWidget(testApp(auth, await openTestRepos(tester)));
     await tester.pumpAndSettle();
 
     expect(find.text('සිංහල'), findsOneWidget);
@@ -43,7 +51,7 @@ void main() {
     final secure = MemorySecureStore();
     final auth = makeAuth(meta: meta, secure: secure);
     await auth.load();
-    await tester.pumpWidget(LittleBloomApp(auth: auth));
+    await tester.pumpWidget(testApp(auth, await openTestRepos(tester)));
     await tester.pumpAndSettle();
 
     await tester.tap(find.text('English'));
@@ -58,27 +66,27 @@ void main() {
     expect(find.text('Choose a 4-digit PIN'), findsOneWidget);
     await typeInto(tester, '1357');
     expect(find.text('Type the PIN again'), findsOneWidget);
-    await typeInto(tester, '1357');
+    await typeIntoThenLoad(tester, '1357');
     expect(find.text('Hello, Test PHM'), findsOneWidget);
 
     // Close and open the app (new controller, same phone storage).
     final reopened = makeAuth(meta: meta, secure: secure);
     await reopened.load();
     await tester.pumpWidget(const SizedBox());
-    await tester.pumpWidget(LittleBloomApp(auth: reopened));
+    await tester.pumpWidget(testApp(reopened, await openTestRepos(tester)));
     await tester.pumpAndSettle();
 
     expect(find.text('Enter your PIN'), findsOneWidget);
     await typeInto(tester, '0000');
     expect(find.text('Wrong PIN. 4 tries left.'), findsOneWidget);
-    await typeInto(tester, '1357');
+    await typeIntoThenLoad(tester, '1357');
     expect(find.text('Hello, Test PHM'), findsOneWidget);
   });
 
   testWidgets('unknown number shows "ask your midwife"', (tester) async {
     final auth = makeAuth();
     await auth.load();
-    await tester.pumpWidget(LittleBloomApp(auth: auth));
+    await tester.pumpWidget(testApp(auth, await openTestRepos(tester)));
     await tester.pumpAndSettle();
     await tester.tap(find.text('English'));
     await tester.pumpAndSettle();
@@ -93,7 +101,7 @@ void main() {
   testWidgets('Sinhala is used on the next screen after choosing it', (tester) async {
     final auth = makeAuth();
     await auth.load();
-    await tester.pumpWidget(LittleBloomApp(auth: auth));
+    await tester.pumpWidget(testApp(auth, await openTestRepos(tester)));
     await tester.pumpAndSettle();
     await tester.tap(find.text('සිංහල'));
     await tester.pumpAndSettle();

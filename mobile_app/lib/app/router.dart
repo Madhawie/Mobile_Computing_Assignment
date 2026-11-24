@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 import '../core/auth/auth_controller.dart';
 import '../features/common/auth/code_screen.dart';
@@ -7,7 +8,11 @@ import '../features/common/auth/phone_screen.dart';
 import '../features/common/auth/role_screen.dart';
 import '../features/common/auth/set_pin_screen.dart';
 import '../features/common/auth/unlock_screen.dart';
+import '../data/repositories/app_repositories.dart';
 import '../features/common/home_placeholder.dart';
+import '../features/phm/dashboard/today_screen.dart';
+import '../features/phm/dashboard/today_view_model.dart';
+import '../features/phm/phm_shell.dart';
 import 'routes.dart';
 
 /// The app's screens. go_router asks [authRedirect] before every move and
@@ -24,12 +29,27 @@ GoRouter createRouter(AuthController auth) => GoRouter(
         GoRoute(path: Routes.code, builder: (_, _) => const CodeScreen()),
         GoRoute(path: Routes.setPin, builder: (_, _) => const SetPinScreen()),
         GoRoute(path: Routes.unlock, builder: (_, _) => const UnlockScreen()),
-        // Homes: replaced by the real screens on Days 9 (PHM), 16 (mother), 17 (MOH).
+        // PHM: tabs share one frame with the bottom menu.
+        ShellRoute(
+          builder: (context, state, child) => PhmShell(location: state.uri.path, child: child),
+          routes: [
+            GoRoute(
+              path: Routes.phmHome,
+              builder: (context, _) => ChangeNotifierProvider(
+                create: (c) => TodayViewModel(c.read<AppRepositories>(), areaId: _areaOf(auth))..load(),
+                child: const TodayScreen(),
+              ),
+            ),
+          ],
+        ),
+        // Mother and MOH homes: real screens on Days 16 and 17.
         GoRoute(path: Routes.motherHome, builder: (_, _) => const HomePlaceholder()),
-        GoRoute(path: Routes.phmHome, builder: (_, _) => const HomePlaceholder()),
         GoRoute(path: Routes.mohHome, builder: (_, _) => const HomePlaceholder()),
       ],
     );
+
+/// The PHM's area from the token (`glg-east`); her register shows only it.
+String _areaOf(AuthController auth) => auth.session?.user.areaId ?? '';
 
 /// Where the user may be, given the sign-in state. Returns the screen to go
 /// to instead, or null to stay on [location]. Kept free of Flutter widgets so

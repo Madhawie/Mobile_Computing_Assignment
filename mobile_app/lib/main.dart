@@ -7,6 +7,7 @@ import 'core/auth/secure_store.dart';
 import 'core/network/api_client.dart';
 import 'core/network/server_settings.dart';
 import 'core/storage/app_database.dart';
+import 'data/repositories/app_repositories.dart';
 
 /// Entry point: open the local database, build the API client and the
 /// sign-in state, then start the app. Nothing here needs a connection, so
@@ -26,6 +27,7 @@ Future<void> main() async {
     providers: [
       Provider<AppDatabase>.value(value: store),
       Provider<ApiClient>.value(value: api),
+      Provider<AppRepositories>.value(value: AppRepositories(store)),
     ],
     child: LittleBloomApp(auth: auth),
   ));

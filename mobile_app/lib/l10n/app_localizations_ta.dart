@@ -182,4 +182,153 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get comingSoon => 'செயலியின் இந்தப் பகுதி உருவாக்கப்பட்டு வருகிறது.';
+
+  @override
+  String get today => 'இன்று';
+
+  @override
+  String get register => 'பதிவேடு';
+
+  @override
+  String get mothersTab => 'தாய்மார்';
+
+  @override
+  String get childrenTab => 'பிள்ளைகள்';
+
+  @override
+  String get searchHint => 'பெயர் அல்லது கைபேசி இலக்கம்';
+
+  @override
+  String get visitsDue => 'நிலுவையிலுள்ள கர்ப்பகால வருகைகள்';
+
+  @override
+  String get childrenToWeigh => 'நிறை அளக்க வேண்டிய பிள்ளைகள்';
+
+  @override
+  String get toWatch => 'கவனிக்க வேண்டியவை';
+
+  @override
+  String get nothingDue => 'இந்த வாரம் எதுவும் நிலுவையில் இல்லை.';
+
+  @override
+  String lastSyncAt(String time) {
+    return 'கடைசியாக அனுப்பியது $time';
+  }
+
+  @override
+  String get neverSynced => 'இன்னும் சேவையகத்திற்கு அனுப்பப்படவில்லை';
+
+  @override
+  String pregnantWeeks(int weeks) {
+    return 'கர்ப்பம் · $weeks வாரங்கள்';
+  }
+
+  @override
+  String dueOn(String date) {
+    return 'எதிர்பார்க்கும் திகதி $date';
+  }
+
+  @override
+  String childrenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count பிள்ளைகள்',
+      one: '1 பிள்ளை',
+      zero: 'பிள்ளைகள் இல்லை',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String ageMonths(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count மாதங்கள்',
+      one: '1 மாதம்',
+      zero: 'புதிதாகப் பிறந்தது',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String ageYears(int years, int months) {
+    return '$years வ $months மா';
+  }
+
+  @override
+  String get pregnancyVisits => 'கர்ப்பகால வருகைகள்';
+
+  @override
+  String get noVisitsYet => 'இன்னும் வருகைகள் பதிவு செய்யப்படவில்லை.';
+
+  @override
+  String get noChildrenYet => 'இன்னும் பிள்ளைகள் பதிவு செய்யப்படவில்லை.';
+
+  @override
+  String get notSentYet => 'இன்னும் அனுப்பப்படவில்லை';
+
+  @override
+  String nextVisitOn(String date) {
+    return 'அடுத்த வருகை $date';
+  }
+
+  @override
+  String daysLate(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count நாட்கள் தாமதம்',
+      one: '1 நாள் தாமதம்',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get dueTodayLabel => 'இன்று நிலுவை';
+
+  @override
+  String dueInDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count நாட்களில்',
+      one: 'நாளை',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get neverWeighed => 'இன்னும் நிறை அளக்கப்படவில்லை';
+
+  @override
+  String get lowBirthWeightShort => 'குறைந்த பிறப்பு எடை';
+
+  @override
+  String get highBpShort => 'உயர் இரத்த அழுத்தம்';
+
+  @override
+  String get noResults => 'யாரும் கிடைக்கவில்லை.';
+
+  @override
+  String weeksShort(int weeks) {
+    return '$weeks வா';
+  }
+
+  @override
+  String bpValue(int systolic, int diastolic) {
+    return 'இ.அ. $systolic/$diastolic';
+  }
+
+  @override
+  String kgValue(String kg) {
+    return '$kg கி.கி.';
+  }
+
+  @override
+  String get loadSampleData => 'மாதிரித் தரவை ஏற்று (சோதனைக்கு மட்டும்)';
+
+  @override
+  String get emptyRegister => 'உங்கள் பகுதியில் இன்னும் தாய்மார் இல்லை.';
 }

@@ -178,4 +178,153 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get comingSoon => 'This part of the app is being built.';
+
+  @override
+  String get today => 'Today';
+
+  @override
+  String get register => 'Register';
+
+  @override
+  String get mothersTab => 'Mothers';
+
+  @override
+  String get childrenTab => 'Children';
+
+  @override
+  String get searchHint => 'Name or mobile number';
+
+  @override
+  String get visitsDue => 'Pregnancy visits due';
+
+  @override
+  String get childrenToWeigh => 'Children to weigh';
+
+  @override
+  String get toWatch => 'To watch';
+
+  @override
+  String get nothingDue => 'Nothing due this week.';
+
+  @override
+  String lastSyncAt(String time) {
+    return 'Last sent $time';
+  }
+
+  @override
+  String get neverSynced => 'Not sent to the server yet';
+
+  @override
+  String pregnantWeeks(int weeks) {
+    return 'Pregnant · $weeks weeks';
+  }
+
+  @override
+  String dueOn(String date) {
+    return 'Due $date';
+  }
+
+  @override
+  String childrenCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count children',
+      one: '1 child',
+      zero: 'No children',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String ageMonths(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count months',
+      one: '1 month',
+      zero: 'Newborn',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String ageYears(int years, int months) {
+    return '$years y $months m';
+  }
+
+  @override
+  String get pregnancyVisits => 'Pregnancy visits';
+
+  @override
+  String get noVisitsYet => 'No visits recorded yet.';
+
+  @override
+  String get noChildrenYet => 'No children registered yet.';
+
+  @override
+  String get notSentYet => 'Not sent yet';
+
+  @override
+  String nextVisitOn(String date) {
+    return 'Next visit $date';
+  }
+
+  @override
+  String daysLate(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count days late',
+      one: '1 day late',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get dueTodayLabel => 'Due today';
+
+  @override
+  String dueInDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'In $count days',
+      one: 'Tomorrow',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get neverWeighed => 'Not weighed yet';
+
+  @override
+  String get lowBirthWeightShort => 'Low birth weight';
+
+  @override
+  String get highBpShort => 'High BP';
+
+  @override
+  String get noResults => 'No one found.';
+
+  @override
+  String weeksShort(int weeks) {
+    return '$weeks w';
+  }
+
+  @override
+  String bpValue(int systolic, int diastolic) {
+    return 'BP $systolic/$diastolic';
+  }
+
+  @override
+  String kgValue(String kg) {
+    return '$kg kg';
+  }
+
+  @override
+  String get loadSampleData => 'Load sample data (testing only)';
+
+  @override
+  String get emptyRegister => 'No mothers in your area yet.';
 }

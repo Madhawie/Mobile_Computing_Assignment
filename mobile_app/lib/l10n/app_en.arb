@@ -76,5 +76,128 @@
       }
     }
   },
-  "comingSoon": "This part of the app is being built."
+  "comingSoon": "This part of the app is being built.",
+  "today": "Today",
+  "register": "Register",
+  "mothersTab": "Mothers",
+  "childrenTab": "Children",
+  "searchHint": "Name or mobile number",
+  "visitsDue": "Pregnancy visits due",
+  "childrenToWeigh": "Children to weigh",
+  "toWatch": "To watch",
+  "nothingDue": "Nothing due this week.",
+  "lastSyncAt": "Last sent {time}",
+  "@lastSyncAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "neverSynced": "Not sent to the server yet",
+  "pregnantWeeks": "Pregnant · {weeks} weeks",
+  "@pregnantWeeks": {
+    "placeholders": {
+      "weeks": {
+        "type": "int"
+      }
+    }
+  },
+  "dueOn": "Due {date}",
+  "@dueOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "childrenCount": "{count, plural, =0{No children} =1{1 child} other{{count} children}}",
+  "@childrenCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ageMonths": "{count, plural, =0{Newborn} =1{1 month} other{{count} months}}",
+  "@ageMonths": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ageYears": "{years} y {months} m",
+  "@ageYears": {
+    "placeholders": {
+      "years": {
+        "type": "int"
+      },
+      "months": {
+        "type": "int"
+      }
+    }
+  },
+  "pregnancyVisits": "Pregnancy visits",
+  "noVisitsYet": "No visits recorded yet.",
+  "noChildrenYet": "No children registered yet.",
+  "notSentYet": "Not sent yet",
+  "nextVisitOn": "Next visit {date}",
+  "@nextVisitOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "daysLate": "{count, plural, =1{1 day late} other{{count} days late}}",
+  "@daysLate": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "dueTodayLabel": "Due today",
+  "dueInDays": "{count, plural, =1{Tomorrow} other{In {count} days}}",
+  "@dueInDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "neverWeighed": "Not weighed yet",
+  "lowBirthWeightShort": "Low birth weight",
+  "highBpShort": "High BP",
+  "noResults": "No one found.",
+  "weeksShort": "{weeks} w",
+  "@weeksShort": {
+    "placeholders": {
+      "weeks": {
+        "type": "int"
+      }
+    }
+  },
+  "bpValue": "BP {systolic}/{diastolic}",
+  "@bpValue": {
+    "placeholders": {
+      "systolic": {
+        "type": "int"
+      },
+      "diastolic": {
+        "type": "int"
+      }
+    }
+  },
+  "kgValue": "{kg} kg",
+  "@kgValue": {
+    "placeholders": {
+      "kg": {
+        "type": "String"
+      }
+    }
+  },
+  "loadSampleData": "Load sample data (testing only)",
+  "emptyRegister": "No mothers in your area yet."
 }
