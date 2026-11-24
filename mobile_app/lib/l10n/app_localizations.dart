@@ -195,6 +195,390 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Blood pressure is high'**
   String get highBloodPressure;
+
+  /// No description provided for @changeLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Change language'**
+  String get changeLanguage;
+
+  /// No description provided for @roleMotherHint.
+  ///
+  /// In en, this message translates to:
+  /// **'See your children\'s health record'**
+  String get roleMotherHint;
+
+  /// No description provided for @rolePhmHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Field work · works with no signal'**
+  String get rolePhmHint;
+
+  /// No description provided for @roleAdminHint.
+  ///
+  /// In en, this message translates to:
+  /// **'MOH office · sign in with PIN'**
+  String get roleAdminHint;
+
+  /// No description provided for @welcome.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to Little Bloom'**
+  String get welcome;
+
+  /// No description provided for @welcomeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Health records for mothers and children'**
+  String get welcomeHint;
+
+  /// No description provided for @yourMobileNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Your mobile number'**
+  String get yourMobileNumber;
+
+  /// No description provided for @sendCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Send code'**
+  String get sendCode;
+
+  /// No description provided for @invalidPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a Sri Lankan mobile number, e.g. 076 482 3310'**
+  String get invalidPhone;
+
+  /// No description provided for @phoneNotRegisteredMother.
+  ///
+  /// In en, this message translates to:
+  /// **'This number is not registered. Ask your midwife (PHM) to add it.'**
+  String get phoneNotRegisteredMother;
+
+  /// No description provided for @phoneNotRegisteredStaff.
+  ///
+  /// In en, this message translates to:
+  /// **'This number is not registered. Ask the MOH office to add it.'**
+  String get phoneNotRegisteredStaff;
+
+  /// No description provided for @noSignal.
+  ///
+  /// In en, this message translates to:
+  /// **'No signal. Try again when you have signal.'**
+  String get noSignal;
+
+  /// No description provided for @somethingWrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong. Please try again.'**
+  String get somethingWrong;
+
+  /// No description provided for @enterCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the code'**
+  String get enterCode;
+
+  /// No description provided for @codeSentTo.
+  ///
+  /// In en, this message translates to:
+  /// **'We sent a 6-digit code by SMS to {phone}'**
+  String codeSentTo(String phone);
+
+  /// No description provided for @checkCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Check code'**
+  String get checkCode;
+
+  /// No description provided for @resendCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Send the code again'**
+  String get resendCode;
+
+  /// No description provided for @wrongCode.
+  ///
+  /// In en, this message translates to:
+  /// **'That code is not right. Check the SMS and try again.'**
+  String get wrongCode;
+
+  /// No description provided for @wrongRoleMother.
+  ///
+  /// In en, this message translates to:
+  /// **'This number belongs to a staff account. Go back and choose midwife or MOH office.'**
+  String get wrongRoleMother;
+
+  /// No description provided for @wrongRoleStaff.
+  ///
+  /// In en, this message translates to:
+  /// **'This number belongs to a mother. Go back and choose \"I am a mother\".'**
+  String get wrongRoleStaff;
+
+  /// No description provided for @setPinTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a 4-digit PIN'**
+  String get setPinTitle;
+
+  /// No description provided for @setPinHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'You will use it to open the app on this phone, even with no signal.'**
+  String get setPinHelp;
+
+  /// No description provided for @confirmPinTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Type the PIN again'**
+  String get confirmPinTitle;
+
+  /// No description provided for @pinsDoNotMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'The two PINs are different. Start again.'**
+  String get pinsDoNotMatch;
+
+  /// No description provided for @enterPin.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your PIN'**
+  String get enterPin;
+
+  /// Unlock screen: tries left before sign-out.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Wrong PIN. 1 try left.} other{Wrong PIN. {count} tries left.}}'**
+  String wrongPin(int count);
+
+  /// No description provided for @pinLockedOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many wrong tries. Sign in again with an SMS code.'**
+  String get pinLockedOut;
+
+  /// No description provided for @forgotPin.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot PIN? Sign in with SMS'**
+  String get forgotPin;
+
+  /// No description provided for @signOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign out'**
+  String get signOut;
+
+  /// No description provided for @helloName.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello, {name}'**
+  String helloName(String name);
+
+  /// No description provided for @comingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'This part of the app is being built.'**
+  String get comingSoon;
+
+  /// No description provided for @today.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get today;
+
+  /// No description provided for @register.
+  ///
+  /// In en, this message translates to:
+  /// **'Register'**
+  String get register;
+
+  /// No description provided for @mothersTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Mothers'**
+  String get mothersTab;
+
+  /// No description provided for @childrenTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Children'**
+  String get childrenTab;
+
+  /// No description provided for @searchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Name or mobile number'**
+  String get searchHint;
+
+  /// No description provided for @visitsDue.
+  ///
+  /// In en, this message translates to:
+  /// **'Pregnancy visits due'**
+  String get visitsDue;
+
+  /// No description provided for @childrenToWeigh.
+  ///
+  /// In en, this message translates to:
+  /// **'Children to weigh'**
+  String get childrenToWeigh;
+
+  /// No description provided for @toWatch.
+  ///
+  /// In en, this message translates to:
+  /// **'To watch'**
+  String get toWatch;
+
+  /// No description provided for @nothingDue.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing due this week.'**
+  String get nothingDue;
+
+  /// No description provided for @lastSyncAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Last sent {time}'**
+  String lastSyncAt(String time);
+
+  /// No description provided for @neverSynced.
+  ///
+  /// In en, this message translates to:
+  /// **'Not sent to the server yet'**
+  String get neverSynced;
+
+  /// No description provided for @pregnantWeeks.
+  ///
+  /// In en, this message translates to:
+  /// **'Pregnant · {weeks} weeks'**
+  String pregnantWeeks(int weeks);
+
+  /// No description provided for @dueOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Due {date}'**
+  String dueOn(String date);
+
+  /// No description provided for @childrenCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No children} =1{1 child} other{{count} children}}'**
+  String childrenCount(int count);
+
+  /// No description provided for @ageMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{Newborn} =1{1 month} other{{count} months}}'**
+  String ageMonths(int count);
+
+  /// No description provided for @ageYears.
+  ///
+  /// In en, this message translates to:
+  /// **'{years} y {months} m'**
+  String ageYears(int years, int months);
+
+  /// No description provided for @pregnancyVisits.
+  ///
+  /// In en, this message translates to:
+  /// **'Pregnancy visits'**
+  String get pregnancyVisits;
+
+  /// No description provided for @noVisitsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No visits recorded yet.'**
+  String get noVisitsYet;
+
+  /// No description provided for @noChildrenYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No children registered yet.'**
+  String get noChildrenYet;
+
+  /// No description provided for @notSentYet.
+  ///
+  /// In en, this message translates to:
+  /// **'Not sent yet'**
+  String get notSentYet;
+
+  /// No description provided for @nextVisitOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Next visit {date}'**
+  String nextVisitOn(String date);
+
+  /// No description provided for @daysLate.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 day late} other{{count} days late}}'**
+  String daysLate(int count);
+
+  /// No description provided for @dueTodayLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Due today'**
+  String get dueTodayLabel;
+
+  /// No description provided for @dueInDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Tomorrow} other{In {count} days}}'**
+  String dueInDays(int count);
+
+  /// No description provided for @neverWeighed.
+  ///
+  /// In en, this message translates to:
+  /// **'Not weighed yet'**
+  String get neverWeighed;
+
+  /// No description provided for @lowBirthWeightShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Low birth weight'**
+  String get lowBirthWeightShort;
+
+  /// No description provided for @highBpShort.
+  ///
+  /// In en, this message translates to:
+  /// **'High BP'**
+  String get highBpShort;
+
+  /// No description provided for @noResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No one found.'**
+  String get noResults;
+
+  /// No description provided for @weeksShort.
+  ///
+  /// In en, this message translates to:
+  /// **'{weeks} w'**
+  String weeksShort(int weeks);
+
+  /// No description provided for @bpValue.
+  ///
+  /// In en, this message translates to:
+  /// **'BP {systolic}/{diastolic}'**
+  String bpValue(int systolic, int diastolic);
+
+  /// No description provided for @kgValue.
+  ///
+  /// In en, this message translates to:
+  /// **'{kg} kg'**
+  String kgValue(String kg);
+
+  /// No description provided for @loadSampleData.
+  ///
+  /// In en, this message translates to:
+  /// **'Load sample data (testing only)'**
+  String get loadSampleData;
+
+  /// No description provided for @emptyRegister.
+  ///
+  /// In en, this message translates to:
+  /// **'No mothers in your area yet.'**
+  String get emptyRegister;
 }
 
 class _AppLocalizationsDelegate

@@ -1,6 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Sync with the API. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Know when the connection comes back (auto sync, Day 14). -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- usesCleartextTraffic: allows plain HTTP to the test server, needed for
+         experiment E6 (HTTP vs HTTPS). A real release would allow HTTPS only. -->
     <application
-        android:label="little_bloom"
+        android:label="Little Bloom"
+        android:usesCleartextTraffic="true"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
