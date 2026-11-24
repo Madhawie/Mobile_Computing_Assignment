@@ -1,13 +1,13 @@
 using System.Data;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using LittleBloom.Application.Auth;
 using LittleBloom.Application.Common;
 using LittleBloom.Application.Sync;
 using LittleBloom.Domain.Entities;
 using LittleBloom.Domain.Enums;
 using LittleBloom.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 
 namespace LittleBloom.Infrastructure.Sync;
 
@@ -123,13 +123,17 @@ public class PushService : IPushService
 
             var record = outcome.Record;
             record.ScopeAreaId = record is Mother m ? m.AreaId : scopeArea!;
-            record.ChangeSeq = await NextChangeSeqAsync(ct);
+            record.ChangeSeq = await _db.NextChangeSeqAsync(ct);
 
             if (outcome.Conflict is not null)
             {
                 outcome.Conflict.ScopeAreaId = record.ScopeAreaId;
                 _db.Conflicts.Add(outcome.Conflict);
             }
+
+            // Nobody signs up: a mother's login is made from the phone number the PHM entered.
+            if (record is Mother mother && !mother.Deleted)
+                await EnsureMotherLoginAsync(mother, ct);
 
             // 5. History + processed operation, saved together with the record.
             _db.RecordHistory.Add(new RecordHistory
@@ -269,6 +273,37 @@ public class PushService : IPushService
         return new ApplyOutcome(existing, status, string.Join(',', result.ChangedFields), conflict);
     }
 
+    /// <summary>
+    /// Creates the mother's account (role "mother") the first time her record reaches the server,
+    /// in the same transaction. If the number already belongs to someone else, nothing is changed.
+    /// </summary>
+    private async Task EnsureMotherLoginAsync(Mother mother, CancellationToken ct)
+    {
+        var phone = PhoneNumber.Normalize(mother.Phone);
+        if (phone.Length < 10) return;
+
+        var account = await _db.Users.FirstOrDefaultAsync(u => u.Phone == phone, ct);
+        if (account is not null)
+        {
+            // Keep the name in step when the PHM corrects it.
+            if (account.Role == UserRole.Mother && account.MotherId == mother.Id) account.Name = mother.FullName;
+            return;
+        }
+
+        _db.Users.Add(new User
+        {
+            Id = Guid.NewGuid(),
+            Phone = phone,
+            Name = mother.FullName,
+            Role = UserRole.Mother,
+            AreaId = mother.AreaId,
+            MohId = mother.AreaId.Split('-')[0], // area ids are "<mohId>-<name>"
+            MotherId = mother.Id,
+            IsActive = true,
+            CreatedAt = DateTime.UtcNow,
+        });
+    }
+
     /// <summary>A copy of the server record, marked deleted by this phone (for a delete sent without data).</summary>
     private static SyncEntity MarkedDeleted(EntityInfo info, SyncEntity existing, string deviceId)
     {
@@ -308,17 +343,6 @@ public class PushService : IPushService
         var parentId = info.ParentIdOf!(record);
         var parent = await _db.FindAsync(info.ParentType!, [parentId], ct) as SyncEntity;
         return parent is null ? (null, ErrorCodes.ParentNotFound) : (parent.ScopeAreaId, null);
-    }
-
-    /// <summary>Takes the next number from the SQL Server sequence, inside the current transaction.</summary>
-    private async Task<long> NextChangeSeqAsync(CancellationToken ct)
-    {
-        var connection = _db.Database.GetDbConnection();
-        await using var command = connection.CreateCommand();
-        command.CommandText = $"SELECT NEXT VALUE FOR dbo.{AppDbContext.ChangeSequence}";
-        command.Transaction = _db.Database.CurrentTransaction?.GetDbTransaction();
-        if (connection.State != ConnectionState.Open) await connection.OpenAsync(ct);
-        return Convert.ToInt64(await command.ExecuteScalarAsync(ct));
     }
 
     private static ChangeResult Duplicate(ProcessedOperation p) =>

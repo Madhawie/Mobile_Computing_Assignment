@@ -1,8 +1,12 @@
 using LittleBloom.Application.Auth;
+using LittleBloom.Application.Conflicts;
+using LittleBloom.Application.Staff;
 using LittleBloom.Application.Sync;
 using LittleBloom.Infrastructure.Auth;
+using LittleBloom.Infrastructure.Conflicts;
 using LittleBloom.Infrastructure.Persistence;
 using LittleBloom.Infrastructure.Sms;
+using LittleBloom.Infrastructure.Staff;
 using LittleBloom.Infrastructure.Sync;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +28,9 @@ public static class DependencyInjection
         services.AddSingleton<IOtpSender, LogOtpSender>();
 
         services.AddScoped<IPushService, PushService>();
+        services.AddScoped<IPullService, PullService>();
+        services.AddScoped<IConflictService, ConflictService>();
+        services.AddScoped<IStaffService, StaffService>();
 
         return services;
     }
