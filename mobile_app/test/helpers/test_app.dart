@@ -27,8 +27,8 @@ Widget testApp(AuthController auth, AppRepositories repos) => Provider<AppReposi
 
 /// Lets database work finish (real time), then redraws.
 Future<void> settleDb(WidgetTester tester) async {
-  for (var i = 0; i < 3; i++) {
-    await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 50)));
+  for (var i = 0; i < 6; i++) {
+    await tester.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 100)));
     await tester.pump();
   }
   await tester.pump(const Duration(seconds: 1)); // finish page transitions

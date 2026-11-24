@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +18,7 @@ import '../features/phm/mother_detail/mother_detail_view_model.dart';
 import '../features/phm/phm_shell.dart';
 import '../features/phm/register/register_screen.dart';
 import '../features/phm/register/register_view_model.dart';
+import '../features/phm/register/sample_data_button.dart';
 import 'routes.dart';
 
 /// The app's screens. go_router asks [authRedirect] before every move and
@@ -48,7 +50,8 @@ GoRouter createRouter(AuthController auth) => GoRouter(
               path: Routes.phmRegister,
               builder: (context, _) => ChangeNotifierProvider(
                 create: (c) => RegisterViewModel(c.read<AppRepositories>(), areaId: _areaOf(auth))..load(),
-                child: const RegisterScreen(),
+                // Sample data button only in debug builds, never in a release.
+                child: const RegisterScreen(emptyAction: kDebugMode ? SampleDataButton() : null),
               ),
             ),
           ],
