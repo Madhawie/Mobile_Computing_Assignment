@@ -13,6 +13,8 @@ import '../features/common/home_placeholder.dart';
 import '../features/phm/dashboard/today_screen.dart';
 import '../features/phm/dashboard/today_view_model.dart';
 import '../features/phm/phm_shell.dart';
+import '../features/phm/register/register_screen.dart';
+import '../features/phm/register/register_view_model.dart';
 import 'routes.dart';
 
 /// The app's screens. go_router asks [authRedirect] before every move and
@@ -38,6 +40,13 @@ GoRouter createRouter(AuthController auth) => GoRouter(
               builder: (context, _) => ChangeNotifierProvider(
                 create: (c) => TodayViewModel(c.read<AppRepositories>(), areaId: _areaOf(auth))..load(),
                 child: const TodayScreen(),
+              ),
+            ),
+            GoRoute(
+              path: Routes.phmRegister,
+              builder: (context, _) => ChangeNotifierProvider(
+                create: (c) => RegisterViewModel(c.read<AppRepositories>(), areaId: _areaOf(auth))..load(),
+                child: const RegisterScreen(),
               ),
             ),
           ],
