@@ -12,6 +12,8 @@ import '../data/repositories/app_repositories.dart';
 import '../features/common/home_placeholder.dart';
 import '../features/phm/dashboard/today_screen.dart';
 import '../features/phm/dashboard/today_view_model.dart';
+import '../features/phm/mother_detail/mother_detail_screen.dart';
+import '../features/phm/mother_detail/mother_detail_view_model.dart';
 import '../features/phm/phm_shell.dart';
 import '../features/phm/register/register_screen.dart';
 import '../features/phm/register/register_view_model.dart';
@@ -50,6 +52,15 @@ GoRouter createRouter(AuthController auth) => GoRouter(
               ),
             ),
           ],
+        ),
+        // PHM full-screen pages (no bottom menu), opened from the tabs.
+        GoRoute(
+          path: '/phm/mother/:id',
+          builder: (context, state) => ChangeNotifierProvider(
+            create: (c) => MotherDetailViewModel(c.read<AppRepositories>(),
+                motherId: state.pathParameters['id']!)..load(),
+            child: const MotherDetailScreen(),
+          ),
         ),
         // Mother and MOH homes: real screens on Days 16 and 17.
         GoRoute(path: Routes.motherHome, builder: (_, _) => const HomePlaceholder()),
