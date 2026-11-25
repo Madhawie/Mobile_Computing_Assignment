@@ -1,10 +1,12 @@
 import 'package:uuid/uuid.dart';
 
+import '../../data/models/outbox_entry.dart';
 import '../../data/repositories/outbox_repository.dart';
 import '../network/api_client.dart';
 import '../network/api_exception.dart';
 import '../network/api_models.dart';
 import '../storage/app_database.dart';
+import 'backoff.dart';
 import 'sync_store.dart';
 
 /// Totals of one push run. These numbers go into `sync_log` (Day 13).
@@ -47,14 +49,21 @@ class PushReport {
 /// changes leave the outbox; unconfirmed ones stay for the next run. Because
 /// every change keeps its `operationId`, sending one twice is harmless: the
 /// server answers `duplicate`.
+///
+/// Retries: a dropped connection, timeout or 5xx sends the SAME batch again
+/// after a [Backoff] delay, up to `backoff.maxRetries` times. 4xx errors are
+/// not retried, except 413 `BATCH_TOO_LARGE`, which halves the batch.
 class OutboxPusher {
   OutboxPusher({
     required this.store,
     required this.api,
     this.strategy = 'S3',
     this.batchSize = 200,
+    this.backoff = const Backoff(),
+    Future<void> Function(Duration)? sleep,
     Uuid? uuid,
-  })  : _uuid = uuid ?? const Uuid(),
+  })  : _sleep = sleep ?? ((d) => Future<void>.delayed(d)),
+        _uuid = uuid ?? const Uuid(),
         _outbox = OutboxRepository(store),
         _sync = SyncStore(store);
 
@@ -62,6 +71,8 @@ class OutboxPusher {
   final ApiClient api;
   final String strategy;
   int batchSize;
+  final Backoff backoff;
+  final Future<void> Function(Duration) _sleep;
   final Uuid _uuid;
   final OutboxRepository _outbox;
   final SyncStore _sync;
@@ -83,19 +94,16 @@ class OutboxPusher {
         final batch = await _outbox.pending(limit: batchSize);
         if (batch.isEmpty) break;
 
-        final ids = batch.map((e) => e.operationId).toList();
-        await _outbox.recordAttempt(ids);
         final ApiResult<PushResponse> res;
         try {
-          res = await api.push(
-            deviceId: deviceId,
-            strategy: strategy,
-            batchId: _uuid.v4(),
-            changes: batch.map((e) => e.toChangeJson()).toList(),
-          );
+          res = await _sendWithRetry(deviceId, batch, report);
         } on ApiFailure catch (f) {
+          if (f.code == 'BATCH_TOO_LARGE' && batch.length > 1) {
+            batchSize = batch.length ~/ 2; // the server's limit is lower than ours
+            continue;
+          }
           report.errorCode = f.code;
-          break; // rows stay in the outbox
+          break; // rows stay in the outbox for the next run
         }
 
         report.batches++;
@@ -114,5 +122,28 @@ class OutboxPusher {
       report.durationMs = watch.elapsedMilliseconds;
     }
     return report;
+  }
+
+  /// One batch, retried with backoff while the failure is retryable. Every
+  /// try sends the same changes with the same operationIds, so a try that
+  /// reached the server before the connection dropped is answered
+  /// `duplicate` next time instead of being saved twice.
+  Future<ApiResult<PushResponse>> _sendWithRetry(
+      String deviceId, List<OutboxEntry> batch, PushReport report) async {
+    final ids = batch.map((e) => e.operationId).toList();
+    final changes = batch.map((e) => e.toChangeJson()).toList();
+    final batchId = _uuid.v4();
+    var retry = 0;
+    while (true) {
+      await _outbox.recordAttempt(ids);
+      try {
+        return await api.push(deviceId: deviceId, strategy: strategy, batchId: batchId, changes: changes);
+      } on ApiFailure catch (f) {
+        if (!f.retryable || retry >= backoff.maxRetries) rethrow;
+        retry++;
+        report.retries++;
+        await _sleep(backoff.delay(retry));
+      }
+    }
   }
 }
