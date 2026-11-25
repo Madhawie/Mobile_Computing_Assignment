@@ -479,4 +479,68 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get savedOnPhone =>
       'Saved on this phone. It will be sent when there is signal.';
+
+  @override
+  String get checkRecords => 'Check a record';
+
+  @override
+  String recordsToCheck(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count records to check',
+      one: '1 record to check',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get conflictSameField =>
+      'Changed on two phones at the same time. The newer value is kept; the other is saved.';
+
+  @override
+  String get conflictDeleteVsUpdate =>
+      'Deleted on one phone but changed on another. The record was kept.';
+
+  @override
+  String valueNow(String value) {
+    return 'Now: $value';
+  }
+
+  @override
+  String otherValueFrom(String source, String value) {
+    return 'Other value ($source): $value';
+  }
+
+  @override
+  String get fromYourPhone => 'your phone';
+
+  @override
+  String get fromOtherDevice => 'another phone';
+
+  @override
+  String get keepCurrent => 'Keep as it is';
+
+  @override
+  String get useOtherValue => 'Use the other value';
+
+  @override
+  String get nothingToCheck => 'Nothing to check. All records agree.';
+
+  @override
+  String get needSignalToDecide =>
+      'You need signal to decide. Try again when you have signal.';
+
+  @override
+  String get shownFromPhone =>
+      'Shown from this phone. Pull down to update when you have signal.';
+
+  @override
+  String get decisionSaved => 'Saved. Other phones get it at their next sync.';
+
+  @override
+  String get deletedLabel => 'Deleted';
+
+  @override
+  String get emptyValue => '(empty)';
 }

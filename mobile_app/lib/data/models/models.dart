@@ -2,6 +2,7 @@
 library;
 
 export 'child.dart';
+export 'conflict.dart';
 export 'growth_measurement.dart';
 export 'maternal_visit.dart';
 export 'model_utils.dart';

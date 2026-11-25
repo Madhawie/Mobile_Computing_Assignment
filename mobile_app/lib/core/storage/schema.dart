@@ -22,6 +22,9 @@ class Tables {
   static const syncLog = 'sync_log';
   static const meta = 'meta';
 
+  /// S3 conflicts to check (added in schema version 2).
+  static const conflicts = 'conflicts';
+
   /// Tables holding synced records, by `entity` name used in the API.
   static const byEntity = {
     'mother': mothers,
@@ -182,8 +185,27 @@ CREATE TABLE ${Tables.meta} (
 
 /// Changes for later versions. Index 0 upgrades version 1 to 2, and so on.
 /// Never edit a released step; add a new one and raise [schemaVersion].
-const migrations = <List<String>>[];
+const migrations = <List<String>>[
+  // v1 → v2 (Day 12): S3 conflicts the server flagged, kept on the phone so
+  // the "Check a record" list can be read with no signal. `fields` is the
+  // server's JSON list of {field, kept, lost, lostSide, lostDeviceId}.
+  [
+    '''
+CREATE TABLE ${Tables.conflicts} (
+  id TEXT PRIMARY KEY,
+  entity TEXT NOT NULL,
+  record_id TEXT NOT NULL,
+  kind TEXT NOT NULL,
+  fields TEXT NOT NULL,
+  status TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  resolved_at TEXT,
+  resolution TEXT
+)''',
+    'CREATE INDEX idx_conflicts_status ON ${Tables.conflicts} (status, created_at)',
+  ],
+];
 
 /// Current database version. Must equal 1 + migrations.length
 /// (a test checks this).
-const schemaVersion = 1;
+const schemaVersion = 2;

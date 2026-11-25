@@ -479,4 +479,70 @@ class AppLocalizationsSi extends AppLocalizations {
   @override
   String get savedOnPhone =>
       'මෙම දුරකථනයේ සුරැකිණි. සංඥා ලැබුණු විට යවනු ලැබේ.';
+
+  @override
+  String get checkRecords => 'වාර්තාවක් පරීක්ෂා කරන්න';
+
+  @override
+  String recordsToCheck(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'පරීක්ෂා කළ යුතු වාර්තා $count',
+      one: 'පරීක්ෂා කළ යුතු වාර්තා 1',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get conflictSameField =>
+      'දුරකථන දෙකක එකම වේලාවේ වෙනස් කර ඇත. අලුත් අගය තබා ඇත; අනෙක සුරැකී ඇත.';
+
+  @override
+  String get conflictDeleteVsUpdate =>
+      'එක් දුරකථනයක මකා, තවත් එකක වෙනස් කර ඇත. වාර්තාව තබා ඇත.';
+
+  @override
+  String valueNow(String value) {
+    return 'දැන්: $value';
+  }
+
+  @override
+  String otherValueFrom(String source, String value) {
+    return 'අනෙක් අගය ($source): $value';
+  }
+
+  @override
+  String get fromYourPhone => 'ඔබේ දුරකථනය';
+
+  @override
+  String get fromOtherDevice => 'වෙනත් දුරකථනයක්';
+
+  @override
+  String get keepCurrent => 'එලෙසම තබන්න';
+
+  @override
+  String get useOtherValue => 'අනෙක් අගය භාවිත කරන්න';
+
+  @override
+  String get nothingToCheck =>
+      'පරීක්ෂා කිරීමට කිසිවක් නැත. සියලු වාර්තා එකඟයි.';
+
+  @override
+  String get needSignalToDecide =>
+      'තීරණය කිරීමට සංඥා අවශ්‍යයි. සංඥා ලැබුණු විට නැවත උත්සාහ කරන්න.';
+
+  @override
+  String get shownFromPhone =>
+      'මෙම දුරකථනයෙන් පෙන්වයි. සංඥා ඇති විට යාවත්කාලීන කිරීමට පහළට අදින්න.';
+
+  @override
+  String get decisionSaved =>
+      'සුරැකිණි. අනෙක් දුරකථනවලට ඊළඟ සමමුහුර්තයේදී ලැබේ.';
+
+  @override
+  String get deletedLabel => 'මකා ඇත';
+
+  @override
+  String get emptyValue => '(හිස්)';
 }

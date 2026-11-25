@@ -177,3 +177,22 @@ class OtpRequest {
   factory OtpRequest.fromJson(Map<String, dynamic> j) =>
       OtpRequest(j['otpRequestId'] as String, (j['expiresInSeconds'] as num).toInt());
 }
+
+/// Answer of `POST /api/conflicts/{id}/resolve`.
+class ResolveResult {
+  const ResolveResult({required this.conflictId, required this.resolution, required this.version, required this.record});
+
+  final String conflictId;
+  final String resolution;
+
+  /// Record version after the decision ("previous" writes a new version).
+  final int version;
+  final Map<String, dynamic> record;
+
+  factory ResolveResult.fromJson(Map<String, dynamic> j) => ResolveResult(
+        conflictId: j['conflictId'] as String,
+        resolution: j['resolution'] as String,
+        version: (j['version'] as num).toInt(),
+        record: j['record'] as Map<String, dynamic>,
+      );
+}

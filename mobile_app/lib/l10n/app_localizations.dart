@@ -867,6 +867,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Saved on this phone. It will be sent when there is signal.'**
   String get savedOnPhone;
+
+  /// No description provided for @checkRecords.
+  ///
+  /// In en, this message translates to:
+  /// **'Check a record'**
+  String get checkRecords;
+
+  /// No description provided for @recordsToCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 record to check} other{{count} records to check}}'**
+  String recordsToCheck(int count);
+
+  /// No description provided for @conflictSameField.
+  ///
+  /// In en, this message translates to:
+  /// **'Changed on two phones at the same time. The newer value is kept; the other is saved.'**
+  String get conflictSameField;
+
+  /// No description provided for @conflictDeleteVsUpdate.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleted on one phone but changed on another. The record was kept.'**
+  String get conflictDeleteVsUpdate;
+
+  /// No description provided for @valueNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Now: {value}'**
+  String valueNow(String value);
+
+  /// No description provided for @otherValueFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'Other value ({source}): {value}'**
+  String otherValueFrom(String source, String value);
+
+  /// No description provided for @fromYourPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'your phone'**
+  String get fromYourPhone;
+
+  /// No description provided for @fromOtherDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'another phone'**
+  String get fromOtherDevice;
+
+  /// No description provided for @keepCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep as it is'**
+  String get keepCurrent;
+
+  /// No description provided for @useOtherValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the other value'**
+  String get useOtherValue;
+
+  /// No description provided for @nothingToCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing to check. All records agree.'**
+  String get nothingToCheck;
+
+  /// No description provided for @needSignalToDecide.
+  ///
+  /// In en, this message translates to:
+  /// **'You need signal to decide. Try again when you have signal.'**
+  String get needSignalToDecide;
+
+  /// No description provided for @shownFromPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Shown from this phone. Pull down to update when you have signal.'**
+  String get shownFromPhone;
+
+  /// No description provided for @decisionSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved. Other phones get it at their next sync.'**
+  String get decisionSaved;
+
+  /// No description provided for @deletedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleted'**
+  String get deletedLabel;
+
+  /// No description provided for @emptyValue.
+  ///
+  /// In en, this message translates to:
+  /// **'(empty)'**
+  String get emptyValue;
 }
 
 class _AppLocalizationsDelegate
