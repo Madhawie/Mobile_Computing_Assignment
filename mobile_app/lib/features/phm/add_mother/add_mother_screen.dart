@@ -97,6 +97,7 @@ class _AddMotherScreenState extends State<AddMotherScreen> {
     return FormPage(
       title: t.addMother,
       formKey: _form,
+      message: _phoneError,
       fields: [
         LabeledField(label: t.fullName, controller: _name, validator: rules.required),
         LabeledField(
@@ -107,7 +108,6 @@ class _AddMotherScreenState extends State<AddMotherScreen> {
           keyboardType: TextInputType.phone,
           validator: (v) => PhoneNumber.normalise(v ?? '') == null ? t.invalidPhone : null,
         ),
-        if (_phoneError != null) StatusBanner(kind: StatusKind.warn, message: _phoneError!),
         LabeledField(
           label: t.ageLabel,
           controller: _age,

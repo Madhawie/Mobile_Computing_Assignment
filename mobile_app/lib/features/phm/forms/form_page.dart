@@ -14,6 +14,7 @@ class FormPage extends StatelessWidget {
     required this.formKey,
     required this.fields,
     required this.buttons,
+    this.message,
   });
 
   final String title;
@@ -21,6 +22,10 @@ class FormPage extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final List<Widget> fields;
   final List<Widget> buttons;
+
+  /// A problem with the whole form (e.g. number already registered), shown
+  /// just above the buttons so it is visible however far the form scrolled.
+  final String? message;
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +50,10 @@ class FormPage extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    if (message != null) ...[
+                      StatusBanner(kind: StatusKind.warn, message: message!),
+                      const SizedBox(height: 10),
+                    ],
                     for (final (i, b) in buttons.indexed) ...[if (i > 0) const SizedBox(height: 8), b],
                   ],
                 ),
