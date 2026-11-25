@@ -297,5 +297,32 @@
   "shownFromPhone": "Shown from this phone. Pull down to update when you have signal.",
   "decisionSaved": "Saved. Other phones get it at their next sync.",
   "deletedLabel": "Deleted",
-  "emptyValue": "(empty)"
+  "emptyValue": "(empty)",
+  "syncTab": "Sync",
+  "syncSubtitle": "Records are saved on this phone first",
+  "youAreOffline": "You are offline",
+  "youAreOnline": "Signal available",
+  "sending": "Sending…",
+  "waitingToSend": "Waiting to send",
+  "notAccepted": "Not accepted by the server",
+  "notAcceptedHelp": "Check these records and save them again.",
+  "sendAutomatically": "Send automatically",
+  "sendAutomaticallyHelp": "As soon as signal comes back",
+  "syncDoneSummary": "Sent {sent}, received {received}.",
+  "@syncDoneSummary": {
+    "placeholders": {
+      "sent": {
+        "type": "int"
+      },
+      "received": {
+        "type": "int"
+      }
+    }
+  },
+  "syncFailed": "Could not reach the server. Your changes are safe on this phone and go next time.",
+  "kindMother": "Mother",
+  "kindVisit": "Pregnancy visit",
+  "kindChild": "Child",
+  "kindGrowth": "Growth",
+  "kindVaccine": "Vaccine"
 }

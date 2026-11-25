@@ -6,19 +6,22 @@ import '../../l10n/l10n.dart';
 import '../../shared/widgets/widgets.dart';
 
 /// Frame around the PHM's main tabs: the screen on top, the bottom menu below.
-/// Sync joins the menu on Day 14.
 class PhmShell extends StatelessWidget {
   const PhmShell({super.key, required this.location, required this.child});
 
   final String location;
   final Widget child;
 
-  static const _tabs = [Routes.phmHome, Routes.phmRegister];
+  static const _tabs = [Routes.phmHome, Routes.phmRegister, Routes.phmSync];
 
   @override
   Widget build(BuildContext context) {
     final t = AppLocalizations.of(context);
-    final index = location.startsWith(Routes.phmRegister) ? 1 : 0;
+    final index = location.startsWith(Routes.phmRegister)
+        ? 1
+        : location.startsWith(Routes.phmSync)
+            ? 2
+            : 0;
     return Scaffold(
       body: child,
       bottomNavigationBar: AppBottomNav(
@@ -27,6 +30,7 @@ class PhmShell extends StatelessWidget {
         items: [
           NavItem(Icons.today_rounded, t.today),
           NavItem(Icons.groups_rounded, t.register),
+          NavItem(Icons.sync_rounded, t.syncTab),
         ],
       ),
     );

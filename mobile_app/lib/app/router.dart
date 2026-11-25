@@ -27,6 +27,9 @@ import '../features/phm/phm_shell.dart';
 import '../features/phm/register/register_screen.dart';
 import '../features/phm/register/register_view_model.dart';
 import '../features/phm/register/sample_data_button.dart';
+import '../core/sync/sync_controller.dart';
+import '../features/phm/sync/sync_screen.dart';
+import '../features/phm/sync/sync_view_model.dart';
 import 'routes.dart';
 
 /// The app's screens. go_router asks [authRedirect] before every move and
@@ -60,6 +63,16 @@ GoRouter createRouter(AuthController auth) => GoRouter(
                 create: (c) => RegisterViewModel(c.read<AppRepositories>(), areaId: _areaOf(auth))..load(),
                 // Sample data button only in debug builds, never in a release.
                 child: const RegisterScreen(emptyAction: kDebugMode ? SampleDataButton() : null),
+              ),
+            ),
+            GoRoute(
+              path: Routes.phmSync,
+              builder: (context, _) => ChangeNotifierProvider(
+                create: (c) {
+                  final sync = c.read<SyncController>()..refresh();
+                  return SyncViewModel(c.read<AppRepositories>(), sync)..load();
+                },
+                child: const SyncScreen(),
               ),
             ),
           ],

@@ -143,5 +143,22 @@
   "shownFromPhone": "මෙම දුරකථනයෙන් පෙන්වයි. සංඥා ඇති විට යාවත්කාලීන කිරීමට පහළට අදින්න.",
   "decisionSaved": "සුරැකිණි. අනෙක් දුරකථනවලට ඊළඟ සමමුහුර්තයේදී ලැබේ.",
   "deletedLabel": "මකා ඇත",
-  "emptyValue": "(හිස්)"
+  "emptyValue": "(හිස්)",
+  "syncTab": "සමමුහුර්තය",
+  "syncSubtitle": "වාර්තා මුලින්ම මෙම දුරකථනයේ සුරැකේ",
+  "youAreOffline": "ඔබ නොබැඳි ය",
+  "youAreOnline": "සංඥා ඇත",
+  "sending": "යවමින්…",
+  "waitingToSend": "යැවීමට ඉතිරිව ඇත",
+  "notAccepted": "සේවාදායකය පිළිගත්තේ නැත",
+  "notAcceptedHelp": "මෙම වාර්තා පරීක්ෂා කර නැවත සුරකින්න.",
+  "sendAutomatically": "ස්වයංක්‍රීයව යවන්න",
+  "sendAutomaticallyHelp": "සංඥා ලැබුණු විගසම",
+  "syncDoneSummary": "යැවූ {sent}, ලැබුණු {received}.",
+  "syncFailed": "සේවාදායකයට සම්බන්ධ විය නොහැක. ඔබේ වෙනස්කම් මෙම දුරකථනයේ ආරක්ෂිතව ඇති අතර ඊළඟ වර යැවේ.",
+  "kindMother": "මව",
+  "kindVisit": "ගර්භණී සායන පැමිණීම",
+  "kindChild": "දරුවා",
+  "kindGrowth": "වර්ධනය",
+  "kindVaccine": "එන්නත"
 }

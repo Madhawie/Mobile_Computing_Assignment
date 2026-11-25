@@ -543,4 +543,58 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get emptyValue => '(empty)';
+
+  @override
+  String get syncTab => 'Sync';
+
+  @override
+  String get syncSubtitle => 'Records are saved on this phone first';
+
+  @override
+  String get youAreOffline => 'You are offline';
+
+  @override
+  String get youAreOnline => 'Signal available';
+
+  @override
+  String get sending => 'Sending…';
+
+  @override
+  String get waitingToSend => 'Waiting to send';
+
+  @override
+  String get notAccepted => 'Not accepted by the server';
+
+  @override
+  String get notAcceptedHelp => 'Check these records and save them again.';
+
+  @override
+  String get sendAutomatically => 'Send automatically';
+
+  @override
+  String get sendAutomaticallyHelp => 'As soon as signal comes back';
+
+  @override
+  String syncDoneSummary(int sent, int received) {
+    return 'Sent $sent, received $received.';
+  }
+
+  @override
+  String get syncFailed =>
+      'Could not reach the server. Your changes are safe on this phone and go next time.';
+
+  @override
+  String get kindMother => 'Mother';
+
+  @override
+  String get kindVisit => 'Pregnancy visit';
+
+  @override
+  String get kindChild => 'Child';
+
+  @override
+  String get kindGrowth => 'Growth';
+
+  @override
+  String get kindVaccine => 'Vaccine';
 }
