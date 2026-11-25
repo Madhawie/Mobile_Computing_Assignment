@@ -22,6 +22,29 @@ class FakeAuthServer {
   bool offline = false;
   final _otps = <String, String>{};
 
+  /// Refresh tokens that still work → their phone number. Like the .NET
+  /// server, each one works once (rotation).
+  final _refreshTokens = <String, String>{};
+  int refreshCalls = 0;
+  int _issued = 0;
+
+  /// Signs every refresh out, like a revoked account.
+  bool revokeAll = false;
+
+  Map<String, dynamic> _session(String phone) {
+    final (role, name, area) = fakeUsers[phone]!;
+    _issued++;
+    final refresh = 'refresh-$role-$_issued';
+    _refreshTokens[refresh] = phone;
+    return {
+      'accessToken': 'access-$role-$_issued',
+      'expiresIn': 43200,
+      'refreshToken': refresh,
+      'user': {'id': 'u-$role', 'role': role, 'name': name, 'areaId': area, 'mohId': 'glg',
+        'motherId': role == 'mother' ? 'm-1' : null},
+    };
+  }
+
   http.Client get client => MockClient((req) async {
         if (offline) throw http.ClientException('Network is unreachable');
         final body = req.body.isEmpty ? <String, dynamic>{} : jsonDecode(req.body) as Map<String, dynamic>;
@@ -42,14 +65,15 @@ class FakeAuthServer {
             if (phone == null || body['code'] != fakeCode) {
               return json({'title': 'Wrong code', 'status': 401, 'code': 'INVALID_CODE'}, 401);
             }
-            final (role, name, area) = fakeUsers[phone]!;
-            return json({
-              'accessToken': 'access-$role',
-              'expiresIn': 43200,
-              'refreshToken': 'refresh-$role',
-              'user': {'id': 'u-$role', 'role': role, 'name': name, 'areaId': area, 'mohId': 'glg',
-                'motherId': role == 'mother' ? 'm-1' : null},
-            });
+            return json(_session(phone));
+          case '/api/auth/refresh':
+            refreshCalls++;
+            await Future<void>.delayed(const Duration(milliseconds: 5)); // let parallel calls overlap
+            final phone = _refreshTokens.remove(body['refreshToken']); // works once
+            if (phone == null || revokeAll) {
+              return json({'title': 'Please sign in again.', 'status': 401, 'code': 'UNAUTHORIZED'}, 401);
+            }
+            return json(_session(phone));
         }
         return json({'title': 'Not found', 'status': 404, 'code': 'NOT_FOUND'}, 404);
       });

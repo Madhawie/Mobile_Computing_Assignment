@@ -188,6 +188,38 @@ class AuthController extends ChangeNotifier {
     return PinWrong(maxPinTries - fails);
   }
 
+  Future<bool>? _refreshing;
+
+  /// Swaps the refresh token for new tokens (api.md 9.3) after the access
+  /// token expired. Returns true when the caller may try again.
+  ///
+  /// * Only ONE refresh runs at a time: the server rotates refresh tokens
+  ///   (each works once), so two parallel refreshes would make the second
+  ///   one fail and sign the PHM out. Callers share the running one.
+  /// * The new pair is saved at once, replacing the used refresh token.
+  /// * 401 (refresh token expired, revoked or blocked account): the session
+  ///   is over; sign out. Records and the outbox stay on the phone and are
+  ///   sent after the next SMS sign-in.
+  /// * No signal: keep the session; the sync fails and is tried later.
+  Future<bool> refreshSession() => _refreshing ??= _refresh().whenComplete(() => _refreshing = null);
+
+  Future<bool> _refresh() async {
+    final current = _session;
+    if (current == null) return false;
+    try {
+      final res = await api.refresh(refreshToken: current.refreshToken, deviceId: await store.deviceId());
+      await secure.write(_kSession, jsonEncode(res.data.toJson()));
+      _session = res.data;
+      notifyListeners();
+      return true;
+    } on HttpFailure catch (f) {
+      if (f.status == 401) await signOut();
+      return false;
+    } on NetworkFailure {
+      return false;
+    }
+  }
+
   /// Back to "Who are you?". Removes tokens and PIN; local records stay.
   Future<void> signOut() async {
     await secure.delete(_kSession);
