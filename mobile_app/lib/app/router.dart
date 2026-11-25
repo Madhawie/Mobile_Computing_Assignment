@@ -15,6 +15,8 @@ import '../features/phm/dashboard/today_screen.dart';
 import '../features/phm/dashboard/today_view_model.dart';
 import '../features/phm/add_mother/add_mother_screen.dart';
 import '../features/phm/growth_record/record_growth_screen.dart';
+import '../features/phm/home_visit/antenatal_visit_screen.dart';
+import '../features/phm/vaccine_record/record_vaccine_screen.dart';
 import '../features/phm/mother_detail/mother_detail_screen.dart';
 import '../features/phm/newborn/add_child_screen.dart';
 import '../features/phm/mother_detail/mother_detail_view_model.dart';
@@ -69,6 +71,14 @@ GoRouter createRouter(AuthController auth) => GoRouter(
         GoRoute(
           path: '/phm/child/:id/growth',
           builder: (_, state) => RecordGrowthScreen(childId: state.pathParameters['id']!),
+        ),
+        GoRoute(
+          path: '/phm/child/:id/vaccine',
+          builder: (_, state) => RecordVaccineScreen(childId: state.pathParameters['id']!),
+        ),
+        GoRoute(
+          path: '/phm/mother/:id/visit',
+          builder: (_, state) => AntenatalVisitScreen(motherId: state.pathParameters['id']!),
         ),
         GoRoute(
           path: '/phm/mother/:id',

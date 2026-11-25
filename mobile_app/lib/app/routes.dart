@@ -20,6 +20,8 @@ class Routes {
   static const phmAddMother = '/phm/new-mother';
   static String phmAddChild(String motherId) => '/phm/mother/$motherId/add-child';
   static String phmRecordGrowth(String childId) => '/phm/child/$childId/growth';
+  static String phmRecordVaccine(String childId) => '/phm/child/$childId/vaccine';
+  static String phmRecordVisit(String motherId) => '/phm/mother/$motherId/visit';
   static const mohHome = '/moh';
 
   /// Screens used before the app is open.

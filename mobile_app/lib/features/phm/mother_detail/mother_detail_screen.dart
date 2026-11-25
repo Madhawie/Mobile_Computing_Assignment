@@ -62,6 +62,15 @@ class MotherDetailScreen extends StatelessWidget {
                               if (m.isPregnant) ...[
                                 const SizedBox(height: 12),
                                 _PregnancyCard(vm: vm, format: f),
+                                const SizedBox(height: 10),
+                                PrimaryButton(
+                                  label: t.recordVisit,
+                                  icon: Icons.add_rounded,
+                                  onPressed: () async {
+                                    await context.push(Routes.phmRecordVisit(m.id));
+                                    await vm.load();
+                                  },
+                                ),
                               ],
                               _Section(t.pregnancyVisits),
                               if (vm.visits.isEmpty)
@@ -78,7 +87,9 @@ class MotherDetailScreen extends StatelessWidget {
                                     format: f,
                                     today: vm.today,
                                     onTap: () async {
-                                      await context.push(Routes.phmRecordGrowth(c.child.id));
+                                      final route = await _chooseRecord(context, c.child);
+                                      if (route == null || !context.mounted) return;
+                                      await context.push(route);
                                       await vm.load();
                                     },
                                   ),
@@ -243,4 +254,31 @@ class _Section extends StatelessWidget {
         padding: const EdgeInsets.only(top: 20, bottom: 8),
         child: Text(text, style: Theme.of(context).textTheme.titleMedium),
       );
+}
+
+/// Tapping a child: record growth or a vaccine. Returns the form's route.
+Future<String?> _chooseRecord(BuildContext context, Child child) {
+  final t = AppLocalizations.of(context);
+  return showModalBottomSheet<String>(
+    context: context,
+    showDragHandle: true,
+    builder: (sheet) => SafeArea(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(child.name, style: Theme.of(sheet).textTheme.titleMedium),
+          ListTile(
+            leading: const Icon(Icons.monitor_weight_rounded),
+            title: Text(t.recordGrowth),
+            onTap: () => Navigator.pop(sheet, Routes.phmRecordGrowth(child.id)),
+          ),
+          ListTile(
+            leading: const Icon(Icons.vaccines_rounded),
+            title: Text(t.recordVaccine),
+            onTap: () => Navigator.pop(sheet, Routes.phmRecordVaccine(child.id)),
+          ),
+        ],
+      ),
+    ),
+  );
 }
