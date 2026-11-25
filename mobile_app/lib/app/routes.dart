@@ -14,6 +14,11 @@ class Routes {
 
   // Homes, one per user
   static const motherHome = '/mother';
+  static const motherGrowth = '/mother/growth';
+  static const motherVaccines = '/mother/vaccines';
+  static const motherAdvice = '/mother/advice';
+  static const motherPregnancy = '/mother/pregnancy';
+  static String motherChild(String id) => '/mother/child/$id';
   static const phmHome = '/phm';
   static const phmRegister = '/phm/register';
   static String phmMother(String id) => '/phm/mother/$id';

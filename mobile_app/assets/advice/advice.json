@@ -1,0 +1,169 @@
+{
+ "source": "General guidance based on WHO/UNICEF infant and young child feeding recommendations and WHO IMCI danger signs. Demo content for a student project: review with the Family Health Bureau before real use.",
+ "groups": [
+  {
+   "id": "0-6m",
+   "fromMonths": 0,
+   "toMonths": 6,
+   "label": {
+    "en": "0–6 m"
+   },
+   "cards": [
+    {
+     "kind": "feeding",
+     "title": {
+      "en": "Breast milk only"
+     },
+     "body": {
+      "en": "Give only breast milk, day and night, at least 8 times in 24 hours. No water, other milk or food is needed before 6 months."
+     }
+    },
+    {
+     "kind": "play",
+     "title": {
+      "en": "Play & talk"
+     },
+     "body": {
+      "en": "Hold your baby close, smile and talk to her. Answer her sounds; this is how she learns to talk."
+     }
+    },
+    {
+     "kind": "safety",
+     "title": {
+      "en": "Keep her safe"
+     },
+     "body": {
+      "en": "Put her to sleep on her back. Never leave her alone on a bed or near the hearth. Wash your hands before feeding."
+     }
+    }
+   ]
+  },
+  {
+   "id": "6-12m",
+   "fromMonths": 6,
+   "toMonths": 12,
+   "label": {
+    "en": "6–12 m"
+   },
+   "cards": [
+    {
+     "kind": "feeding",
+     "title": {
+      "en": "Start soft family foods"
+     },
+     "body": {
+      "en": "Keep breastfeeding. From 6 months give thick mashed food 2–3 times a day; from 9 months 3–4 small meals, mashed or finely chopped, and 1–2 healthy snacks. Add an egg, fish, dhal or leafy greens to rice."
+     }
+    },
+    {
+     "kind": "play",
+     "title": {
+      "en": "Play & talk"
+     },
+     "body": {
+      "en": "Name things around the house and play peek-a-boo. Let her hold a spoon and try to feed herself."
+     }
+    },
+    {
+     "kind": "safety",
+     "title": {
+      "en": "Keep her safe"
+     },
+     "body": {
+      "en": "She is starting to crawl and pull up. Keep small objects, kerosene and medicines out of reach."
+     }
+    }
+   ]
+  },
+  {
+   "id": "1-2y",
+   "fromMonths": 12,
+   "toMonths": 24,
+   "label": {
+    "en": "1–2 y"
+   },
+   "cards": [
+    {
+     "kind": "feeding",
+     "title": {
+      "en": "Family foods, 3–4 meals"
+     },
+     "body": {
+      "en": "Give 3–4 meals of family food a day and 1–2 snacks such as fruit. Keep breastfeeding up to 2 years and beyond."
+     }
+    },
+    {
+     "kind": "play",
+     "title": {
+      "en": "Play & talk"
+     },
+     "body": {
+      "en": "Read, sing and tell simple stories. Give her pots, spoons and blocks to play with."
+     }
+    },
+    {
+     "kind": "safety",
+     "title": {
+      "en": "Keep her safe"
+     },
+     "body": {
+      "en": "Watch her near wells, buckets and ponds, and keep her away from hot pots and the hearth."
+     }
+    }
+   ]
+  },
+  {
+   "id": "2-5y",
+   "fromMonths": 24,
+   "toMonths": 61,
+   "label": {
+    "en": "2–5 y"
+   },
+   "cards": [
+    {
+     "kind": "feeding",
+     "title": {
+      "en": "A mix of foods every day"
+     },
+     "body": {
+      "en": "Give 3 meals and 2 snacks of family food: rice or bread, dhal, fish or egg, vegetables and fruit. Keep sweets and sugary drinks for rare treats."
+     }
+    },
+    {
+     "kind": "play",
+     "title": {
+      "en": "Play & talk"
+     },
+     "body": {
+      "en": "Count, draw and play outside together. Ask questions and listen to the answers."
+     }
+    },
+    {
+     "kind": "safety",
+     "title": {
+      "en": "Keep her safe"
+     },
+     "body": {
+      "en": "Hold her hand near the road. Keep medicines, kerosene and sharp tools locked away."
+     }
+    }
+   ]
+  }
+ ],
+ "dangerSigns": {
+  "title": {
+   "en": "Get help straight away"
+  },
+  "body": {
+   "en": "Fits, fast or hard breathing, not able to drink or breastfeed, vomiting everything, or very sleepy and hard to wake: go to hospital now or call 1990."
+  }
+ },
+ "pregnancyDangerSigns": {
+  "title": {
+   "en": "Go to hospital straight away"
+  },
+  "body": {
+   "en": "Bleeding, a bad headache or blurred vision, fits, swelling of the face or hands, fever, water breaking, or the baby moving less: go to hospital now or call 1990."
+  }
+ }
+}

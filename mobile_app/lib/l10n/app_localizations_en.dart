@@ -597,4 +597,174 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get kindVaccine => 'Vaccine';
+
+  @override
+  String get tabHome => 'Home';
+
+  @override
+  String get tabGrowth => 'Growth';
+
+  @override
+  String get tabVaccines => 'Vaccines';
+
+  @override
+  String get tabAdvice => 'Advice';
+
+  @override
+  String get myChildren => 'My children';
+
+  @override
+  String get comingUp => 'Coming up';
+
+  @override
+  String get myPregnancy => 'My pregnancy';
+
+  @override
+  String weeksPregnantNow(int weeks) {
+    return '$weeks weeks pregnant';
+  }
+
+  @override
+  String tipFor(String name) {
+    return 'Tip for $name';
+  }
+
+  @override
+  String get call1990 => 'Call 1990 · Suwa Seriya ambulance';
+
+  @override
+  String get dialFailed => 'Could not open the phone app. Please dial 1990.';
+
+  @override
+  String get noRecordsYet =>
+      'Your records appear here after your midwife (PHM) registers you and the phone syncs. Pull down to sync.';
+
+  @override
+  String get notLinked =>
+      'This number is not linked to a mother\'s record yet. Please ask your PHM.';
+
+  @override
+  String get weightCheck => 'Weight check';
+
+  @override
+  String get antenatalClinic => 'Pregnancy clinic visit';
+
+  @override
+  String get childRecord => 'Child record';
+
+  @override
+  String bornOn(String date) {
+    return 'Born $date';
+  }
+
+  @override
+  String get chdrNumberLabel => 'CHDR number';
+
+  @override
+  String get growthChart => 'Growth chart';
+
+  @override
+  String get weightForAge => 'Weight for age';
+
+  @override
+  String latestWeight(String weight, String date) {
+    return 'Latest $weight · $date';
+  }
+
+  @override
+  String get noMeasurements => 'No weight recorded yet.';
+
+  @override
+  String get measurements => 'Measurements';
+
+  @override
+  String get legendNormal => 'Normal';
+
+  @override
+  String get legendBelow2 => 'Below −2 SD';
+
+  @override
+  String get legendBelow3 => 'Below −3 SD';
+
+  @override
+  String get legendAbove2 => 'Above +2 SD';
+
+  @override
+  String get motherZoneNormal => 'Within the normal range.';
+
+  @override
+  String get motherZoneModerate =>
+      'Below the normal range. Your PHM will give feeding advice and weigh again soon.';
+
+  @override
+  String get motherZoneSevere =>
+      'Well below the normal range. Please go to the MOH clinic or see your PHM soon.';
+
+  @override
+  String get motherZoneOverweight =>
+      'Above the normal range. Ask your PHM about healthy food and play.';
+
+  @override
+  String vaccinesGivenOf(int given, int total) {
+    return '$given of $total visits complete';
+  }
+
+  @override
+  String get onTrack => 'On track';
+
+  @override
+  String get vaccinesLate => 'Some vaccines are late. Please go to the clinic.';
+
+  @override
+  String nextVaccine(String doses, String date) {
+    return 'Next: $doses · $date';
+  }
+
+  @override
+  String get allVaccinesGiven => 'All vaccines of the schedule are given.';
+
+  @override
+  String get atBirth => 'Birth';
+
+  @override
+  String atMonths(int months) {
+    return '$months months';
+  }
+
+  @override
+  String atYears(int years) {
+    return '$years years';
+  }
+
+  @override
+  String givenOn(String date) {
+    return 'Given $date';
+  }
+
+  @override
+  String lateSince(String date) {
+    return 'Late · was due $date';
+  }
+
+  @override
+  String get scheduleSource => 'National Immunization Schedule, Sri Lanka';
+
+  @override
+  String adviceFor(String name, String age) {
+    return 'For $name · $age';
+  }
+
+  @override
+  String get clinicVisits => 'Clinic visits';
+
+  @override
+  String get notPregnant => 'No pregnancy is recorded.';
+
+  @override
+  String get lateChip => 'Late';
+
+  @override
+  String birthWeightValue(String weight) {
+    return 'Birth weight $weight';
+  }
 }

@@ -599,4 +599,174 @@ class AppLocalizationsSi extends AppLocalizations {
 
   @override
   String get kindVaccine => 'එන්නත';
+
+  @override
+  String get tabHome => 'මුල් පිටුව';
+
+  @override
+  String get tabGrowth => 'වර්ධනය';
+
+  @override
+  String get tabVaccines => 'එන්නත්';
+
+  @override
+  String get tabAdvice => 'උපදෙස්';
+
+  @override
+  String get myChildren => 'මගේ දරුවන්';
+
+  @override
+  String get comingUp => 'ඉදිරියට';
+
+  @override
+  String get myPregnancy => 'මගේ ගර්භණීභාවය';
+
+  @override
+  String weeksPregnantNow(int weeks) {
+    return 'සති $weeks ගර්භණී';
+  }
+
+  @override
+  String tipFor(String name) {
+    return '$name සඳහා උපදෙසක්';
+  }
+
+  @override
+  String get call1990 => '1990 අමතන්න · සුව සැරිය ගිලන් රථය';
+
+  @override
+  String get dialFailed => 'දුරකථන යෙදුම විවෘත කළ නොහැක. කරුණාකර 1990 අමතන්න.';
+
+  @override
+  String get noRecordsYet =>
+      'ඔබේ පවුල් සෞඛ්‍ය සේවා නිලධාරිනිය (PHM) ඔබව ලියාපදිංචි කර දුරකථනය සමමුහුර්ත වූ පසු වාර්තා මෙහි පෙන්වයි. සමමුහුර්ත කිරීමට පහළට අදින්න.';
+
+  @override
+  String get notLinked =>
+      'මෙම අංකය තවම මවකගේ වාර්තාවකට සම්බන්ධ කර නැත. කරුණාකර ඔබේ PHM ගෙන් අසන්න.';
+
+  @override
+  String get weightCheck => 'බර මැනීම';
+
+  @override
+  String get antenatalClinic => 'ගර්භණී සායනය';
+
+  @override
+  String get childRecord => 'ළමා වාර්තාව';
+
+  @override
+  String bornOn(String date) {
+    return 'උපත $date';
+  }
+
+  @override
+  String get chdrNumberLabel => 'CHDR අංකය';
+
+  @override
+  String get growthChart => 'වර්ධන සටහන';
+
+  @override
+  String get weightForAge => 'වයසට සරිලන බර';
+
+  @override
+  String latestWeight(String weight, String date) {
+    return 'අවසන් $weight · $date';
+  }
+
+  @override
+  String get noMeasurements => 'තවම බර සටහන් කර නැත.';
+
+  @override
+  String get measurements => 'මිනුම්';
+
+  @override
+  String get legendNormal => 'සාමාන්‍ය';
+
+  @override
+  String get legendBelow2 => '−2 SD ට අඩු';
+
+  @override
+  String get legendBelow3 => '−3 SD ට අඩු';
+
+  @override
+  String get legendAbove2 => '+2 SD ට වැඩි';
+
+  @override
+  String get motherZoneNormal => 'සාමාන්‍ය පරාසය තුළ ය.';
+
+  @override
+  String get motherZoneModerate =>
+      'සාමාන්‍ය පරාසයට වඩා අඩු ය. ඔබේ PHM ආහාර උපදෙස් ලබා දී ඉක්මනින් නැවත බර මනිනු ඇත.';
+
+  @override
+  String get motherZoneSevere =>
+      'සාමාන්‍ය පරාසයට වඩා බොහෝ අඩු ය. කරුණාකර ඉක්මනින් MOH සායනයට යන්න හෝ ඔබේ PHM හමුවන්න.';
+
+  @override
+  String get motherZoneOverweight =>
+      'සාමාන්‍ය පරාසයට වඩා වැඩි ය. සෞඛ්‍ය සම්පන්න ආහාර හා ක්‍රීඩා ගැන ඔබේ PHM ගෙන් අසන්න.';
+
+  @override
+  String vaccinesGivenOf(int given, int total) {
+    return 'වාර $total න් $given ක් සම්පූර්ණයි';
+  }
+
+  @override
+  String get onTrack => 'නියමිත පරිදි';
+
+  @override
+  String get vaccinesLate => 'සමහර එන්නත් ප්‍රමාද වී ඇත. කරුණාකර සායනයට යන්න.';
+
+  @override
+  String nextVaccine(String doses, String date) {
+    return 'ඊළඟ: $doses · $date';
+  }
+
+  @override
+  String get allVaccinesGiven => 'කාලසටහනේ සියලු එන්නත් ලබා දී ඇත.';
+
+  @override
+  String get atBirth => 'උපතේදී';
+
+  @override
+  String atMonths(int months) {
+    return 'මාස $months';
+  }
+
+  @override
+  String atYears(int years) {
+    return 'අවුරුදු $years';
+  }
+
+  @override
+  String givenOn(String date) {
+    return 'ලබා දුන්නේ $date';
+  }
+
+  @override
+  String lateSince(String date) {
+    return 'ප්‍රමාදයි · නියමිත වූයේ $date';
+  }
+
+  @override
+  String get scheduleSource => 'ජාතික ප්‍රතිශක්තිකරණ කාලසටහන, ශ්‍රී ලංකාව';
+
+  @override
+  String adviceFor(String name, String age) {
+    return '$name සඳහා · $age';
+  }
+
+  @override
+  String get clinicVisits => 'සායන පැමිණීම්';
+
+  @override
+  String get notPregnant => 'ගර්භණීභාවයක් සටහන් කර නැත.';
+
+  @override
+  String get lateChip => 'ප්‍රමාදයි';
+
+  @override
+  String birthWeightValue(String weight) {
+    return 'උපත් බර $weight';
+  }
 }

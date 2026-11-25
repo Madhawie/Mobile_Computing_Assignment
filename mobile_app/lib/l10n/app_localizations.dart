@@ -1065,6 +1065,288 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Vaccine'**
   String get kindVaccine;
+
+  /// No description provided for @tabHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get tabHome;
+
+  /// No description provided for @tabGrowth.
+  ///
+  /// In en, this message translates to:
+  /// **'Growth'**
+  String get tabGrowth;
+
+  /// No description provided for @tabVaccines.
+  ///
+  /// In en, this message translates to:
+  /// **'Vaccines'**
+  String get tabVaccines;
+
+  /// No description provided for @tabAdvice.
+  ///
+  /// In en, this message translates to:
+  /// **'Advice'**
+  String get tabAdvice;
+
+  /// No description provided for @myChildren.
+  ///
+  /// In en, this message translates to:
+  /// **'My children'**
+  String get myChildren;
+
+  /// No description provided for @comingUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming up'**
+  String get comingUp;
+
+  /// No description provided for @myPregnancy.
+  ///
+  /// In en, this message translates to:
+  /// **'My pregnancy'**
+  String get myPregnancy;
+
+  /// No description provided for @weeksPregnantNow.
+  ///
+  /// In en, this message translates to:
+  /// **'{weeks} weeks pregnant'**
+  String weeksPregnantNow(int weeks);
+
+  /// No description provided for @tipFor.
+  ///
+  /// In en, this message translates to:
+  /// **'Tip for {name}'**
+  String tipFor(String name);
+
+  /// No description provided for @call1990.
+  ///
+  /// In en, this message translates to:
+  /// **'Call 1990 · Suwa Seriya ambulance'**
+  String get call1990;
+
+  /// No description provided for @dialFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open the phone app. Please dial 1990.'**
+  String get dialFailed;
+
+  /// No description provided for @noRecordsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'Your records appear here after your midwife (PHM) registers you and the phone syncs. Pull down to sync.'**
+  String get noRecordsYet;
+
+  /// No description provided for @notLinked.
+  ///
+  /// In en, this message translates to:
+  /// **'This number is not linked to a mother\'s record yet. Please ask your PHM.'**
+  String get notLinked;
+
+  /// No description provided for @weightCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight check'**
+  String get weightCheck;
+
+  /// No description provided for @antenatalClinic.
+  ///
+  /// In en, this message translates to:
+  /// **'Pregnancy clinic visit'**
+  String get antenatalClinic;
+
+  /// No description provided for @childRecord.
+  ///
+  /// In en, this message translates to:
+  /// **'Child record'**
+  String get childRecord;
+
+  /// No description provided for @bornOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Born {date}'**
+  String bornOn(String date);
+
+  /// No description provided for @chdrNumberLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'CHDR number'**
+  String get chdrNumberLabel;
+
+  /// No description provided for @growthChart.
+  ///
+  /// In en, this message translates to:
+  /// **'Growth chart'**
+  String get growthChart;
+
+  /// No description provided for @weightForAge.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight for age'**
+  String get weightForAge;
+
+  /// No description provided for @latestWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest {weight} · {date}'**
+  String latestWeight(String weight, String date);
+
+  /// No description provided for @noMeasurements.
+  ///
+  /// In en, this message translates to:
+  /// **'No weight recorded yet.'**
+  String get noMeasurements;
+
+  /// No description provided for @measurements.
+  ///
+  /// In en, this message translates to:
+  /// **'Measurements'**
+  String get measurements;
+
+  /// No description provided for @legendNormal.
+  ///
+  /// In en, this message translates to:
+  /// **'Normal'**
+  String get legendNormal;
+
+  /// No description provided for @legendBelow2.
+  ///
+  /// In en, this message translates to:
+  /// **'Below −2 SD'**
+  String get legendBelow2;
+
+  /// No description provided for @legendBelow3.
+  ///
+  /// In en, this message translates to:
+  /// **'Below −3 SD'**
+  String get legendBelow3;
+
+  /// No description provided for @legendAbove2.
+  ///
+  /// In en, this message translates to:
+  /// **'Above +2 SD'**
+  String get legendAbove2;
+
+  /// No description provided for @motherZoneNormal.
+  ///
+  /// In en, this message translates to:
+  /// **'Within the normal range.'**
+  String get motherZoneNormal;
+
+  /// No description provided for @motherZoneModerate.
+  ///
+  /// In en, this message translates to:
+  /// **'Below the normal range. Your PHM will give feeding advice and weigh again soon.'**
+  String get motherZoneModerate;
+
+  /// No description provided for @motherZoneSevere.
+  ///
+  /// In en, this message translates to:
+  /// **'Well below the normal range. Please go to the MOH clinic or see your PHM soon.'**
+  String get motherZoneSevere;
+
+  /// No description provided for @motherZoneOverweight.
+  ///
+  /// In en, this message translates to:
+  /// **'Above the normal range. Ask your PHM about healthy food and play.'**
+  String get motherZoneOverweight;
+
+  /// No description provided for @vaccinesGivenOf.
+  ///
+  /// In en, this message translates to:
+  /// **'{given} of {total} visits complete'**
+  String vaccinesGivenOf(int given, int total);
+
+  /// No description provided for @onTrack.
+  ///
+  /// In en, this message translates to:
+  /// **'On track'**
+  String get onTrack;
+
+  /// No description provided for @vaccinesLate.
+  ///
+  /// In en, this message translates to:
+  /// **'Some vaccines are late. Please go to the clinic.'**
+  String get vaccinesLate;
+
+  /// No description provided for @nextVaccine.
+  ///
+  /// In en, this message translates to:
+  /// **'Next: {doses} · {date}'**
+  String nextVaccine(String doses, String date);
+
+  /// No description provided for @allVaccinesGiven.
+  ///
+  /// In en, this message translates to:
+  /// **'All vaccines of the schedule are given.'**
+  String get allVaccinesGiven;
+
+  /// No description provided for @atBirth.
+  ///
+  /// In en, this message translates to:
+  /// **'Birth'**
+  String get atBirth;
+
+  /// No description provided for @atMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'{months} months'**
+  String atMonths(int months);
+
+  /// No description provided for @atYears.
+  ///
+  /// In en, this message translates to:
+  /// **'{years} years'**
+  String atYears(int years);
+
+  /// No description provided for @givenOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Given {date}'**
+  String givenOn(String date);
+
+  /// No description provided for @lateSince.
+  ///
+  /// In en, this message translates to:
+  /// **'Late · was due {date}'**
+  String lateSince(String date);
+
+  /// No description provided for @scheduleSource.
+  ///
+  /// In en, this message translates to:
+  /// **'National Immunization Schedule, Sri Lanka'**
+  String get scheduleSource;
+
+  /// No description provided for @adviceFor.
+  ///
+  /// In en, this message translates to:
+  /// **'For {name} · {age}'**
+  String adviceFor(String name, String age);
+
+  /// No description provided for @clinicVisits.
+  ///
+  /// In en, this message translates to:
+  /// **'Clinic visits'**
+  String get clinicVisits;
+
+  /// No description provided for @notPregnant.
+  ///
+  /// In en, this message translates to:
+  /// **'No pregnancy is recorded.'**
+  String get notPregnant;
+
+  /// No description provided for @lateChip.
+  ///
+  /// In en, this message translates to:
+  /// **'Late'**
+  String get lateChip;
+
+  /// No description provided for @birthWeightValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Birth weight {weight}'**
+  String birthWeightValue(String weight);
 }
 
 class _AppLocalizationsDelegate

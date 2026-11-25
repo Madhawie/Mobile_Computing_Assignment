@@ -78,6 +78,8 @@ flutter:
   assets:
     # WHO weight-for-age table for growth zones (see assets/growth/README.md).
     - assets/growth/
+    # Age-based advice for mothers (assets/advice/advice.json, see its source field).
+    - assets/advice/
 
   # Nunito (SIL Open Font License, assets/fonts/Nunito-OFL.txt): static
   # weights made from the Google Fonts variable font. Sinhala and Tamil use

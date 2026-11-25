@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
 import '../core/auth/auth_controller.dart';
@@ -30,6 +31,11 @@ import '../features/phm/register/sample_data_button.dart';
 import '../core/sync/sync_controller.dart';
 import '../features/phm/sync/sync_screen.dart';
 import '../features/phm/sync/sync_view_model.dart';
+import '../features/parent/child_profile/child_record_screen.dart';
+import '../features/parent/home/mother_home_screen.dart';
+import '../features/parent/home/mother_view_model.dart';
+import '../features/parent/mother_shell.dart';
+import '../features/parent/pregnancy/pregnancy_screen.dart';
 import 'routes.dart';
 
 /// The app's screens. go_router asks [authRedirect] before every move and
@@ -111,11 +117,36 @@ GoRouter createRouter(AuthController auth) => GoRouter(
             child: const MotherDetailScreen(),
           ),
         ),
-        // Mother and MOH homes: real screens on Days 16 and 17.
-        GoRoute(path: Routes.motherHome, builder: (_, _) => const HomePlaceholder()),
+        // Mother: one view model for all her screens, so the chosen child
+        // stays chosen between tabs. Reads the phone's database only.
+        ShellRoute(
+          builder: (context, state, child) => ChangeNotifierProvider(
+            create: (c) => MotherViewModel(c.read<AppRepositories>(),
+                motherId: auth.session?.user.motherId, sync: _syncOf(c))..load(),
+            child: MotherShell(location: state.uri.path, child: child),
+          ),
+          routes: [
+            GoRoute(path: Routes.motherHome, builder: (_, _) => const MotherHomeScreen()),
+            GoRoute(path: Routes.motherPregnancy, builder: (_, _) => const PregnancyScreen()),
+            GoRoute(
+              path: '/mother/child/:id',
+              builder: (_, state) => ChildRecordScreen(childId: state.pathParameters['id']!),
+            ),
+          ],
+        ),
+        // MOH home: real screens on Day 17.
         GoRoute(path: Routes.mohHome, builder: (_, _) => const HomePlaceholder()),
       ],
     );
+
+/// The sync controller, if the app has one (widget tests may not).
+SyncController? _syncOf(BuildContext context) {
+  try {
+    return context.read<SyncController>();
+  } on ProviderNotFoundException {
+    return null;
+  }
+}
 
 /// The PHM's area from the token (`glg-east`); her register shows only it.
 String _areaOf(AuthController auth) => auth.session?.user.areaId ?? '';

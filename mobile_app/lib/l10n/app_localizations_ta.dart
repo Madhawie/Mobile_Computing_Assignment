@@ -608,4 +608,177 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get kindVaccine => 'தடுப்பூசி';
+
+  @override
+  String get tabHome => 'முகப்பு';
+
+  @override
+  String get tabGrowth => 'வளர்ச்சி';
+
+  @override
+  String get tabVaccines => 'தடுப்பூசிகள்';
+
+  @override
+  String get tabAdvice => 'ஆலோசனை';
+
+  @override
+  String get myChildren => 'என் குழந்தைகள்';
+
+  @override
+  String get comingUp => 'வரவிருப்பவை';
+
+  @override
+  String get myPregnancy => 'என் கர்ப்பம்';
+
+  @override
+  String weeksPregnantNow(int weeks) {
+    return '$weeks வார கர்ப்பம்';
+  }
+
+  @override
+  String tipFor(String name) {
+    return '$name க்கான குறிப்பு';
+  }
+
+  @override
+  String get call1990 => '1990 அழைக்கவும் · சுவ செரிய அம்புலன்ஸ்';
+
+  @override
+  String get dialFailed =>
+      'தொலைபேசி செயலியைத் திறக்க முடியவில்லை. 1990 ஐ அழைக்கவும்.';
+
+  @override
+  String get noRecordsYet =>
+      'உங்கள் குடும்ப சுகாதார மருத்துவமாது (PHM) உங்களைப் பதிவு செய்து தொலைபேசி ஒத்திசைந்த பின் பதிவுகள் இங்கே தோன்றும். ஒத்திசைக்க கீழே இழுக்கவும்.';
+
+  @override
+  String get notLinked =>
+      'இந்த எண் இன்னும் தாயின் பதிவுடன் இணைக்கப்படவில்லை. உங்கள் PHM இடம் கேளுங்கள்.';
+
+  @override
+  String get weightCheck => 'எடை பரிசோதனை';
+
+  @override
+  String get antenatalClinic => 'கர்ப்பகால சிகிச்சை வருகை';
+
+  @override
+  String get childRecord => 'குழந்தைப் பதிவு';
+
+  @override
+  String bornOn(String date) {
+    return 'பிறப்பு $date';
+  }
+
+  @override
+  String get chdrNumberLabel => 'CHDR எண்';
+
+  @override
+  String get growthChart => 'வளர்ச்சி வரைபடம்';
+
+  @override
+  String get weightForAge => 'வயதுக்கேற்ற எடை';
+
+  @override
+  String latestWeight(String weight, String date) {
+    return 'கடைசி $weight · $date';
+  }
+
+  @override
+  String get noMeasurements => 'இன்னும் எடை பதிவு செய்யப்படவில்லை.';
+
+  @override
+  String get measurements => 'அளவீடுகள்';
+
+  @override
+  String get legendNormal => 'இயல்பு';
+
+  @override
+  String get legendBelow2 => '−2 SD க்குக் கீழ்';
+
+  @override
+  String get legendBelow3 => '−3 SD க்குக் கீழ்';
+
+  @override
+  String get legendAbove2 => '+2 SD க்கு மேல்';
+
+  @override
+  String get motherZoneNormal => 'இயல்பான வரம்பில் உள்ளது.';
+
+  @override
+  String get motherZoneModerate =>
+      'இயல்பான வரம்பிற்குக் கீழ் உள்ளது. உங்கள் PHM உணவு ஆலோசனை வழங்கி விரைவில் மீண்டும் எடை பார்ப்பார்.';
+
+  @override
+  String get motherZoneSevere =>
+      'இயல்பான வரம்பிற்கு மிகவும் கீழ் உள்ளது. விரைவில் MOH சிகிச்சை நிலையத்திற்குச் செல்லுங்கள் அல்லது உங்கள் PHM ஐச் சந்தியுங்கள்.';
+
+  @override
+  String get motherZoneOverweight =>
+      'இயல்பான வரம்பிற்கு மேல் உள்ளது. ஆரோக்கியமான உணவு, விளையாட்டு பற்றி உங்கள் PHM இடம் கேளுங்கள்.';
+
+  @override
+  String vaccinesGivenOf(int given, int total) {
+    return '$total இல் $given வருகைகள் முடிந்தன';
+  }
+
+  @override
+  String get onTrack => 'சரியான பாதையில்';
+
+  @override
+  String get vaccinesLate =>
+      'சில தடுப்பூசிகள் தாமதமாகியுள்ளன. சிகிச்சை நிலையத்திற்குச் செல்லுங்கள்.';
+
+  @override
+  String nextVaccine(String doses, String date) {
+    return 'அடுத்து: $doses · $date';
+  }
+
+  @override
+  String get allVaccinesGiven =>
+      'அட்டவணையின் அனைத்து தடுப்பூசிகளும் வழங்கப்பட்டன.';
+
+  @override
+  String get atBirth => 'பிறப்பு';
+
+  @override
+  String atMonths(int months) {
+    return '$months மாதங்கள்';
+  }
+
+  @override
+  String atYears(int years) {
+    return '$years ஆண்டுகள்';
+  }
+
+  @override
+  String givenOn(String date) {
+    return 'வழங்கியது $date';
+  }
+
+  @override
+  String lateSince(String date) {
+    return 'தாமதம் · உரிய நாள் $date';
+  }
+
+  @override
+  String get scheduleSource => 'தேசிய நோய்த்தடுப்பு அட்டவணை, இலங்கை';
+
+  @override
+  String adviceFor(String name, String age) {
+    return '$name க்கு · $age';
+  }
+
+  @override
+  String get clinicVisits => 'சிகிச்சை வருகைகள்';
+
+  @override
+  String get notPregnant => 'கர்ப்பம் எதுவும் பதிவு செய்யப்படவில்லை.';
+
+  @override
+  String get lateChip => 'தாமதம்';
+
+  @override
+  String birthWeightValue(String weight) {
+    return 'பிறப்பு எடை $weight';
+  }
 }
