@@ -72,7 +72,16 @@ class MotherDetailScreen extends StatelessWidget {
                               if (vm.children.isEmpty)
                                 Text(t.noChildrenYet, style: Theme.of(context).textTheme.bodySmall)
                               else
-                                for (final c in vm.children) _ChildTile(summary: c, format: f, today: vm.today),
+                                for (final c in vm.children)
+                                  _ChildTile(
+                                    summary: c,
+                                    format: f,
+                                    today: vm.today,
+                                    onTap: () async {
+                                      await context.push(Routes.phmRecordGrowth(c.child.id));
+                                      await vm.load();
+                                    },
+                                  ),
                               const SizedBox(height: 8),
                               SecondaryButton(
                                 label: t.addChild,
@@ -163,10 +172,11 @@ class _VisitTile extends StatelessWidget {
 }
 
 class _ChildTile extends StatelessWidget {
-  const _ChildTile({required this.summary, required this.format, required this.today});
+  const _ChildTile({required this.summary, required this.format, required this.today, this.onTap});
   final ChildSummary summary;
   final PhmFormat format;
   final DateTime today;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -184,6 +194,7 @@ class _ChildTile extends StatelessWidget {
         subtitle: '${boy ? t.boy : t.girl} · ${format.age(c.dateOfBirth, today)} · $weighed',
         avatarBackground: boy ? AppColors.boyLight : AppColors.girlLight,
         avatarForeground: boy ? AppColors.boyText : AppColors.girlText,
+        onTap: onTap,
         trailing: c.lowBirthWeight
             ? StatusChip(kind: StatusKind.warn, label: t.lowBirthWeightShort)
             : w != null

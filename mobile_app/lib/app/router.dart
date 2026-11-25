@@ -14,6 +14,7 @@ import '../features/common/home_placeholder.dart';
 import '../features/phm/dashboard/today_screen.dart';
 import '../features/phm/dashboard/today_view_model.dart';
 import '../features/phm/add_mother/add_mother_screen.dart';
+import '../features/phm/growth_record/record_growth_screen.dart';
 import '../features/phm/mother_detail/mother_detail_screen.dart';
 import '../features/phm/newborn/add_child_screen.dart';
 import '../features/phm/mother_detail/mother_detail_view_model.dart';
@@ -64,6 +65,10 @@ GoRouter createRouter(AuthController auth) => GoRouter(
         GoRoute(
           path: '/phm/mother/:id/add-child',
           builder: (_, state) => AddChildScreen(motherId: state.pathParameters['id']!),
+        ),
+        GoRoute(
+          path: '/phm/child/:id/growth',
+          builder: (_, state) => RecordGrowthScreen(childId: state.pathParameters['id']!),
         ),
         GoRoute(
           path: '/phm/mother/:id',
