@@ -29,6 +29,11 @@ class Lms {
   /// child is, not which zone, so the plain formula is enough for zones.
   double zScore(double x) =>
       l == 0 ? math.log(x / m) / s : (math.pow(x / m, l) - 1) / (l * s);
+
+  /// The other way round: the weight at z-score [z], x = M·(1 + L·S·z)^(1/L)
+  /// (or M·e^(S·z) if L = 0). Draws the −3, −2 and +2 lines of the chart.
+  double valueAt(double z) =>
+      l == 0 ? m * math.exp(s * z) : m * math.pow(1 + l * s * z, 1 / l).toDouble();
 }
 
 /// Weight-for-age reference: LMS for each sex and age in days (0 … 1826).

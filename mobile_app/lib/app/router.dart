@@ -32,6 +32,7 @@ import '../core/sync/sync_controller.dart';
 import '../features/phm/sync/sync_screen.dart';
 import '../features/phm/sync/sync_view_model.dart';
 import '../features/parent/child_profile/child_record_screen.dart';
+import '../features/parent/growth/growth_screen.dart';
 import '../features/parent/home/mother_home_screen.dart';
 import '../features/parent/home/mother_view_model.dart';
 import '../features/parent/mother_shell.dart';
@@ -127,6 +128,7 @@ GoRouter createRouter(AuthController auth) => GoRouter(
           ),
           routes: [
             GoRoute(path: Routes.motherHome, builder: (_, _) => const MotherHomeScreen()),
+            GoRoute(path: Routes.motherGrowth, builder: (_, _) => const GrowthScreen()),
             GoRoute(path: Routes.motherPregnancy, builder: (_, _) => const PregnancyScreen()),
             GoRoute(
               path: '/mother/child/:id',
