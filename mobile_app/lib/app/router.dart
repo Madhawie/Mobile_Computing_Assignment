@@ -13,7 +13,12 @@ import '../data/repositories/app_repositories.dart';
 import '../features/common/home_placeholder.dart';
 import '../features/phm/dashboard/today_screen.dart';
 import '../features/phm/dashboard/today_view_model.dart';
+import '../features/phm/add_mother/add_mother_screen.dart';
+import '../features/phm/growth_record/record_growth_screen.dart';
+import '../features/phm/home_visit/antenatal_visit_screen.dart';
+import '../features/phm/vaccine_record/record_vaccine_screen.dart';
 import '../features/phm/mother_detail/mother_detail_screen.dart';
+import '../features/phm/newborn/add_child_screen.dart';
 import '../features/phm/mother_detail/mother_detail_view_model.dart';
 import '../features/phm/phm_shell.dart';
 import '../features/phm/register/register_screen.dart';
@@ -57,6 +62,24 @@ GoRouter createRouter(AuthController auth) => GoRouter(
           ],
         ),
         // PHM full-screen pages (no bottom menu), opened from the tabs.
+        // Forms save offline; each returns true when something was saved.
+        GoRoute(path: Routes.phmAddMother, builder: (_, _) => const AddMotherScreen()),
+        GoRoute(
+          path: '/phm/mother/:id/add-child',
+          builder: (_, state) => AddChildScreen(motherId: state.pathParameters['id']!),
+        ),
+        GoRoute(
+          path: '/phm/child/:id/growth',
+          builder: (_, state) => RecordGrowthScreen(childId: state.pathParameters['id']!),
+        ),
+        GoRoute(
+          path: '/phm/child/:id/vaccine',
+          builder: (_, state) => RecordVaccineScreen(childId: state.pathParameters['id']!),
+        ),
+        GoRoute(
+          path: '/phm/mother/:id/visit',
+          builder: (_, state) => AntenatalVisitScreen(motherId: state.pathParameters['id']!),
+        ),
         GoRoute(
           path: '/phm/mother/:id',
           builder: (context, state) => ChangeNotifierProvider(

@@ -36,7 +36,20 @@ class RegisterScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(t.register, style: Theme.of(context).textTheme.headlineMedium),
+                Row(
+                  children: [
+                    Expanded(child: Text(t.register, style: Theme.of(context).textTheme.headlineMedium)),
+                    FilledButton.icon(
+                      style: FilledButton.styleFrom(minimumSize: const Size(0, 44)),
+                      onPressed: () async {
+                        await context.push(Routes.phmAddMother);
+                        await vm.load();
+                      },
+                      icon: const Icon(Icons.add_rounded),
+                      label: Text(t.addMother),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 12),
                 TextField(
                   onChanged: vm.search,

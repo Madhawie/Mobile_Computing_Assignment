@@ -63,7 +63,10 @@ class TodayScreen extends StatelessWidget {
                     avatarBackground: w.child.sex == Sex.boy ? AppColors.boyLight : AppColors.girlLight,
                     avatarForeground: w.child.sex == Sex.boy ? AppColors.boyText : AppColors.girlText,
                     trailing: _DueChip(f.due(w.due)),
-                    onTap: () => context.push(Routes.phmMother(w.mother.id)),
+                    onTap: () async {
+                      await context.push(Routes.phmRecordGrowth(w.child.id));
+                      await vm.load();
+                    },
                   )),
               ],
               if (vm.watch.isNotEmpty) ...[
