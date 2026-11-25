@@ -331,4 +331,159 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get emptyRegister => 'உங்கள் பகுதியில் இன்னும் தாய்மார் இல்லை.';
+
+  @override
+  String get addMother => 'தாயைச் சேர்';
+
+  @override
+  String get saveMother => 'தாயைச் சேமி';
+
+  @override
+  String get saveAndAddChild => 'சேமித்து பிள்ளையைச் சேர்';
+
+  @override
+  String get fullName => 'முழுப் பெயர்';
+
+  @override
+  String get ageLabel => 'வயது';
+
+  @override
+  String get addressLabel => 'முகவரி';
+
+  @override
+  String get pregnantNow => 'இப்போது கர்ப்பமா?';
+
+  @override
+  String get yes => 'ஆம்';
+
+  @override
+  String get no => 'இல்லை';
+
+  @override
+  String get weeksPregnant => 'கர்ப்ப வாரங்கள்';
+
+  @override
+  String get dueDateLabel => 'எதிர்பார்க்கும் பிரசவ திகதி';
+
+  @override
+  String get phoneAlreadyRegistered =>
+      'இந்தக் கைபேசி இலக்கம் ஏற்கனவே பதிவு செய்யப்பட்டுள்ளது.';
+
+  @override
+  String get requiredField => 'தயவுசெய்து இதை நிரப்பவும்';
+
+  @override
+  String numberBetween(String min, String max) {
+    return '$min முதல் $max வரையான எண்ணை உள்ளிடவும்';
+  }
+
+  @override
+  String get dateInFuture => 'திகதி எதிர்காலத்தில் இருக்க முடியாது.';
+
+  @override
+  String get addChild => 'பிள்ளையைச் சேர்';
+
+  @override
+  String get childName => 'பிள்ளையின் பெயர்';
+
+  @override
+  String get boyOrGirl => 'ஆண் அல்லது பெண்';
+
+  @override
+  String get sexChartHint =>
+      'நீல அல்லது இளஞ்சிவப்பு CHDR வளர்ச்சி அட்டவணையைத் தீர்மானிக்கும்';
+
+  @override
+  String get dateOfBirth => 'பிறந்த திகதி';
+
+  @override
+  String get birthWeightKg => 'பிறப்பு எடை (கி.கி.)';
+
+  @override
+  String get lowBirthWeightWatch =>
+      'குறைந்த பிறப்பு எடை (2.5 கி.கி.க்கு குறைவு). இந்தக் குழந்தை உங்கள் கவனிப்புப் பட்டியலில் சேர்க்கப்படும்.';
+
+  @override
+  String get olderThanFive =>
+      'பிள்ளைகள் 5 வயது வரை மட்டுமே கண்காணிக்கப்படுவர்.';
+
+  @override
+  String get saveChild => 'பிள்ளையைச் சேமி';
+
+  @override
+  String get recordGrowth => 'வளர்ச்சியைப் பதிவு செய்';
+
+  @override
+  String get weightKgLabel => 'எடை (கி.கி.)';
+
+  @override
+  String get heightCmLabel => 'உயரம் (செ.மீ.), விரும்பினால்';
+
+  @override
+  String get dateLabel => 'திகதி';
+
+  @override
+  String get zoneNormal => 'பச்சை வலயம் · வயதுக்கேற்ற எடை';
+
+  @override
+  String get zoneModerate =>
+      'செம்மஞ்சள் வலயம் · எடை குறைவு. உணவு ஆலோசனை வழங்கி 2 வாரங்களில் மீண்டும் நிறுக்கவும்.';
+
+  @override
+  String get zoneSevere =>
+      'சிவப்பு வலயம் · மிகக் குறைந்த எடை. சு.வை.அ. சிகிச்சை நிலையத்திற்கு அனுப்பவும்.';
+
+  @override
+  String get zoneOverweight => 'பச்சை வலயத்திற்கு மேல் · வயதுக்கு அதிக எடை';
+
+  @override
+  String get zoneUnavailable =>
+      'வளர்ச்சி வலயம் காட்டப்படவில்லை: WHO வளர்ச்சி அட்டவணை இன்னும் சேர்க்கப்படவில்லை.';
+
+  @override
+  String get recordVisit => 'கர்ப்பகால வருகையைப் பதிவு செய்';
+
+  @override
+  String get motherWeightKg => 'தாயின் எடை (கி.கி.)';
+
+  @override
+  String get bpTop => 'இ.அ. மேல் எண்';
+
+  @override
+  String get bpBottom => 'இ.அ. கீழ் எண்';
+
+  @override
+  String get bpOrder => 'மேல் எண் கீழ் எண்ணை விட அதிகமாக இருக்க வேண்டும்.';
+
+  @override
+  String get nextVisitLabel => 'அடுத்த வருகை';
+
+  @override
+  String get notesOptional => 'குறிப்புகள் (விரும்பினால்)';
+
+  @override
+  String get nextVisitAfter =>
+      'அடுத்த வருகை இந்த வருகைக்குப் பிறகு இருக்க வேண்டும்.';
+
+  @override
+  String get beforeBirth => 'திகதி பிறந்த திகதிக்கு முன் இருக்க முடியாது.';
+
+  @override
+  String get recordVaccine => 'தடுப்பூசியைப் பதிவு செய்';
+
+  @override
+  String get vaccineLabel => 'தடுப்பூசி';
+
+  @override
+  String get doseLabel => 'அளவு';
+
+  @override
+  String get givenOnLabel => 'வழங்கிய திகதி';
+
+  @override
+  String get batchOptional => 'தொகுதி இலக்கம் (விரும்பினால்)';
+
+  @override
+  String get savedOnPhone =>
+      'இந்தத் தொலைபேசியில் சேமிக்கப்பட்டது. சிக்னல் கிடைத்ததும் அனுப்பப்படும்.';
 }

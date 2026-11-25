@@ -75,6 +75,10 @@ flutter:
   # Builds AppLocalizations from lib/l10n/*.arb (see l10n.yaml).
   generate: true
 
+  assets:
+    # WHO weight-for-age table for growth zones (see assets/growth/README.md).
+    - assets/growth/
+
   # Nunito (SIL Open Font License, assets/fonts/Nunito-OFL.txt): static
   # weights made from the Google Fonts variable font. Sinhala and Tamil use
   # Android's built-in Noto Sans Sinhala / Tamil (see AppTheme.fontFallback).

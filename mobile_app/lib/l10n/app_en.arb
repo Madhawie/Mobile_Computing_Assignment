@@ -199,5 +199,63 @@
     }
   },
   "loadSampleData": "Load sample data (testing only)",
-  "emptyRegister": "No mothers in your area yet."
+  "emptyRegister": "No mothers in your area yet.",
+  "addMother": "Add mother",
+  "saveMother": "Save mother",
+  "saveAndAddChild": "Save and add a child",
+  "fullName": "Full name",
+  "ageLabel": "Age",
+  "addressLabel": "Address",
+  "pregnantNow": "Pregnant now?",
+  "yes": "Yes",
+  "no": "No",
+  "weeksPregnant": "Weeks pregnant",
+  "dueDateLabel": "Due date",
+  "phoneAlreadyRegistered": "This mobile number is already registered.",
+  "requiredField": "Please fill this in",
+  "numberBetween": "Enter a number from {min} to {max}",
+  "@numberBetween": {
+    "placeholders": {
+      "min": {
+        "type": "String"
+      },
+      "max": {
+        "type": "String"
+      }
+    }
+  },
+  "dateInFuture": "The date cannot be in the future.",
+  "addChild": "Add child",
+  "childName": "Child's name",
+  "boyOrGirl": "Boy or girl",
+  "sexChartHint": "Sets the blue or pink CHDR growth chart",
+  "dateOfBirth": "Date of birth",
+  "birthWeightKg": "Birth weight (kg)",
+  "lowBirthWeightWatch": "Low birth weight (under 2.5 kg). This baby will be on your watch list.",
+  "olderThanFive": "Children are followed until 5 years of age.",
+  "saveChild": "Save child",
+  "recordGrowth": "Record growth",
+  "weightKgLabel": "Weight (kg)",
+  "heightCmLabel": "Height (cm), optional",
+  "dateLabel": "Date",
+  "zoneNormal": "Green zone · normal weight for age",
+  "zoneModerate": "Orange zone · underweight. Give feeding advice and weigh again in 2 weeks.",
+  "zoneSevere": "Red zone · severely underweight. Refer to the MOH clinic.",
+  "zoneOverweight": "Above the green zone · overweight for age",
+  "zoneUnavailable": "Growth zone not shown: the WHO growth table is not added yet.",
+  "recordVisit": "Record pregnancy visit",
+  "motherWeightKg": "Mother's weight (kg)",
+  "bpTop": "BP top number",
+  "bpBottom": "BP bottom number",
+  "bpOrder": "The top number must be higher than the bottom number.",
+  "nextVisitLabel": "Next visit",
+  "notesOptional": "Notes (optional)",
+  "nextVisitAfter": "The next visit must be after this visit.",
+  "beforeBirth": "The date cannot be before the date of birth.",
+  "recordVaccine": "Record vaccine",
+  "vaccineLabel": "Vaccine",
+  "doseLabel": "Dose",
+  "givenOnLabel": "Date given",
+  "batchOptional": "Batch number (optional)",
+  "savedOnPhone": "Saved on this phone. It will be sent when there is signal."
 }
