@@ -98,12 +98,17 @@ void main() {
       });
     }
 
-    testWidgets('without the WHO table: saves, and says the zone is not available', (tester) async {
-      final (repos, childId) = await withChild(tester);
-      await tester.pumpWidget(formApp(repos, RecordGrowthScreen(childId: childId)));
-      await settleDb(tester);
-      await type(tester, 'Weight (kg)', '7.2');
-      expect(find.textContaining('Growth zone not shown'), findsOneWidget);
+    testWidgets('with the bundled WHO table: a 7-month boy at 8.0 kg is green', (tester) async {
+      final (repos, childId) = await withChild(tester); // boy born 1 May 2026
+      await tester.pumpWidget(formApp(repos, RecordGrowthScreen(
+        childId: childId,
+        clock: () => DateTime(2026, 11, 25),
+      )));
+      await settleDb(tester); // loads assets/growth/wfa_lms.json
+      await type(tester, 'Weight (kg)', '8.0');
+      expect(find.textContaining('Green zone'), findsOneWidget);
+      await type(tester, 'Weight (kg)', '5.5');
+      expect(find.textContaining('Red zone'), findsOneWidget);
     });
   });
 

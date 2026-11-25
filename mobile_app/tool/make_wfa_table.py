@@ -13,7 +13,7 @@ import csv
 import json
 import sys
 
-MAX_DAY = 1856  # 5 years
+MAX_DAY = 1826  # 5 years (WHO table ends at day 1826)
 
 
 def main(src: str, dst: str) -> None:

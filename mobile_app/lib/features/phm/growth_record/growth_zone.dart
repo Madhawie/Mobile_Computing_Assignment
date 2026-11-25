@@ -31,7 +31,7 @@ class Lms {
       l == 0 ? math.log(x / m) / s : (math.pow(x / m, l) - 1) / (l * s);
 }
 
-/// Weight-for-age reference: LMS for each sex and age in days (0 … 1856).
+/// Weight-for-age reference: LMS for each sex and age in days (0 … 1826).
 class GrowthReference {
   GrowthReference({required this.boys, required this.girls, required this.source});
 
