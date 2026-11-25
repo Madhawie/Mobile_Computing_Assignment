@@ -327,4 +327,156 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get emptyRegister => 'No mothers in your area yet.';
+
+  @override
+  String get addMother => 'Add mother';
+
+  @override
+  String get saveMother => 'Save mother';
+
+  @override
+  String get saveAndAddChild => 'Save and add a child';
+
+  @override
+  String get fullName => 'Full name';
+
+  @override
+  String get ageLabel => 'Age';
+
+  @override
+  String get addressLabel => 'Address';
+
+  @override
+  String get pregnantNow => 'Pregnant now?';
+
+  @override
+  String get yes => 'Yes';
+
+  @override
+  String get no => 'No';
+
+  @override
+  String get weeksPregnant => 'Weeks pregnant';
+
+  @override
+  String get dueDateLabel => 'Due date';
+
+  @override
+  String get phoneAlreadyRegistered =>
+      'This mobile number is already registered.';
+
+  @override
+  String get requiredField => 'Please fill this in';
+
+  @override
+  String numberBetween(String min, String max) {
+    return 'Enter a number from $min to $max';
+  }
+
+  @override
+  String get dateInFuture => 'The date cannot be in the future.';
+
+  @override
+  String get addChild => 'Add child';
+
+  @override
+  String get childName => 'Child\'s name';
+
+  @override
+  String get boyOrGirl => 'Boy or girl';
+
+  @override
+  String get sexChartHint => 'Sets the blue or pink CHDR growth chart';
+
+  @override
+  String get dateOfBirth => 'Date of birth';
+
+  @override
+  String get birthWeightKg => 'Birth weight (kg)';
+
+  @override
+  String get lowBirthWeightWatch =>
+      'Low birth weight (under 2.5 kg). This baby will be on your watch list.';
+
+  @override
+  String get olderThanFive => 'Children are followed until 5 years of age.';
+
+  @override
+  String get saveChild => 'Save child';
+
+  @override
+  String get recordGrowth => 'Record growth';
+
+  @override
+  String get weightKgLabel => 'Weight (kg)';
+
+  @override
+  String get heightCmLabel => 'Height (cm), optional';
+
+  @override
+  String get dateLabel => 'Date';
+
+  @override
+  String get zoneNormal => 'Green zone · normal weight for age';
+
+  @override
+  String get zoneModerate =>
+      'Orange zone · underweight. Give feeding advice and weigh again in 2 weeks.';
+
+  @override
+  String get zoneSevere =>
+      'Red zone · severely underweight. Refer to the MOH clinic.';
+
+  @override
+  String get zoneOverweight => 'Above the green zone · overweight for age';
+
+  @override
+  String get zoneUnavailable =>
+      'Growth zone not shown: the WHO growth table is not added yet.';
+
+  @override
+  String get recordVisit => 'Record pregnancy visit';
+
+  @override
+  String get motherWeightKg => 'Mother\'s weight (kg)';
+
+  @override
+  String get bpTop => 'BP top number';
+
+  @override
+  String get bpBottom => 'BP bottom number';
+
+  @override
+  String get bpOrder => 'The top number must be higher than the bottom number.';
+
+  @override
+  String get nextVisitLabel => 'Next visit';
+
+  @override
+  String get notesOptional => 'Notes (optional)';
+
+  @override
+  String get nextVisitAfter => 'The next visit must be after this visit.';
+
+  @override
+  String get beforeBirth => 'The date cannot be before the date of birth.';
+
+  @override
+  String get recordVaccine => 'Record vaccine';
+
+  @override
+  String get vaccineLabel => 'Vaccine';
+
+  @override
+  String get doseLabel => 'Dose';
+
+  @override
+  String get givenOnLabel => 'Date given';
+
+  @override
+  String get batchOptional => 'Batch number (optional)';
+
+  @override
+  String get savedOnPhone =>
+      'Saved on this phone. It will be sent when there is signal.';
 }

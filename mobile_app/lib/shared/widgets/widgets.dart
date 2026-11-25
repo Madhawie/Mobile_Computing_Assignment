@@ -3,6 +3,7 @@ library;
 
 export 'app_bottom_nav.dart';
 export 'choice_toggle.dart';
+export 'date_field.dart';
 export 'labeled_field.dart';
 export 'primary_button.dart';
 export 'record_tile.dart';

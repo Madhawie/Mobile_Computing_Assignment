@@ -17,6 +17,8 @@ class Routes {
   static const phmHome = '/phm';
   static const phmRegister = '/phm/register';
   static String phmMother(String id) => '/phm/mother/$id';
+  static const phmAddMother = '/phm/new-mother';
+  static String phmAddChild(String motherId) => '/phm/mother/$motherId/add-child';
   static const mohHome = '/moh';
 
   /// Screens used before the app is open.

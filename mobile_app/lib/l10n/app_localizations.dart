@@ -579,6 +579,294 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No mothers in your area yet.'**
   String get emptyRegister;
+
+  /// No description provided for @addMother.
+  ///
+  /// In en, this message translates to:
+  /// **'Add mother'**
+  String get addMother;
+
+  /// No description provided for @saveMother.
+  ///
+  /// In en, this message translates to:
+  /// **'Save mother'**
+  String get saveMother;
+
+  /// No description provided for @saveAndAddChild.
+  ///
+  /// In en, this message translates to:
+  /// **'Save and add a child'**
+  String get saveAndAddChild;
+
+  /// No description provided for @fullName.
+  ///
+  /// In en, this message translates to:
+  /// **'Full name'**
+  String get fullName;
+
+  /// No description provided for @ageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Age'**
+  String get ageLabel;
+
+  /// No description provided for @addressLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Address'**
+  String get addressLabel;
+
+  /// No description provided for @pregnantNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Pregnant now?'**
+  String get pregnantNow;
+
+  /// No description provided for @yes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get yes;
+
+  /// No description provided for @no.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get no;
+
+  /// No description provided for @weeksPregnant.
+  ///
+  /// In en, this message translates to:
+  /// **'Weeks pregnant'**
+  String get weeksPregnant;
+
+  /// No description provided for @dueDateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Due date'**
+  String get dueDateLabel;
+
+  /// No description provided for @phoneAlreadyRegistered.
+  ///
+  /// In en, this message translates to:
+  /// **'This mobile number is already registered.'**
+  String get phoneAlreadyRegistered;
+
+  /// No description provided for @requiredField.
+  ///
+  /// In en, this message translates to:
+  /// **'Please fill this in'**
+  String get requiredField;
+
+  /// No description provided for @numberBetween.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a number from {min} to {max}'**
+  String numberBetween(String min, String max);
+
+  /// No description provided for @dateInFuture.
+  ///
+  /// In en, this message translates to:
+  /// **'The date cannot be in the future.'**
+  String get dateInFuture;
+
+  /// No description provided for @addChild.
+  ///
+  /// In en, this message translates to:
+  /// **'Add child'**
+  String get addChild;
+
+  /// No description provided for @childName.
+  ///
+  /// In en, this message translates to:
+  /// **'Child\'s name'**
+  String get childName;
+
+  /// No description provided for @boyOrGirl.
+  ///
+  /// In en, this message translates to:
+  /// **'Boy or girl'**
+  String get boyOrGirl;
+
+  /// No description provided for @sexChartHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Sets the blue or pink CHDR growth chart'**
+  String get sexChartHint;
+
+  /// No description provided for @dateOfBirth.
+  ///
+  /// In en, this message translates to:
+  /// **'Date of birth'**
+  String get dateOfBirth;
+
+  /// No description provided for @birthWeightKg.
+  ///
+  /// In en, this message translates to:
+  /// **'Birth weight (kg)'**
+  String get birthWeightKg;
+
+  /// No description provided for @lowBirthWeightWatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Low birth weight (under 2.5 kg). This baby will be on your watch list.'**
+  String get lowBirthWeightWatch;
+
+  /// No description provided for @olderThanFive.
+  ///
+  /// In en, this message translates to:
+  /// **'Children are followed until 5 years of age.'**
+  String get olderThanFive;
+
+  /// No description provided for @saveChild.
+  ///
+  /// In en, this message translates to:
+  /// **'Save child'**
+  String get saveChild;
+
+  /// No description provided for @recordGrowth.
+  ///
+  /// In en, this message translates to:
+  /// **'Record growth'**
+  String get recordGrowth;
+
+  /// No description provided for @weightKgLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight (kg)'**
+  String get weightKgLabel;
+
+  /// No description provided for @heightCmLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Height (cm), optional'**
+  String get heightCmLabel;
+
+  /// No description provided for @dateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get dateLabel;
+
+  /// No description provided for @zoneNormal.
+  ///
+  /// In en, this message translates to:
+  /// **'Green zone · normal weight for age'**
+  String get zoneNormal;
+
+  /// No description provided for @zoneModerate.
+  ///
+  /// In en, this message translates to:
+  /// **'Orange zone · underweight. Give feeding advice and weigh again in 2 weeks.'**
+  String get zoneModerate;
+
+  /// No description provided for @zoneSevere.
+  ///
+  /// In en, this message translates to:
+  /// **'Red zone · severely underweight. Refer to the MOH clinic.'**
+  String get zoneSevere;
+
+  /// No description provided for @zoneOverweight.
+  ///
+  /// In en, this message translates to:
+  /// **'Above the green zone · overweight for age'**
+  String get zoneOverweight;
+
+  /// No description provided for @zoneUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Growth zone not shown: the WHO growth table is not added yet.'**
+  String get zoneUnavailable;
+
+  /// No description provided for @recordVisit.
+  ///
+  /// In en, this message translates to:
+  /// **'Record pregnancy visit'**
+  String get recordVisit;
+
+  /// No description provided for @motherWeightKg.
+  ///
+  /// In en, this message translates to:
+  /// **'Mother\'s weight (kg)'**
+  String get motherWeightKg;
+
+  /// No description provided for @bpTop.
+  ///
+  /// In en, this message translates to:
+  /// **'BP top number'**
+  String get bpTop;
+
+  /// No description provided for @bpBottom.
+  ///
+  /// In en, this message translates to:
+  /// **'BP bottom number'**
+  String get bpBottom;
+
+  /// No description provided for @bpOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'The top number must be higher than the bottom number.'**
+  String get bpOrder;
+
+  /// No description provided for @nextVisitLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Next visit'**
+  String get nextVisitLabel;
+
+  /// No description provided for @notesOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes (optional)'**
+  String get notesOptional;
+
+  /// No description provided for @nextVisitAfter.
+  ///
+  /// In en, this message translates to:
+  /// **'The next visit must be after this visit.'**
+  String get nextVisitAfter;
+
+  /// No description provided for @beforeBirth.
+  ///
+  /// In en, this message translates to:
+  /// **'The date cannot be before the date of birth.'**
+  String get beforeBirth;
+
+  /// No description provided for @recordVaccine.
+  ///
+  /// In en, this message translates to:
+  /// **'Record vaccine'**
+  String get recordVaccine;
+
+  /// No description provided for @vaccineLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Vaccine'**
+  String get vaccineLabel;
+
+  /// No description provided for @doseLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Dose'**
+  String get doseLabel;
+
+  /// No description provided for @givenOnLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Date given'**
+  String get givenOnLabel;
+
+  /// No description provided for @batchOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Batch number (optional)'**
+  String get batchOptional;
+
+  /// No description provided for @savedOnPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved on this phone. It will be sent when there is signal.'**
+  String get savedOnPhone;
 }
 
 class _AppLocalizationsDelegate

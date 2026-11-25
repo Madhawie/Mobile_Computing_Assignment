@@ -73,6 +73,14 @@ class MotherDetailScreen extends StatelessWidget {
                                 Text(t.noChildrenYet, style: Theme.of(context).textTheme.bodySmall)
                               else
                                 for (final c in vm.children) _ChildTile(summary: c, format: f, today: vm.today),
+                              const SizedBox(height: 8),
+                              SecondaryButton(
+                                label: t.addChild,
+                                onPressed: () async {
+                                  await context.push(Routes.phmAddChild(m.id));
+                                  await vm.load();
+                                },
+                              ),
                             ],
                           ),
                         ),
