@@ -16,6 +16,19 @@ class FakeSyncServer {
   final processed = <String, Map<String, dynamic>>{};
 
   int pushCalls = 0;
+  int pullCalls = 0;
+
+  /// Server change number of each record's last write (the pull cursor).
+  final seqOf = <(String, String), int>{};
+  int changeSeq = 0;
+
+  /// Next N pulls fail with no connection (after [pullFailAfterPages] pages).
+  int pullDrops = 0;
+  int pullFailAfterPages = 0;
+
+  /// Open conflicts for GET /api/conflicts, and what resolve returns.
+  final conflicts = <Map<String, dynamic>>[];
+  bool conflictsOffline = false;
 
   /// Next N pushes: save everything, then lose the answer (connection drops
   /// on the way back). The worst case for duplicates.
@@ -42,7 +55,21 @@ class FakeSyncServer {
 
   ApiClient client() => ApiClient(baseUrl: 'http://test', client: MockClient(_handle));
 
+  /// Another device (e.g. the clinic) writes a record directly on the server.
+  void serverWrite(String entity, Map<String, dynamic> record) {
+    final key = (entity, record['id'] as String);
+    final version = ((records[key]?['version'] as int?) ?? 0) + 1;
+    records[key] = {...?records[key], ...record, 'version': version};
+    seqOf[key] = ++changeSeq;
+  }
+
   Future<http.Response> _handle(http.Request req) async {
+    if (req.url.path == '/api/sync/pull') return _pull(req);
+    if (req.url.path == '/api/conflicts') {
+      if (conflictsOffline) throw http.ClientException('Network is unreachable');
+      return _json(conflicts.where((c) => c['status'] == 'open').toList(), 200);
+    }
+    if (req.url.path.startsWith('/api/conflicts/')) return _resolve(req);
     if (req.url.path != '/api/sync/push') return _json({'code': 'NOT_FOUND'}, 404);
     pushCalls++;
     final body = jsonDecode(req.body) as Map<String, dynamic>;
@@ -98,8 +125,40 @@ class FakeSyncServer {
       result = {'operationId': op, 'status': 'applied', 'recordId': id, 'newVersion': version};
     }
     records[key] = record;
+    seqOf[key] = ++changeSeq;
     processed[op] = result;
     return result;
+  }
+
+  Future<http.Response> _pull(http.Request req) async {
+    pullCalls++;
+    if (pullDrops > 0 && pullCalls > pullFailAfterPages) {
+      pullDrops--;
+      throw http.ClientException('Connection reset during pull');
+    }
+    final since = int.parse(req.url.queryParameters['since'] ?? '0');
+    final limit = int.parse(req.url.queryParameters['limit'] ?? '500');
+    final newer = seqOf.entries.where((e) => e.value > since).toList()..sort((a, b) => a.value.compareTo(b.value));
+    final page = newer.take(limit).toList();
+    return _json({
+      'changes': [for (final e in page) {'entity': e.key.$1, 'record': records[e.key]}],
+      'cursor': page.isEmpty ? since : page.last.value,
+      'hasMore': newer.length > limit,
+    }, 200);
+  }
+
+  Future<http.Response> _resolve(http.Request req) async {
+    if (conflictsOffline) throw http.ClientException('Network is unreachable');
+    final id = req.url.pathSegments[2];
+    final keep = (jsonDecode(req.body) as Map<String, dynamic>)['keep'] as String;
+    final c = conflicts.firstWhere((c) => c['id'] == id);
+    c['status'] = 'resolved';
+    final key = (c['entity'] as String, c['recordId'] as String);
+    if (keep == 'previous') {
+      final f = (c['fields'] as List).first as Map<String, dynamic>;
+      serverWrite(key.$1, {'id': key.$2, f['field'] as String: f['lost']});
+    }
+    return _json({'conflictId': id, 'resolution': keep, 'version': records[key]!['version'], 'record': records[key]}, 200);
   }
 
   static http.Response _json(Object body, int status) =>
