@@ -51,6 +51,9 @@ class MetaKeys {
   /// Strategy in use: S1, S2 or S3 (changed on the tester screen).
   static const syncStrategy = 'sync_strategy';
 
+  /// `off` when the PHM turned automatic sending off; missing = on.
+  static const autoSync = 'auto_sync';
+
   /// API address chosen on the phone; overrides AppConstants.apiBaseUrl.
   static const apiBaseUrl = 'api_base_url';
 

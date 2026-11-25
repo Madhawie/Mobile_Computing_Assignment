@@ -5,8 +5,11 @@ import 'app/app.dart';
 import 'core/auth/auth_controller.dart';
 import 'core/auth/secure_store.dart';
 import 'core/network/api_client.dart';
+import 'core/network/connectivity_watcher.dart';
 import 'core/network/server_settings.dart';
 import 'core/storage/app_database.dart';
+import 'core/sync/sync_controller.dart';
+import 'core/sync/sync_engine.dart';
 import 'data/repositories/app_repositories.dart';
 
 /// Entry point: open the local database, build the API client and the
@@ -23,11 +26,21 @@ Future<void> main() async {
   auth = AuthController(store: store, secure: DeviceSecureStore(), api: api);
   await auth.load();
 
+  // Sends the outbox by itself when the signal comes back (Day 14).
+  final sync = SyncController(
+    engine: SyncEngine(store: store, api: api),
+    connectivity: DeviceConnectivity(),
+    canSync: () => auth.signedIn && !auth.needsPin && !auth.locked,
+    signIn: auth,
+  );
+  await sync.start();
+
   runApp(MultiProvider(
     providers: [
       Provider<AppDatabase>.value(value: store),
       Provider<ApiClient>.value(value: api),
       Provider<AppRepositories>.value(value: AppRepositories(store)),
+      ChangeNotifierProvider<SyncController>.value(value: sync),
     ],
     child: LittleBloomApp(auth: auth),
   ));
