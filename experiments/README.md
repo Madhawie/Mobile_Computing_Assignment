@@ -9,6 +9,16 @@ Scripts and data for comparing the sync strategies S1 / S2 / S3 (E1–E6).
 | `data/` | Raw CSV exported from the app's `sync_log` (one file per experiment) |
 | `results/` | Graphs and tables used in the report |
 
+## Checking the real API
+
+`scripts/api_check.py` sends the app's exact JSON to a running API as two devices and prints
+PASS / WARN / FAIL per check (see `docs/architecture/connecting.md`):
+
+```bash
+python3 experiments/scripts/api_check.py --base http://<windows-pc-ip>:5000
+python3 experiments/scripts/api_check.py --base http://localhost:5000 --mock   # against the mock
+```
+
 ## Mock sync server
 
 A small Python server that follows `docs/architecture/api.md`, so the app can be
