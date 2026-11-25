@@ -36,7 +36,7 @@ class SyncLog {
   final int bytesSent;
   final int bytesReceived;
 
-  /// `4G`, `3G`, `2G` or `none` (Toxiproxy profile in use).
+  /// `4G`, `3G`, `2G` (Toxiproxy profile in use) or `direct` (no proxy).
   final String networkProfile;
   final bool success;
   final int conflicts;
