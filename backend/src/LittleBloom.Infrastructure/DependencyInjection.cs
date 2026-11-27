@@ -1,9 +1,11 @@
 using LittleBloom.Application.Auth;
 using LittleBloom.Application.Conflicts;
+using LittleBloom.Application.Experiments;
 using LittleBloom.Application.Staff;
 using LittleBloom.Application.Sync;
 using LittleBloom.Infrastructure.Auth;
 using LittleBloom.Infrastructure.Conflicts;
+using LittleBloom.Infrastructure.Experiments;
 using LittleBloom.Infrastructure.Persistence;
 using LittleBloom.Infrastructure.Sms;
 using LittleBloom.Infrastructure.Staff;
@@ -31,6 +33,7 @@ public static class DependencyInjection
         services.AddScoped<IPullService, PullService>();
         services.AddScoped<IConflictService, ConflictService>();
         services.AddScoped<IStaffService, StaffService>();
+        services.AddScoped<IExperimentService, ExperimentService>();
 
         return services;
     }
