@@ -23,7 +23,8 @@ so the conflict rules can be unit-tested without either.
 ## Database (SQL Server)
 
 The connection string is in `src/LittleBloom.Api/appsettings.json`:
-`Server=localhost;Database=LittleBloom;Trusted_Connection=True;TrustServerCertificate=True`.
+`Server=localhost\SQLEXPRESS02;Database=LittleBloom;Trusted_Connection=True;TrustServerCertificate=True`
+(SQL Server Express, instance `SQLEXPRESS02`).
 It uses Windows Authentication, so it contains no password. If SSMS connects with another
 server name (for example `localhost\SQLEXPRESS`), change `Server=` to match.
 
