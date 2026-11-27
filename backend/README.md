@@ -81,6 +81,10 @@ dotnet user-secrets set "Jwt:SigningKey" "<any random text of 32+ characters>"
 | GET | `/api/conflicts?status=open` | staff |
 | POST | `/api/conflicts/{id}/resolve` | staff |
 | GET, POST | `/api/staff`, `/api/staff/{id}/revoke` | admin |
+| POST, GET | `/api/experiments/reset`, `/seed`, `/stats`, `/sync-log.csv` | admin, Development only |
+
+`src/LittleBloom.Api/LittleBloom.Api.http` has a ready request for each of these: open it in
+Visual Studio and click **Send request** (sign-in first; the token is reused automatically).
 
 ## Run
 ```bash
@@ -97,6 +101,30 @@ The Android emulator reaches this server at `http://10.0.2.2:5000/api`.
 cd backend
 dotnet test
 ```
+
+## Experiments with the real server
+
+Every response has `X-Server-Time-Ms`; every push and pull is also written to the `SyncLogs` table
+(api.md section 8). Scripts in `experiments/scripts/` (Python standard library only) drive a run:
+
+```bash
+# before each run: empty the server (and clear the app's data on the emulator)
+python3 experiments/scripts/server_admin.py reset
+
+# E1 data volume: put 50 / 500 / 5000 synthetic mothers on the server, then let the app sync
+python3 experiments/scripts/server_admin.py seed --mothers 500 --area glg-east
+
+# E5 concurrent edits: while the PHM emulator edits the same records offline,
+# the "clinic" edits them on the server; then the emulator syncs
+python3 experiments/scripts/clinic_simulator.py --count 50 --strategy S3 \
+    --entity growthMeasurement --field weightKg --csv experiments/data/e5_clinic.csv
+
+# after the run: server-side numbers
+python3 experiments/scripts/server_admin.py stats
+python3 experiments/scripts/server_admin.py csv --out experiments/data/e1_server_log.csv
+```
+
+Python tests for the scripts: `python3 -m unittest experiments/scripts/test_clinic_simulator.py -v`.
 
 ## Rules
 - No passwords, keys or connection strings in git. Put local values in `appsettings.Development.local.json`
