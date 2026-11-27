@@ -34,6 +34,13 @@ public class AppDbContext : DbContext
     // Experiments
     public DbSet<SyncLog> SyncLogs => Set<SyncLog>();
 
+    /// <summary>Every DateTime (and DateTime?) is stored and read as UTC, so JSON times end in "Z".</summary>
+    protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+    {
+        configurationBuilder.Properties<DateTime>().HaveConversion<UtcDateTimeConverter>();
+        configurationBuilder.Properties<DateTime?>().HaveConversion<UtcDateTimeConverter>();
+    }
+
     protected override void OnModelCreating(ModelBuilder b)
     {
         // One counter for all writes. A number, not a timestamp, so the pull cursor never skips
