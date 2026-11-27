@@ -172,8 +172,15 @@ S1 and S2 skip these rules and always overwrite. That is what experiment E5 meas
 |---|---|---|
 | `X-Network-Profile` | request | `4G`, `3G`, `2G`, `none`, so server logs can be matched to the phone's log. |
 | `X-Server-Time-Ms` | response | Time the server spent on the request. Lets us split total time into network and server time. |
+| `X-Sync-Strategy` | request (optional) | `S1` / `S2` / `S3` on a pull, so the server log knows which strategy the pull belongs to (a push already has it in the body). |
+| `X-Device-Id` | request (optional) | Device id on a pull, for matching logs (a push already has `deviceId`). |
 
 The phone counts bytes sent and received itself (body + headers) and writes them to `sync_log`.
+
+The server keeps its own log too: one `SyncLogs` row per push or pull, with strategy, network profile,
+records in/out, outcome counts (applied, duplicate, merged, flagged, rejected), request and response body
+bytes, server time and status. Rows are saved in the background so logging is not part of the measured time.
+`X-Server-Time-Ms` is on every response, not only sync.
 
 ## 9. Auth and roles
 
@@ -308,3 +315,17 @@ Implementation notes:
 - Staff revoke signs out all phones of that person (refresh tokens revoked). An access token already
   issued keeps working until it expires (max 12 h).
 - A mother's account is created automatically from `phone` when her record is first pushed.
+
+## 12. Experiment helpers (Development only)
+
+Only when `Experiments:Enabled` is `true` (it is in `appsettings.Development.json`, never in production,
+where these paths answer `404`). Admin token required. Same purpose as `/mock/reset` and `/mock/stats`
+in `experiments/scripts/mock_server.py`, but for the real server. `experiments/scripts/server_admin.py` calls them.
+
+| Method | Path | Purpose |
+|---|---|---|
+| `POST` | `/api/experiments/reset?keepSyncLog=false` | Empty synced records, history, conflicts, processed operations and mother accounts. Staff stay. The change sequence is not reset, so the app must clear its local data too. |
+| `POST` | `/api/experiments/seed` | Body `{ "mothers": 500, "areaId": "glg-east", "seed": 42 }`. Inserts synthetic records (per mother: 2 visits, 1 child with 3 growth checks and 2 vaccines; all changeable). Same seed → same data. |
+| `GET` | `/api/experiments/stats` | Rows per table, tombstones, conflicts, processed operations, history rows, and the sync log grouped by endpoint + strategy + network profile. |
+| `GET` | `/api/experiments/sync-log.csv?since=` | The server sync log as CSV for pandas. |
+
