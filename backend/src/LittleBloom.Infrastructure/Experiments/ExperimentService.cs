@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Text;
+using LittleBloom.Application.Common;
 using LittleBloom.Application.Experiments;
 using LittleBloom.Domain.Enums;
 using LittleBloom.Infrastructure.Persistence;
@@ -118,6 +119,43 @@ public class ExperimentService : IExperimentService
         }
 
         return csv.ToString();
+    }
+
+    public async Task<SeedResponse> SeedAsync(SeedRequest request, CancellationToken ct = default)
+    {
+        if (request.Mothers is < 1 or > SyntheticDataGenerator.MaxMothers)
+            throw new AppException(400, ErrorCodes.ValidationFailed, $"mothers must be 1 to {SyntheticDataGenerator.MaxMothers}.");
+        if (string.IsNullOrWhiteSpace(request.AreaId) || !request.AreaId.Contains('-'))
+            throw new AppException(400, ErrorCodes.ValidationFailed, "areaId must look like \"glg-east\".");
+        if (request.ChildrenPerMother is < 0 or > 5 || request.VisitsPerMother is < 0 or > 20
+            || request.GrowthPerChild is < 0 or > 30 || request.VaccinationsPerChild is < 0 or > 20)
+            throw new AppException(400, ErrorCodes.ValidationFailed, "per-mother and per-child counts are out of range.");
+
+        var data = SyntheticDataGenerator.Generate(request with { AreaId = request.AreaId.Trim().ToLowerInvariant() }, DateTime.UtcNow);
+
+        await using var tx = await _db.Database.BeginTransactionAsync(ct);
+
+        // One change number per record, reserved in a single call, in parent-first order.
+        var first = await _db.ReserveChangeSeqRangeAsync(data.Count, ct);
+        var next = first;
+        foreach (var record in data.All)
+        {
+            record.ChangeSeq = next++;
+            record.ScopeAreaId = data.Mothers[0].AreaId;
+        }
+
+        _db.ChangeTracker.AutoDetectChangesEnabled = false; // faster for thousands of new rows
+        _db.Mothers.AddRange(data.Mothers);
+        _db.Children.AddRange(data.Children);
+        _db.MaternalVisits.AddRange(data.MaternalVisits);
+        _db.GrowthMeasurements.AddRange(data.GrowthMeasurements);
+        _db.Vaccinations.AddRange(data.Vaccinations);
+        await _db.SaveChangesAsync(ct);
+        await tx.CommitAsync(ct);
+
+        return new SeedResponse(
+            data.Mothers.Count, data.MaternalVisits.Count, data.Children.Count,
+            data.GrowthMeasurements.Count, data.Vaccinations.Count, first, next - 1);
     }
 
     /// <summary>Quotes a value if it contains a comma or quote (device ids are free text).</summary>

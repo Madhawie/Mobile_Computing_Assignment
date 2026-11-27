@@ -10,4 +10,7 @@ public interface IExperimentService
 
     /// <summary>The server sync log as CSV (one row per push or pull), for pandas.</summary>
     Task<string> ExportSyncLogCsvAsync(DateTime? since, CancellationToken ct = default);
+
+    /// <summary>Inserts synthetic records directly on the server (E1 starting data). Phones then pull them.</summary>
+    Task<SeedResponse> SeedAsync(SeedRequest request, CancellationToken ct = default);
 }

@@ -49,6 +49,17 @@ public class ExperimentsController : ControllerBase
         return File(Encoding.UTF8.GetBytes(csv), "text/csv", "sync_log_server.csv");
     }
 
+    /// <summary>
+    /// Put synthetic records straight into the server, e.g. { "mothers": 500, "areaId": "glg-east" }.
+    /// Each mother gets 2 visits and 1 child with 3 growth checks and 2 vaccines (changeable).
+    /// </summary>
+    [HttpPost("seed")]
+    public async Task<ActionResult<SeedResponse>> Seed(SeedRequest request, CancellationToken ct)
+    {
+        EnsureEnabled();
+        return Ok(await _experiments.SeedAsync(request, ct));
+    }
+
     private void EnsureEnabled()
     {
         if (!_options.Enabled)
