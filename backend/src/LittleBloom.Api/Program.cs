@@ -3,6 +3,7 @@ using System.Security.Cryptography;
 using System.Text.Json.Serialization;
 using LittleBloom.Api.Auth;
 using LittleBloom.Api.Errors;
+using LittleBloom.Api.Metrics;
 using LittleBloom.Application.Auth;
 using LittleBloom.Application.Common;
 using LittleBloom.Infrastructure;
@@ -90,6 +91,10 @@ builder.Services
     });
 builder.Services.AddAuthorization();
 
+// Experiment measurement: sync log rows are queued per request and saved in the background.
+builder.Services.AddSingleton<SyncLogQueue>();
+builder.Services.AddHostedService<SyncLogWriter>();
+
 // ---------- Pipeline
 
 var app = builder.Build();
@@ -108,6 +113,9 @@ if (app.Configuration.GetValue<bool>("Seed:DevUsers"))
 }
 
 app.UseExceptionHandler();
+
+// X-Server-Time-Ms on every response; SyncLog rows for push and pull (api.md section 8).
+app.UseMiddleware<MeasurementMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
