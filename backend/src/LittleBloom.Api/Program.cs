@@ -6,6 +6,7 @@ using LittleBloom.Api.Errors;
 using LittleBloom.Api.Metrics;
 using LittleBloom.Application.Auth;
 using LittleBloom.Application.Common;
+using LittleBloom.Application.Experiments;
 using LittleBloom.Infrastructure;
 using LittleBloom.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -90,6 +91,9 @@ builder.Services
         };
     });
 builder.Services.AddAuthorization();
+
+// Experiment helpers (/api/experiments/*): off unless Experiments:Enabled is true.
+builder.Services.AddSingleton(builder.Configuration.GetSection("Experiments").Get<ExperimentOptions>() ?? new ExperimentOptions());
 
 // Experiment measurement: sync log rows are queued per request and saved in the background.
 builder.Services.AddSingleton<SyncLogQueue>();
