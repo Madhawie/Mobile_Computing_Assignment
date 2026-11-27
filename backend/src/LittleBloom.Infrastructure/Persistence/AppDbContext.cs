@@ -31,6 +31,9 @@ public class AppDbContext : DbContext
     public DbSet<OtpRequest> OtpRequests => Set<OtpRequest>();
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
+    // Experiments
+    public DbSet<SyncLog> SyncLogs => Set<SyncLog>();
+
     protected override void OnModelCreating(ModelBuilder b)
     {
         // One counter for all writes. A number, not a timestamp, so the pull cursor never skips
@@ -136,6 +139,15 @@ public class AppDbContext : DbContext
             e.Property(x => x.DeviceId).HasMaxLength(100);
             e.HasIndex(x => x.TokenHash).IsUnique();
             e.HasIndex(x => x.UserId);
+        });
+
+        b.Entity<SyncLog>(e =>
+        {
+            e.Property(x => x.Endpoint).HasMaxLength(10);
+            e.Property(x => x.Strategy).HasMaxLength(5);
+            e.Property(x => x.DeviceId).HasMaxLength(100);
+            e.Property(x => x.NetworkProfile).HasMaxLength(10);
+            e.HasIndex(x => x.At);
         });
     }
 
