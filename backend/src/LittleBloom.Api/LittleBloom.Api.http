@@ -1,0 +1,107 @@
+# Little Bloom API – requests for Visual Studio (click "Send request" above each one).
+# Start the API first (http profile). Development only: code 000000 always works.
+# Synthetic data only.
+
+@host = http://localhost:5000
+@phm = +94700000002
+@admin = +94700000001
+
+### 1. Health (no sign-in)
+GET {{host}}/api/health
+
+### 2. PHM: request a code (printed in the server console)
+# @name phmOtp
+POST {{host}}/api/auth/otp/request
+Content-Type: application/json
+
+{ "phone": "{{phm}}" }
+
+### 3. PHM: sign in with the dev code
+# @name phmLogin
+POST {{host}}/api/auth/otp/verify
+Content-Type: application/json
+
+{ "otpRequestId": "{{phmOtp.response.body.$.otpRequestId}}", "code": "000000", "deviceId": "vs-http" }
+
+### 4. PHM: push one new mother (S3)
+POST {{host}}/api/sync/push
+Authorization: Bearer {{phmLogin.response.body.$.accessToken}}
+Content-Type: application/json
+X-Network-Profile: 4G
+
+{
+  "deviceId": "vs-http",
+  "strategy": "S3",
+  "changes": [
+    {
+      "operationId": "{{$guid}}",
+      "entity": "mother",
+      "op": "upsert",
+      "recordId": "0f0e0d0c-0b0a-4908-8706-050403020100",
+      "baseVersion": 0,
+      "changedFields": [],
+      "data": {
+        "id": "0f0e0d0c-0b0a-4908-8706-050403020100",
+        "version": 1,
+        "updatedAt": "2026-11-27T10:00:00.000Z",
+        "deviceId": "vs-http",
+        "deleted": false,
+        "fullName": "Test Mother",
+        "phone": "+94799990001",
+        "age": 26,
+        "address": "No. 1, Test Road",
+        "areaId": "glg-east",
+        "isPregnant": true,
+        "gestationWeeks": 20,
+        "dueDate": "2027-04-10"
+      }
+    }
+  ]
+}
+
+### 5. PHM: pull everything in her area
+GET {{host}}/api/sync/pull?since=0&limit=500
+Authorization: Bearer {{phmLogin.response.body.$.accessToken}}
+X-Network-Profile: 4G
+X-Sync-Strategy: S3
+
+### 6. PHM: open conflicts
+GET {{host}}/api/conflicts?status=open
+Authorization: Bearer {{phmLogin.response.body.$.accessToken}}
+
+### 7. Admin: request a code
+# @name adminOtp
+POST {{host}}/api/auth/otp/request
+Content-Type: application/json
+
+{ "phone": "{{admin}}" }
+
+### 8. Admin: sign in
+# @name adminLogin
+POST {{host}}/api/auth/otp/verify
+Content-Type: application/json
+
+{ "otpRequestId": "{{adminOtp.response.body.$.otpRequestId}}", "code": "000000", "deviceId": "vs-http-admin" }
+
+### 9. Admin: staff of the division
+GET {{host}}/api/staff
+Authorization: Bearer {{adminLogin.response.body.$.accessToken}}
+
+### 10. Experiments: empty the server
+POST {{host}}/api/experiments/reset
+Authorization: Bearer {{adminLogin.response.body.$.accessToken}}
+
+### 11. Experiments: seed 50 synthetic mothers (E1)
+POST {{host}}/api/experiments/seed
+Authorization: Bearer {{adminLogin.response.body.$.accessToken}}
+Content-Type: application/json
+
+{ "mothers": 50, "areaId": "glg-east", "seed": 42 }
+
+### 12. Experiments: stats
+GET {{host}}/api/experiments/stats
+Authorization: Bearer {{adminLogin.response.body.$.accessToken}}
+
+### 13. Experiments: server sync log as CSV
+GET {{host}}/api/experiments/sync-log.csv
+Authorization: Bearer {{adminLogin.response.body.$.accessToken}}
