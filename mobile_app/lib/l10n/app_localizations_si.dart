@@ -545,4 +545,58 @@ class AppLocalizationsSi extends AppLocalizations {
 
   @override
   String get emptyValue => '(හිස්)';
+
+  @override
+  String get syncTab => 'සමමුහුර්තය';
+
+  @override
+  String get syncSubtitle => 'වාර්තා මුලින්ම මෙම දුරකථනයේ සුරැකේ';
+
+  @override
+  String get youAreOffline => 'ඔබ නොබැඳි ය';
+
+  @override
+  String get youAreOnline => 'සංඥා ඇත';
+
+  @override
+  String get sending => 'යවමින්…';
+
+  @override
+  String get waitingToSend => 'යැවීමට ඉතිරිව ඇත';
+
+  @override
+  String get notAccepted => 'සේවාදායකය පිළිගත්තේ නැත';
+
+  @override
+  String get notAcceptedHelp => 'මෙම වාර්තා පරීක්ෂා කර නැවත සුරකින්න.';
+
+  @override
+  String get sendAutomatically => 'ස්වයංක්‍රීයව යවන්න';
+
+  @override
+  String get sendAutomaticallyHelp => 'සංඥා ලැබුණු විගසම';
+
+  @override
+  String syncDoneSummary(int sent, int received) {
+    return 'යැවූ $sent, ලැබුණු $received.';
+  }
+
+  @override
+  String get syncFailed =>
+      'සේවාදායකයට සම්බන්ධ විය නොහැක. ඔබේ වෙනස්කම් මෙම දුරකථනයේ ආරක්ෂිතව ඇති අතර ඊළඟ වර යැවේ.';
+
+  @override
+  String get kindMother => 'මව';
+
+  @override
+  String get kindVisit => 'ගර්භණී සායන පැමිණීම';
+
+  @override
+  String get kindChild => 'දරුවා';
+
+  @override
+  String get kindGrowth => 'වර්ධනය';
+
+  @override
+  String get kindVaccine => 'එන්නත';
 }

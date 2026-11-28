@@ -963,6 +963,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'(empty)'**
   String get emptyValue;
+
+  /// No description provided for @syncTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync'**
+  String get syncTab;
+
+  /// No description provided for @syncSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Records are saved on this phone first'**
+  String get syncSubtitle;
+
+  /// No description provided for @youAreOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'You are offline'**
+  String get youAreOffline;
+
+  /// No description provided for @youAreOnline.
+  ///
+  /// In en, this message translates to:
+  /// **'Signal available'**
+  String get youAreOnline;
+
+  /// No description provided for @sending.
+  ///
+  /// In en, this message translates to:
+  /// **'Sending…'**
+  String get sending;
+
+  /// No description provided for @waitingToSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting to send'**
+  String get waitingToSend;
+
+  /// No description provided for @notAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Not accepted by the server'**
+  String get notAccepted;
+
+  /// No description provided for @notAcceptedHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Check these records and save them again.'**
+  String get notAcceptedHelp;
+
+  /// No description provided for @sendAutomatically.
+  ///
+  /// In en, this message translates to:
+  /// **'Send automatically'**
+  String get sendAutomatically;
+
+  /// No description provided for @sendAutomaticallyHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'As soon as signal comes back'**
+  String get sendAutomaticallyHelp;
+
+  /// No description provided for @syncDoneSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent {sent}, received {received}.'**
+  String syncDoneSummary(int sent, int received);
+
+  /// No description provided for @syncFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not reach the server. Your changes are safe on this phone and go next time.'**
+  String get syncFailed;
+
+  /// No description provided for @kindMother.
+  ///
+  /// In en, this message translates to:
+  /// **'Mother'**
+  String get kindMother;
+
+  /// No description provided for @kindVisit.
+  ///
+  /// In en, this message translates to:
+  /// **'Pregnancy visit'**
+  String get kindVisit;
+
+  /// No description provided for @kindChild.
+  ///
+  /// In en, this message translates to:
+  /// **'Child'**
+  String get kindChild;
+
+  /// No description provided for @kindGrowth.
+  ///
+  /// In en, this message translates to:
+  /// **'Growth'**
+  String get kindGrowth;
+
+  /// No description provided for @kindVaccine.
+  ///
+  /// In en, this message translates to:
+  /// **'Vaccine'**
+  String get kindVaccine;
 }
 
 class _AppLocalizationsDelegate

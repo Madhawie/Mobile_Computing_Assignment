@@ -552,4 +552,60 @@ class AppLocalizationsTa extends AppLocalizations {
 
   @override
   String get emptyValue => '(வெறுமை)';
+
+  @override
+  String get syncTab => 'ஒத்திசைவு';
+
+  @override
+  String get syncSubtitle =>
+      'பதிவுகள் முதலில் இந்தத் தொலைபேசியில் சேமிக்கப்படும்';
+
+  @override
+  String get youAreOffline => 'நீங்கள் இணைப்பில் இல்லை';
+
+  @override
+  String get youAreOnline => 'சிக்னல் உள்ளது';
+
+  @override
+  String get sending => 'அனுப்புகிறது…';
+
+  @override
+  String get waitingToSend => 'அனுப்பக் காத்திருக்கிறது';
+
+  @override
+  String get notAccepted => 'சேவையகம் ஏற்கவில்லை';
+
+  @override
+  String get notAcceptedHelp =>
+      'இந்தப் பதிவுகளைச் சரிபார்த்து மீண்டும் சேமிக்கவும்.';
+
+  @override
+  String get sendAutomatically => 'தானாக அனுப்பு';
+
+  @override
+  String get sendAutomaticallyHelp => 'சிக்னல் வந்தவுடன்';
+
+  @override
+  String syncDoneSummary(int sent, int received) {
+    return 'அனுப்பியது $sent, பெற்றது $received.';
+  }
+
+  @override
+  String get syncFailed =>
+      'சேவையகத்தை அடைய முடியவில்லை. உங்கள் மாற்றங்கள் இந்தத் தொலைபேசியில் பாதுகாப்பாக உள்ளன, அடுத்த முறை அனுப்பப்படும்.';
+
+  @override
+  String get kindMother => 'தாய்';
+
+  @override
+  String get kindVisit => 'கர்ப்பகால வருகை';
+
+  @override
+  String get kindChild => 'குழந்தை';
+
+  @override
+  String get kindGrowth => 'வளர்ச்சி';
+
+  @override
+  String get kindVaccine => 'தடுப்பூசி';
 }

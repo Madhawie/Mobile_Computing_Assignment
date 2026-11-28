@@ -34,7 +34,10 @@ class TodayScreen extends StatelessWidget {
             Text(t.helloName(user?.name ?? ''), style: Theme.of(context).textTheme.headlineMedium),
             if (user?.areaId != null) Text(user!.areaId!, style: Theme.of(context).textTheme.bodySmall),
             const SizedBox(height: 16),
-            _SyncCard(pending: vm.pending, lastSync: vm.lastSync, format: f),
+            GestureDetector(
+              onTap: () => context.go(Routes.phmSync),
+              child: _SyncCard(pending: vm.pending, lastSync: vm.lastSync, format: f),
+            ),
             if (vm.toCheck > 0) ...[
               const SizedBox(height: 10),
               RecordTile(
