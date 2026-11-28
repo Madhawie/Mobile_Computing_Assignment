@@ -299,7 +299,8 @@ class Handler(BaseHTTPRequestHandler):
                 return self._send(200, self._session(phone), started)
 
             if path == "/api/auth/refresh":
-                phone = STORE.refresh_tokens.get(body.get("refreshToken", ""))
+                # Rotation, like the .NET API: each refresh token works once.
+                phone = STORE.refresh_tokens.pop(body.get("refreshToken", ""), None)
                 if phone is None:
                     return self._problem(401, "UNAUTHORIZED", "Sign in again", started)
                 return self._send(200, self._session(phone), started)

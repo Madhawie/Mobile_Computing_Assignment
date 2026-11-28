@@ -25,6 +25,7 @@ Future<void> main() async {
   final api = ApiClient(baseUrl: baseUrl, tokenProvider: () => auth.session?.accessToken);
   auth = AuthController(store: store, secure: DeviceSecureStore(), api: api);
   await auth.load();
+  api.onTokenExpired = auth.refreshSession; // 12 h token ran out → refresh once
 
   // Sends the outbox by itself when the signal comes back (Day 14).
   final sync = SyncController(

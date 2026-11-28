@@ -2,6 +2,8 @@
 /// Field names follow the .NET DTOs in backend/.../SyncDtos.cs and AuthDtos.cs.
 library;
 
+import '../../data/models/model_utils.dart';
+
 /// Values of `status` in a push result (api.md section 4).
 class ChangeStatus {
   ChangeStatus._();
@@ -66,7 +68,7 @@ class PushResponse {
         results: (j['results'] as List)
             .map((r) => ChangeResult.fromJson(r as Map<String, dynamic>))
             .toList(),
-        serverTime: DateTime.parse(j['serverTime'] as String),
+        serverTime: parseTimestamp(j['serverTime']),
         cursor: (j['cursor'] as num).toInt(),
       );
 }

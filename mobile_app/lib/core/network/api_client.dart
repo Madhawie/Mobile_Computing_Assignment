@@ -11,6 +11,9 @@ import 'api_models.dart';
 /// Gives the current access token, or null when signed out.
 typedef TokenProvider = FutureOr<String?> Function();
 
+/// Gets a new access token after a 401 `TOKEN_EXPIRED`. True = try again.
+typedef TokenRefresher = Future<bool> Function();
+
 /// Size and time of one request, for `sync_log` and the experiments.
 class Traffic {
   const Traffic({
@@ -56,6 +59,7 @@ class ApiClient {
     http.Client? client,
     this.timeout = const Duration(seconds: 30),
     this.networkProfile,
+    this.onTokenExpired,
   })  : baseUrl = baseUrl.endsWith('/') ? baseUrl.substring(0, baseUrl.length - 1) : baseUrl,
         _http = client ?? http.Client();
 
@@ -69,6 +73,12 @@ class ApiClient {
 
   /// Gives the access token for `Authorization: Bearer …`.
   final TokenProvider? tokenProvider;
+
+  /// Set by main.dart to `AuthController.refreshSession`. When a signed-in
+  /// call answers 401 `TOKEN_EXPIRED` (the 12 h access token ran out), the
+  /// client asks for new tokens once and sends the same request again, so a
+  /// sync started the morning after works without signing in again.
+  TokenRefresher? onTokenExpired;
   final http.Client _http;
 
   // ----------------------------------------------------------- endpoints
@@ -154,6 +164,25 @@ class ApiClient {
     Map<String, dynamic>? body,
     Map<String, String>? query,
     bool auth = true,
+    required T Function(Object? json) decode,
+  }) async {
+    try {
+      return await _sendOnce(method, path, body: body, query: query, auth: auth, decode: decode);
+    } on HttpFailure catch (f) {
+      final refresh = onTokenExpired;
+      if (!auth || !f.tokenExpired || refresh == null || !await refresh()) rethrow;
+      // Same request, new token. The 401 try is small and left out of the
+      // traffic counts; a second TOKEN_EXPIRED is not retried again.
+      return _sendOnce(method, path, body: body, query: query, auth: auth, decode: decode);
+    }
+  }
+
+  Future<ApiResult<T>> _sendOnce<T>(
+    String method,
+    String path, {
+    Map<String, dynamic>? body,
+    Map<String, String>? query,
+    required bool auth,
     required T Function(Object? json) decode,
   }) async {
     final uri = Uri.parse('$baseUrl$path').replace(queryParameters: query);
