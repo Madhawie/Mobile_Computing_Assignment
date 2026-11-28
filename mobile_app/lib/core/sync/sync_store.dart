@@ -54,7 +54,12 @@ class SyncStore {
 
   final AppDatabase store;
 
-  Future<BatchOutcome> applyResults(List<OutboxEntry> sent, List<ChangeResult> results) {
+  ///
+  /// [coveredUpTo] is for S1 (full sync): the changes sent were built from
+  /// the records, not from the outbox, so every outbox row of a confirmed
+  /// record with `id <= coveredUpTo` is already included and is removed.
+  /// Rows added during the sync (higher id) stay and are sent next time.
+  Future<BatchOutcome> applyResults(List<OutboxEntry> sent, List<ChangeResult> results, {int? coveredUpTo}) {
     final byOp = {for (final e in sent) e.operationId: e};
     final outcome = BatchOutcome()..unconfirmed = sent.length;
 
@@ -76,6 +81,10 @@ class SyncStore {
         }
 
         await txn.delete(Tables.outbox, where: 'operation_id = ?', whereArgs: [r.operationId]);
+        if (coveredUpTo != null) {
+          await txn.delete(Tables.outbox,
+              where: 'record_id = ? AND id <= ?', whereArgs: [entry.recordId, coveredUpTo]);
+        }
         await _confirmRecord(txn, entry, r);
 
         switch (r.status) {

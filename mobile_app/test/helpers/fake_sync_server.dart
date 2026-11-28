@@ -50,6 +50,17 @@ class FakeSyncServer {
   /// fields changed on the "server side" first.
   final conflictOn = <String, Map<String, dynamic>>{};
 
+  /// `strategy` of the last push, and changes received over all pushes.
+  String? lastStrategy;
+  int changesReceived = 0;
+
+  /// S1/S2 overwrote an edit made on the server (a lost update, E5).
+  int lostUpdates = 0;
+
+  /// Runs inside the next push, before the server answers (e.g. the PHM
+  /// edits a record while a sync is on the way).
+  Future<void> Function()? duringPush;
+
   /// Entities rejected with INVALID_FIELD.
   final rejectEntity = <String>{};
 
@@ -74,6 +85,7 @@ class FakeSyncServer {
     pushCalls++;
     final body = jsonDecode(req.body) as Map<String, dynamic>;
     final changes = (body['changes'] as List).cast<Map<String, dynamic>>();
+    lastStrategy = body['strategy'] as String?;
 
     if (dropBeforeSaving > 0) {
       dropBeforeSaving--;
@@ -91,7 +103,11 @@ class FakeSyncServer {
       return _json({'title': 'Too large', 'status': 413, 'code': 'BATCH_TOO_LARGE'}, 413);
     }
 
-    final results = [for (final c in changes) _apply(c)];
+    final hook = duringPush;
+    duringPush = null;
+    if (hook != null) await hook();
+    changesReceived += changes.length;
+    final results = [for (final c in changes) _apply(c, lastStrategy ?? 'S3')];
 
     if (dropAfterSaving > 0) {
       dropAfterSaving--;
@@ -100,7 +116,7 @@ class FakeSyncServer {
     return _json({'results': results, 'serverTime': '2026-11-26T10:00:00Z', 'cursor': records.length}, 200);
   }
 
-  Map<String, dynamic> _apply(Map<String, dynamic> c) {
+  Map<String, dynamic> _apply(Map<String, dynamic> c, String strategy) {
     final op = c['operationId'] as String;
     final seen = processed[op];
     if (seen != null) return {...seen, 'status': 'duplicate'};
@@ -117,7 +133,11 @@ class FakeSyncServer {
 
     final serverEdit = conflictOn.remove(id);
     final Map<String, dynamic> result;
-    if (serverEdit != null) {
+    if (serverEdit != null && strategy != 'S3') {
+      // S1 / S2: last upload wins; the other device's edit is silently gone.
+      lostUpdates++;
+      result = {'operationId': op, 'status': 'applied', 'recordId': id, 'newVersion': version};
+    } else if (serverEdit != null) {
       record.addAll(serverEdit);
       result = {'operationId': op, 'status': 'conflictFlagged', 'recordId': id,
         'newVersion': version, 'conflictId': 'conflict-$id', 'record': record};

@@ -1,6 +1,7 @@
 import '../../core/storage/app_database.dart';
 import 'conflict_repository.dart';
 import 'repositories.dart';
+import 'sync_log_repository.dart';
 
 /// All repositories, made once in main.dart and shared with Provider.
 /// ViewModels take this instead of the database, so they never write SQL.
@@ -12,7 +13,8 @@ class AppRepositories {
         growth = GrowthRepository(store, clock: clock),
         vaccinations = VaccinationRepository(store, clock: clock),
         outbox = OutboxRepository(store),
-        conflicts = ConflictRepository(store);
+        conflicts = ConflictRepository(store),
+        syncLogs = SyncLogRepository(store);
 
   final AppDatabase store;
   final MotherRepository mothers;
@@ -22,4 +24,5 @@ class AppRepositories {
   final VaccinationRepository vaccinations;
   final OutboxRepository outbox;
   final ConflictRepository conflicts;
+  final SyncLogRepository syncLogs;
 }

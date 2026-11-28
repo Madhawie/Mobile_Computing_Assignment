@@ -29,3 +29,15 @@ SyncRecord recordFromJson(String entity, Map<String, dynamic> json) =>
       Vaccination.entityName => Vaccination.fromJson(json),
       _ => throw ArgumentError.value(entity, 'entity', 'Unknown entity'),
     };
+
+/// Builds the right model from a local SQLite row (used by S1, which sends
+/// every record, not only the outbox).
+SyncRecord recordFromMap(String entity, Map<String, dynamic> row) =>
+    switch (entity) {
+      Mother.entityName => Mother.fromMap(row),
+      MaternalVisit.entityName => MaternalVisit.fromMap(row),
+      Child.entityName => Child.fromMap(row),
+      GrowthMeasurement.entityName => GrowthMeasurement.fromMap(row),
+      Vaccination.entityName => Vaccination.fromMap(row),
+      _ => throw ArgumentError.value(entity, 'entity', 'Unknown entity'),
+    };

@@ -1,11 +1,12 @@
 import 'package:uuid/uuid.dart';
 
-import '../../data/models/outbox_entry.dart';
+import '../../data/models/models.dart';
 import '../../data/repositories/outbox_repository.dart';
 import '../network/api_client.dart';
 import '../network/api_exception.dart';
 import '../network/api_models.dart';
 import '../storage/app_database.dart';
+import '../storage/schema.dart';
 import 'backoff.dart';
 import 'sync_store.dart';
 
@@ -41,11 +42,18 @@ class PushReport {
   }
 }
 
-/// Sends the outbox to `POST /api/sync/push` (api.md §4), oldest first, in
-/// batches of at most [batchSize].
+/// Sends changes to `POST /api/sync/push` (api.md §4), in batches of at most
+/// [batchSize].
 ///
-/// Strategy S3 (versioned delta): each change carries `baseVersion` and
-/// `changedFields`, so the server can detect and merge conflicts. Confirmed
+/// * S2 / S3 (`full: false`): sends the outbox, oldest first. Each change
+///   carries `baseVersion` and `changedFields`; with S3 the server uses them
+///   to detect and merge conflicts, with S2 it ignores them (last upload
+///   wins).
+/// * S1 (`full: true`): sends EVERY local record (tombstones too), whether it
+///   changed or not, parents before children. The cost grows with the
+///   number of records, which is what experiment E1 shows.
+///
+/// Confirmed
 /// changes leave the outbox; unconfirmed ones stay for the next run. Because
 /// every change keeps its `operationId`, sending one twice is harmless: the
 /// server answers `duplicate`.
@@ -58,6 +66,7 @@ class OutboxPusher {
     required this.store,
     required this.api,
     this.strategy = 'S3',
+    this.full = false,
     this.batchSize = 200,
     this.backoff = const Backoff(),
     Future<void> Function(Duration)? sleep,
@@ -70,6 +79,9 @@ class OutboxPusher {
   final AppDatabase store;
   final ApiClient api;
   final String strategy;
+
+  /// S1: send all records instead of the outbox.
+  final bool full;
   int batchSize;
   final Backoff backoff;
   final Future<void> Function(Duration) _sleep;
@@ -90,8 +102,13 @@ class OutboxPusher {
     final watch = Stopwatch()..start();
     try {
       final deviceId = await store.deviceId();
+      final snapshot = full ? await _allRecords() : null;
+      final coveredUpTo = full ? await _lastOutboxId() : null;
+      var offset = 0;
       while (true) {
-        final batch = await _outbox.pending(limit: batchSize);
+        final batch = snapshot == null
+            ? await _outbox.pending(limit: batchSize)
+            : snapshot.skip(offset).take(batchSize).toList();
         if (batch.isEmpty) break;
 
         final ApiResult<PushResponse> res;
@@ -110,8 +127,9 @@ class OutboxPusher {
         report.sent += batch.length;
         report.bytesSent += res.traffic.bytesSent;
         report.bytesReceived += res.traffic.bytesReceived;
-        final outcome = await _sync.applyResults(batch, res.data.results);
+        final outcome = await _sync.applyResults(batch, res.data.results, coveredUpTo: coveredUpTo);
         report.add(outcome);
+        offset += batch.length;
         if (outcome.confirmed + outcome.rejected == 0) {
           report.errorCode = 'NO_PROGRESS'; // server answered but confirmed nothing
           break;
@@ -146,4 +164,32 @@ class OutboxPusher {
       }
     }
   }
+
+  /// S1: every record on the phone as a change, parents first (mothers,
+  /// visits, children, growth, vaccines). Each gets a new operationId for
+  /// this sync; a retry of the same batch reuses it, so drops still never
+  /// duplicate. `baseVersion` is the last server version (ignored by S1).
+  Future<List<OutboxEntry>> _allRecords() async {
+    final now = DateTime.now().toUtc();
+    final all = <OutboxEntry>[];
+    for (final MapEntry(key: entity, value: table) in Tables.byEntity.entries) {
+      for (final row in await store.db.query(table, orderBy: 'rowid')) {
+        final record = recordFromMap(entity, row);
+        all.add(OutboxEntry(
+          operationId: _uuid.v4(),
+          entity: entity,
+          op: record.deleted ? OutboxOp.delete : OutboxOp.upsert,
+          recordId: record.id,
+          baseVersion: row['server_version'] as int,
+          changedFields: const [],
+          payload: record.toJson(),
+          createdAt: now,
+        ));
+      }
+    }
+    return all;
+  }
+
+  Future<int> _lastOutboxId() async =>
+      (await store.db.rawQuery('SELECT MAX(id) AS m FROM ${Tables.outbox}')).first['m'] as int? ?? 0;
 }
