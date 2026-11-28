@@ -40,10 +40,10 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.textContaining('+94 77 123 4567'), findsOneWidget);
-    await typeInto(tester, fakeCode);
+    await typeIntoThenLoad(tester, fakeCode);
 
     expect(find.text('Hello, Test Mother'), findsOneWidget);
-    expect(find.text('Sign out'), findsOneWidget);
+    expect(find.byTooltip('Sign out'), findsOneWidget); // mother home (Day 16)
   });
 
   testWidgets('PHM: SMS → set PIN twice → home; reopen → unlock with PIN', (tester) async {

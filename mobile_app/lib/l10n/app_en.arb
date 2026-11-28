@@ -324,5 +324,148 @@
   "kindVisit": "Pregnancy visit",
   "kindChild": "Child",
   "kindGrowth": "Growth",
-  "kindVaccine": "Vaccine"
+  "kindVaccine": "Vaccine",
+  "tabHome": "Home",
+  "tabGrowth": "Growth",
+  "tabVaccines": "Vaccines",
+  "tabAdvice": "Advice",
+  "myChildren": "My children",
+  "comingUp": "Coming up",
+  "myPregnancy": "My pregnancy",
+  "weeksPregnantNow": "{weeks} weeks pregnant",
+  "@weeksPregnantNow": {
+    "placeholders": {
+      "weeks": {
+        "type": "int"
+      }
+    }
+  },
+  "tipFor": "Tip for {name}",
+  "@tipFor": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "call1990": "Call 1990 · Suwa Seriya ambulance",
+  "dialFailed": "Could not open the phone app. Please dial 1990.",
+  "noRecordsYet": "Your records appear here after your midwife (PHM) registers you and the phone syncs. Pull down to sync.",
+  "notLinked": "This number is not linked to a mother's record yet. Please ask your PHM.",
+  "weightCheck": "Weight check",
+  "antenatalClinic": "Pregnancy clinic visit",
+  "childRecord": "Child record",
+  "bornOn": "Born {date}",
+  "@bornOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "chdrNumberLabel": "CHDR number",
+  "growthChart": "Growth chart",
+  "weightForAge": "Weight for age",
+  "latestWeight": "Latest {weight} · {date}",
+  "@latestWeight": {
+    "placeholders": {
+      "weight": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "noMeasurements": "No weight recorded yet.",
+  "measurements": "Measurements",
+  "legendNormal": "Normal",
+  "legendBelow2": "Below −2 SD",
+  "legendBelow3": "Below −3 SD",
+  "legendAbove2": "Above +2 SD",
+  "motherZoneNormal": "Within the normal range.",
+  "motherZoneModerate": "Below the normal range. Your PHM will give feeding advice and weigh again soon.",
+  "motherZoneSevere": "Well below the normal range. Please go to the MOH clinic or see your PHM soon.",
+  "motherZoneOverweight": "Above the normal range. Ask your PHM about healthy food and play.",
+  "vaccinesGivenOf": "{given} of {total} visits complete",
+  "@vaccinesGivenOf": {
+    "placeholders": {
+      "given": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "onTrack": "On track",
+  "vaccinesLate": "Some vaccines are late. Please go to the clinic.",
+  "nextVaccine": "Next: {doses} · {date}",
+  "@nextVaccine": {
+    "placeholders": {
+      "doses": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "allVaccinesGiven": "All vaccines of the schedule are given.",
+  "atBirth": "Birth",
+  "atMonths": "{months} months",
+  "@atMonths": {
+    "placeholders": {
+      "months": {
+        "type": "int"
+      }
+    }
+  },
+  "atYears": "{years} years",
+  "@atYears": {
+    "placeholders": {
+      "years": {
+        "type": "int"
+      }
+    }
+  },
+  "givenOn": "Given {date}",
+  "@givenOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "lateSince": "Late · was due {date}",
+  "@lateSince": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "scheduleSource": "National Immunization Schedule, Sri Lanka",
+  "adviceFor": "For {name} · {age}",
+  "@adviceFor": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "age": {
+        "type": "String"
+      }
+    }
+  },
+  "clinicVisits": "Clinic visits",
+  "notPregnant": "No pregnancy is recorded.",
+  "lateChip": "Late",
+  "birthWeightValue": "Birth weight {weight}",
+  "@birthWeightValue": {
+    "placeholders": {
+      "weight": {
+        "type": "String"
+      }
+    }
+  }
 }
