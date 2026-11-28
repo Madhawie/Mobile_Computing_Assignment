@@ -20,6 +20,26 @@ class BatchOutcome {
   int get confirmed => applied + duplicates + merged + flagged;
 }
 
+/// What one pull page did on the phone.
+class PullOutcome {
+  int received = 0;
+
+  /// New or newer records written to the phone.
+  int applied = 0;
+
+  /// Of those, tombstones (deleted on the server or another phone).
+  int tombstones = 0;
+
+  /// Kept the phone's own unsent edit instead (it is pushed and merged).
+  int keptLocal = 0;
+
+  /// Already had this version or newer (e.g. the overlap re-pull).
+  int stale = 0;
+
+  /// Could not be read (unknown entity or missing fields); skipped.
+  int invalid = 0;
+}
+
 /// Applies the server's push answers to the phone's database (api.md §4).
 ///
 /// For each change, in ONE transaction for the whole batch:
@@ -69,6 +89,54 @@ class SyncStore {
             outcome.flagged++;
             if (r.conflictId != null) outcome.conflictIds.add(r.conflictId!);
         }
+      }
+      return outcome;
+    });
+  }
+
+  /// Writes one pull page (api.md §5) in one transaction:
+  /// * the phone has unsent edits of the record → keep them (S3 merges them
+  ///   on the next push; overwriting here would lose the PHM's work);
+  /// * the phone already has this server version or newer → nothing to do;
+  /// * otherwise → take the server's record, clean, with its version. A
+  ///   tombstone (`deleted: true`) is stored as deleted, so a record removed
+  ///   elsewhere disappears here too and is never brought back.
+  Future<PullOutcome> applyPulled(List<PulledChange> changes) {
+    final outcome = PullOutcome()..received = changes.length;
+    return store.db.transaction((txn) async {
+      for (final c in changes) {
+        final table = Tables.byEntity[c.entity];
+        final id = c.record['id'] as String?;
+        final version = c.record['version'] as int?;
+        if (table == null || id == null || version == null) {
+          outcome.invalid++;
+          continue;
+        }
+
+        final local = await txn.query(table,
+            columns: ['is_dirty', 'server_version'], where: 'id = ?', whereArgs: [id], limit: 1);
+        if (local.isNotEmpty) {
+          if (local.first['is_dirty'] == 1) {
+            outcome.keptLocal++;
+            continue;
+          }
+          if ((local.first['server_version'] as int) >= version) {
+            outcome.stale++;
+            continue;
+          }
+        }
+        final Map<String, dynamic> row;
+        try {
+          row = recordFromJson(c.entity, c.record).toMap()
+            ..['server_version'] = version
+            ..['is_dirty'] = 0;
+        } catch (_) {
+          outcome.invalid++; // one bad record must not block the page
+          continue;
+        }
+        await txn.insert(table, row, conflictAlgorithm: ConflictAlgorithm.replace);
+        outcome.applied++;
+        if (row['deleted'] == 1) outcome.tombstones++;
       }
       return outcome;
     });

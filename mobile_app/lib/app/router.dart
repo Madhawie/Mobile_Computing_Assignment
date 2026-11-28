@@ -10,7 +10,10 @@ import '../features/common/auth/role_screen.dart';
 import '../features/common/auth/set_pin_screen.dart';
 import '../features/common/auth/unlock_screen.dart';
 import '../data/repositories/app_repositories.dart';
+import '../core/network/api_client.dart';
 import '../features/common/home_placeholder.dart';
+import '../features/phm/conflicts/conflicts_screen.dart';
+import '../features/phm/conflicts/conflicts_view_model.dart';
 import '../features/phm/dashboard/today_screen.dart';
 import '../features/phm/dashboard/today_view_model.dart';
 import '../features/phm/add_mother/add_mother_screen.dart';
@@ -79,6 +82,13 @@ GoRouter createRouter(AuthController auth) => GoRouter(
         GoRoute(
           path: '/phm/mother/:id/visit',
           builder: (_, state) => AntenatalVisitScreen(motherId: state.pathParameters['id']!),
+        ),
+        GoRoute(
+          path: Routes.phmConflicts,
+          builder: (context, _) => ChangeNotifierProvider(
+            create: (c) => ConflictsViewModel(c.read<AppRepositories>(), c.read<ApiClient>())..load(),
+            child: const ConflictsScreen(),
+          ),
         ),
         GoRoute(
           path: '/phm/mother/:id',

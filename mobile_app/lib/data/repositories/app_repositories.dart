@@ -1,4 +1,5 @@
 import '../../core/storage/app_database.dart';
+import 'conflict_repository.dart';
 import 'repositories.dart';
 
 /// All repositories, made once in main.dart and shared with Provider.
@@ -10,7 +11,8 @@ class AppRepositories {
         children = ChildRepository(store, clock: clock),
         growth = GrowthRepository(store, clock: clock),
         vaccinations = VaccinationRepository(store, clock: clock),
-        outbox = OutboxRepository(store);
+        outbox = OutboxRepository(store),
+        conflicts = ConflictRepository(store);
 
   final AppDatabase store;
   final MotherRepository mothers;
@@ -19,4 +21,5 @@ class AppRepositories {
   final GrowthRepository growth;
   final VaccinationRepository vaccinations;
   final OutboxRepository outbox;
+  final ConflictRepository conflicts;
 }

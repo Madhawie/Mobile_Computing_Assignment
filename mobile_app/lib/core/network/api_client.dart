@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
+import '../../data/models/conflict.dart';
 import 'api_exception.dart';
 import 'api_models.dart';
 
@@ -125,6 +126,22 @@ class ApiClient {
         '/api/sync/pull',
         query: {'since': '$since', 'limit': '$limit'},
         decode: (j) => PullResponse.fromJson(j as Map<String, dynamic>),
+      );
+
+  /// `GET /api/conflicts?status=open` – S3 conflicts in the user's area.
+  Future<ApiResult<List<Conflict>>> conflicts({String status = Conflict.open}) => _send(
+        'GET',
+        '/api/conflicts',
+        query: {'status': status},
+        decode: (j) => (j as List).map((c) => Conflict.fromJson(c as Map<String, dynamic>)).toList(),
+      );
+
+  /// `POST /api/conflicts/{id}/resolve` with `keep: current | previous`.
+  Future<ApiResult<ResolveResult>> resolveConflict(String id, {required String keep}) => _send(
+        'POST',
+        '/api/conflicts/$id/resolve',
+        body: {'keep': keep},
+        decode: (j) => ResolveResult.fromJson(j as Map<String, dynamic>),
       );
 
   void close() => _http.close();

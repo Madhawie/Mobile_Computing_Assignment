@@ -50,6 +50,9 @@ class TodayViewModel extends ChangeNotifier {
 
   /// Changes saved on the phone and not yet sent.
   int pending = 0;
+
+  /// S3 conflicts waiting on "Check a record" (phone's copy).
+  int toCheck = 0;
   DateTime? lastSync;
 
   bool get nothingDue => dueVisits.isEmpty && dueWeighings.isEmpty;
@@ -91,6 +94,7 @@ class TodayViewModel extends ChangeNotifier {
       dueWeighings = weighing;
       watch = watching;
       pending = await repos.outbox.pendingCount();
+      toCheck = await repos.conflicts.openCount();
       final last = await repos.store.getMeta(MetaKeys.lastSyncAt);
       lastSync = last == null ? null : DateTime.parse(last).toLocal();
     } catch (e) {

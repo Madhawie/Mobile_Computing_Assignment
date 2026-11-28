@@ -35,6 +35,18 @@ class TodayScreen extends StatelessWidget {
             if (user?.areaId != null) Text(user!.areaId!, style: Theme.of(context).textTheme.bodySmall),
             const SizedBox(height: 16),
             _SyncCard(pending: vm.pending, lastSync: vm.lastSync, format: f),
+            if (vm.toCheck > 0) ...[
+              const SizedBox(height: 10),
+              RecordTile(
+                title: t.checkRecords,
+                subtitle: t.recordsToCheck(vm.toCheck),
+                trailing: StatusChip(kind: StatusKind.warn, label: '${vm.toCheck}'),
+                onTap: () async {
+                  await context.push(Routes.phmConflicts);
+                  await vm.load();
+                },
+              ),
+            ],
             const SizedBox(height: 20),
             if (vm.loading)
               const Center(child: Padding(padding: EdgeInsets.all(24), child: CircularProgressIndicator()))

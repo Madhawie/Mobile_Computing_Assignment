@@ -486,4 +486,70 @@ class AppLocalizationsTa extends AppLocalizations {
   @override
   String get savedOnPhone =>
       'இந்தத் தொலைபேசியில் சேமிக்கப்பட்டது. சிக்னல் கிடைத்ததும் அனுப்பப்படும்.';
+
+  @override
+  String get checkRecords => 'பதிவைச் சரிபார்';
+
+  @override
+  String recordsToCheck(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'சரிபார்க்க வேண்டிய $count பதிவுகள்',
+      one: 'சரிபார்க்க வேண்டிய 1 பதிவு',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get conflictSameField =>
+      'இரண்டு தொலைபேசிகளில் ஒரே நேரத்தில் மாற்றப்பட்டது. புதிய மதிப்பு வைக்கப்பட்டது; மற்றது சேமிக்கப்பட்டது.';
+
+  @override
+  String get conflictDeleteVsUpdate =>
+      'ஒரு தொலைபேசியில் நீக்கப்பட்டு மற்றொன்றில் மாற்றப்பட்டது. பதிவு வைக்கப்பட்டது.';
+
+  @override
+  String valueNow(String value) {
+    return 'இப்போது: $value';
+  }
+
+  @override
+  String otherValueFrom(String source, String value) {
+    return 'மற்ற மதிப்பு ($source): $value';
+  }
+
+  @override
+  String get fromYourPhone => 'உங்கள் தொலைபேசி';
+
+  @override
+  String get fromOtherDevice => 'வேறொரு தொலைபேசி';
+
+  @override
+  String get keepCurrent => 'அப்படியே வை';
+
+  @override
+  String get useOtherValue => 'மற்ற மதிப்பைப் பயன்படுத்து';
+
+  @override
+  String get nothingToCheck =>
+      'சரிபார்க்க எதுவும் இல்லை. எல்லாப் பதிவுகளும் ஒத்துப்போகின்றன.';
+
+  @override
+  String get needSignalToDecide =>
+      'தீர்மானிக்க சிக்னல் தேவை. சிக்னல் கிடைத்ததும் மீண்டும் முயற்சிக்கவும்.';
+
+  @override
+  String get shownFromPhone =>
+      'இந்தத் தொலைபேசியிலிருந்து காட்டப்படுகிறது. சிக்னல் இருக்கும்போது புதுப்பிக்க கீழே இழுக்கவும்.';
+
+  @override
+  String get decisionSaved =>
+      'சேமிக்கப்பட்டது. மற்ற தொலைபேசிகளுக்கு அடுத்த ஒத்திசைவில் கிடைக்கும்.';
+
+  @override
+  String get deletedLabel => 'நீக்கப்பட்டது';
+
+  @override
+  String get emptyValue => '(வெறுமை)';
 }

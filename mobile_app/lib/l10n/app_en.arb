@@ -257,5 +257,45 @@
   "doseLabel": "Dose",
   "givenOnLabel": "Date given",
   "batchOptional": "Batch number (optional)",
-  "savedOnPhone": "Saved on this phone. It will be sent when there is signal."
+  "savedOnPhone": "Saved on this phone. It will be sent when there is signal.",
+  "checkRecords": "Check a record",
+  "recordsToCheck": "{count, plural, =1{1 record to check} other{{count} records to check}}",
+  "@recordsToCheck": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "conflictSameField": "Changed on two phones at the same time. The newer value is kept; the other is saved.",
+  "conflictDeleteVsUpdate": "Deleted on one phone but changed on another. The record was kept.",
+  "valueNow": "Now: {value}",
+  "@valueNow": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "otherValueFrom": "Other value ({source}): {value}",
+  "@otherValueFrom": {
+    "placeholders": {
+      "source": {
+        "type": "String"
+      },
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "fromYourPhone": "your phone",
+  "fromOtherDevice": "another phone",
+  "keepCurrent": "Keep as it is",
+  "useOtherValue": "Use the other value",
+  "nothingToCheck": "Nothing to check. All records agree.",
+  "needSignalToDecide": "You need signal to decide. Try again when you have signal.",
+  "shownFromPhone": "Shown from this phone. Pull down to update when you have signal.",
+  "decisionSaved": "Saved. Other phones get it at their next sync.",
+  "deletedLabel": "Deleted",
+  "emptyValue": "(empty)"
 }
